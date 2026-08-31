@@ -51,6 +51,16 @@ CPU-only; any desktop is sufficient for stream A.
   complexity is matched (`docs/result-01-beta-vs-complexity.md`, 2026-08-27).
   Never compare anything against Encyclopaedia Inflationaris's aggregate
   `beta = 0.266`; compare complexity window by complexity window.
+- **`beta` also depends on the counting convention, which the paper never
+  states.** Folding the power family into one binary `Pow` with its exponent
+  counted (`sqrt(x)` = `Pow(x, 0.5)`) leaves Encyclopaedia Inflationaris at
+  0.289 but drops Feynman 0.352 -> 0.324, halving the gap the meta-law paper is
+  built on (`docs/result-02-counting-convention.md`, 2026-08-31). Never report a
+  `beta` without saying which convention produced it, and run the null model
+  under the same convention as the measurement it is compared against.
+- **The variable/constant split is a per-formula judgement, not a property of
+  the symbol**, and the released CSVs give only counts. It is not recoverable;
+  take the authors' three columns as given (`metalaw.load_corpus` does).
 - **When fitting `beta`, normalise the exponential over the ranks present.** The
   authors' released notebook does not, and the unnormalised fit gives ~1.07
   instead of ~0.27. `metalaw.fit_beta` gets this right.
@@ -68,8 +78,21 @@ CPU-only; any desktop is sufficient for stream A.
   normalised-exponential `beta` fit.
 - `analyse_corpora.py` — complexity-stratified `beta` for the three released
   corpora, with bootstrap intervals and artifact checks.
+- `conventions.py` — the same corpora recounted under alternative counting
+  conventions, so the share of `beta` that is a fact about the counting rule can
+  be measured. `metalaw.py` stays untouched: it reproduces the authors'
+  published numbers and must not drift. Run it directly for the comparison.
+- `export_corpus.py` — parses each formula once and writes one JSON record per
+  formula to `runs/corpora.json`: tree included, every node tagged with the rank
+  bucket it contributes to, alongside the authors' declared complexity, our
+  recount, and a flag wherever the two disagree. Nothing is silently corrected.
+- `build_viewer.py` — renders that to a standalone page in `runs/`, every
+  formula as the nodes it is charged for. Run `export_corpus.py` first.
 - `docs/result-01-beta-vs-complexity.md` — Result 1. Read before designing any
   comparison against Encyclopaedia Inflationaris.
+- `docs/result-02-counting-convention.md` — Result 2: the convention's share of
+  `beta`, the data-quality audit of all three corpora, and the open
+  25-vs-23 rank discrepancy in Inflationaris.
 - `docs/point-cloud-sr-plan.md` — prior plan for an adjacent project; source of
   the `w = V'/V` device and the "must not be repeated" methodology list.
 - `../ciga_tex/InflationGA.tex` — LaTeX source of the ACHL paper, the origin of

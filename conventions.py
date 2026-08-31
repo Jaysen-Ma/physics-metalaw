@@ -116,9 +116,14 @@ def _report() -> None:
     tot = {c: rank_counts(e) for c, e in loaded.items()}
     shared = set.intersection(*[set(t) for t in tot.values()])
     for c, t in tot.items():
-        only = sorted(set(t) - shared)
-        print(f"  {c:10s} {len(t):2d} ranks; unique to it: {', '.join(only) or '-'}")
-    print(f"  shared by all three: {len(shared)}")
+        elsewhere = set().union(*[set(o) for n, o in tot.items() if n != c])
+        exclusive = sorted(set(t) - elsewhere)
+        partial = sorted(set(t) - shared - set(exclusive))
+        print(f"  {c:10s} {len(t):2d} ranks; only in this corpus: "
+              f"{', '.join(exclusive) or '-'}")
+        print(f"  {'':10s}    shared with one other: {', '.join(partial) or '-'}")
+    print(f"  shared by all three: {len(shared)} "
+          f"({len(shared) - 3} operators plus the 3 nullary buckets)")
     print("  note: Feynman writes `ln`, the others `log`, for the same function.")
 
     print("\n\n=== Aggregate beta ===\n")
