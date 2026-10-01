@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Formula ledger</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+  <style>
+    :root {
+      --paper: #f3ead8;
+      --panel: #efe6d3;
+      --ink: #1b1712;
+      --mute: #6d6458;
+      --rule: #d7cbb3;
+      --margin: #9c3b2d;
+      --sel: #e7d5ae;
+      --binary: #2155a6;
+      --unary: #1f6b4a;
+      --variable: #8a5a12;
+      --number: #4a5560;
+      --constant: var(--number);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font: 14px/1.4 "Segoe UI", system-ui, sans-serif;
+    }
+    .app {
+      height: 100%;
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      border-left: 4px solid var(--margin);
+    }
+    .seg { display: flex; flex-wrap: wrap; gap: 6px; }
+    #branches { width: 100%; }
+    .pages { margin: 0 0 10px; }
+    .seg button {
+      font: inherit;
+      color: var(--ink);
+      background: transparent;
+      border: 1px solid #000;
+      border-radius: 2px;
+      padding: 3px 10px;
+      cursor: pointer;
+    }
+    .seg button.on {
+      color: var(--ink);
+      background: var(--sel);
+      border-color: #000;
+    }
+    header {
+      padding: 14px 20px 12px;
+      border-bottom: 1px solid var(--rule);
+      background: color-mix(in srgb, var(--paper) 88%, var(--margin) 12%);
+    }
+    header h1 {
+      font: 600 22px/1.15 Georgia, "Iowan Old Style", serif;
+      margin: 0 0 2px;
+      letter-spacing: 0.02em;
+    }
+    .sub { margin: 0 0 10px; color: var(--mute); font-size: 13px; }
+    .sub a { font-variant-numeric: tabular-nums; }
+    .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    label { color: var(--mute); font-size: 12px; }
+    label.flag { display: inline-flex; align-items: center; gap: 6px; user-select: none; }
+    label.flag[hidden] { display: none; }
+    label.flag input { margin: 0; }
+    label.flag input:disabled { opacity: 0.45; }
+    select, input[type="search"] {
+      font: inherit;
+      color: var(--ink);
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      padding: 4px 8px;
+    }
+    input[type="search"] { min-width: 16rem; }
+    .count { color: var(--mute); margin-left: auto; font-size: 12px; }
+    .board { font-size: 12px; white-space: nowrap; }
+    .legend { display: flex; gap: 12px; color: var(--mute); font-size: 11px; margin-top: 8px; }
+    .legend i {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      margin-right: 4px;
+    }
+    .plots {
+      padding: 10px 20px 16px;
+      background: color-mix(in srgb, var(--paper) 94%, white);
+      min-height: 0;
+      overflow: auto;
+    }
+    .plots[hidden], main[hidden], .formula-tools[hidden], .contributions[hidden] { display: none; }
+    .contributions {
+      overflow: auto;
+      padding: 16px 22px 48px;
+      min-height: 0;
+    }
+    .contributions h2 {
+      font: 600 18px/1.25 Georgia, "Iowan Old Style", serif;
+      margin: 26px 0 6px;
+    }
+    .contributions h2:first-child { margin-top: 0; }
+    .contributions h3 {
+      font: 600 15px/1.3 Georgia, "Iowan Old Style", serif;
+      margin: 18px 0 6px;
+    }
+    .contributions p, .contributions li { max-width: none; }
+    .contributions p { margin: 0 0 10px; }
+    .contributions ol { margin: 0; padding-left: 1.2rem; }
+    .contributions li { margin: 0 0 6px; }
+    .contributions table {
+      border-collapse: collapse;
+      font: 13px/1.35 ui-monospace, monospace;
+      margin: 8px 0 14px;
+    }
+    .contributions th, .contributions td {
+      border-bottom: 1px solid var(--rule);
+      padding: 4px 14px 4px 0;
+      text-align: right;
+      vertical-align: baseline;
+    }
+    .contributions th:first-child, .contributions td:first-child { text-align: left; padding-right: 18px; }
+    .contributions th { color: var(--mute); font-weight: 600; font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; }
+    .contributions th .math { text-transform: none; font-size: 14px; }
+    .contributions .note { color: var(--mute); font-size: 12px; }
+    .contributions figure { margin: 8px 0 16px; }
+    .contributions img { width: 100%; height: auto; background: white; border: 1px solid var(--rule); }
+    .contributions img.fit-3 { width: 75%; }
+    .contributions img.fit-2 { width: 50%; }
+    .contributions img.fit-1 { width: 25%; }
+    .contributions img.fit-small { width: 37.5%; }
+    .branch-plots { display: flex; flex-wrap: wrap; }
+    .branch-plots figure { width: 25%; margin: 8px 0 4px; }
+    .branch-plots img { width: 100%; }
+    .compare-row { display: flex; align-items: flex-start; flex-wrap: wrap; gap: 18px; }
+    .compare-row figure { width: 50%; margin: 8px 0 14px; flex: none; }
+    .compare-row figure img { width: 100%; }
+    .compare-row table { flex: 1; min-width: 0; }
+    @media print {
+      body[data-page="contributions"] header,
+      body[data-page="contributions"] .formula-tools,
+      body[data-page="contributions"] main,
+      body[data-page="contributions"] .plots,
+      body[data-page="contributions"] .tip { display: none !important; }
+      body[data-page="contributions"] .contributions { display: block !important; overflow: visible; }
+      body[data-page="contributions"] .branch-plots figure { width: 48%; }
+      body[data-page="contributions"] .compare-row { display: block; }
+      body[data-page="contributions"] .compare-row figure { width: 100%; }
+      body[data-page="contributions"] img { break-inside: avoid; }
+    }
+    .contributions figcaption { color: var(--mute); font-size: 12px; margin-top: 4px; }
+    .contributions .math.display { margin: 0.15em 0 0.7em; }
+    .contributions .math.display .katex-display { margin: 0; text-align: left; }
+    .plots h2 {
+      font: 600 15px/1.2 Georgia, "Iowan Old Style", serif;
+      margin: 0 0 2px;
+    }
+    .plots .cap {
+      margin: 0 0 8px;
+      color: var(--mute);
+      font-size: 12px;
+      max-width: 70rem;
+    }
+    .plot-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .plot h3 {
+      font: 600 13px/1.2 Georgia, serif;
+      margin: 0;
+    }
+    .plot .n {
+      color: var(--mute);
+      font: 11px/1.2 ui-monospace, monospace;
+      margin: 0 0 2px;
+    }
+    .plot svg {
+      width: 100%;
+      height: 210px;
+      display: block;
+      overflow: visible;
+    }
+    .plot .axis { stroke: var(--rule); stroke-width: 1; }
+    .plot .tick { fill: var(--mute); font: 10px ui-monospace, monospace; }
+    .plot .alabel { fill: var(--mute); font: 10px ui-monospace, monospace; }
+    .plot-col { min-width: 0; }
+    #plot-population { margin-top: 16px; }
+    .plot.null { margin-top: 8px; }
+    .plot .dot {
+      fill: var(--margin);
+      stroke: color-mix(in srgb, var(--ink) 25%, var(--margin));
+      stroke-width: 0.6;
+      cursor: pointer;
+    }
+    .plot .dot.null {
+      fill: var(--binary);
+      stroke: color-mix(in srgb, var(--ink) 20%, var(--binary));
+      cursor: default;
+    }
+    .plot .corpus-beta { stroke: var(--binary); stroke-width: 1.8; }
+    .plot .dot:hover, .plot .dot.on { stroke: var(--ink); stroke-width: 1.4; }
+    .tip {
+      position: fixed;
+      z-index: 5;
+      pointer-events: none;
+      background: var(--ink);
+      color: var(--paper);
+      font: 12px/1.35 ui-monospace, monospace;
+      padding: 5px 8px;
+      border-radius: 2px;
+      max-width: 22rem;
+      display: none;
+    }
+    main {
+      display: grid;
+      grid-template-columns: 22rem minmax(0, 1fr);
+      min-height: 0;
+    }
+    .rail {
+      border-right: 1px solid var(--rule);
+      overflow: auto;
+      background: var(--panel);
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 1.1rem 1fr auto auto;
+      gap: 8px;
+      padding: 8px 12px;
+      border-bottom: 1px dashed var(--rule);
+      cursor: pointer;
+      align-items: baseline;
+    }
+    .row:hover { background: color-mix(in srgb, var(--sel) 50%, var(--panel)); }
+    .row.sel { background: var(--sel); }
+    .row .twist { color: var(--mute); font-size: 11px; }
+    .row .id { font: 600 13px/1.2 ui-monospace, monospace; }
+    .row .k { color: var(--mute); font: 12px ui-monospace, monospace; }
+    .row.variant { padding-left: 1.6rem; }
+    .row.family-head .id { letter-spacing: 0.01em; }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    .chip {
+      font: 10px/1.2 ui-monospace, monospace;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      color: var(--mute);
+    }
+    .chip.original { color: var(--unary); border-color: color-mix(in srgb, var(--unary) 40%, var(--rule)); }
+    .chip.extension { color: var(--ink); border-color: var(--rule); }
+    .chip.rewritten { color: var(--binary); border-color: color-mix(in srgb, var(--binary) 40%, var(--rule)); }
+    .chip.chosen { color: var(--ink); border-color: var(--ink); }
+    .chip.ones { color: var(--ink); border-color: var(--ink); }
+    .chip.mismatch { color: var(--margin); border-color: color-mix(in srgb, var(--margin) 45%, var(--rule)); }
+    .chip.out { color: var(--margin); border-color: color-mix(in srgb, var(--margin) 45%, var(--rule)); }
+    .meta .chip { margin-right: 4px; vertical-align: middle; }
+    .row.mismatch { box-shadow: inset 3px 0 0 var(--margin); }
+    .stage {
+      overflow: auto;
+      padding: 18px 22px 40px;
+    }
+    .stage h2 {
+      font: 600 20px/1.2 Georgia, serif;
+      margin: 0 0 4px;
+    }
+    .meta { color: var(--mute); font-size: 13px; margin: 0 0 12px; }
+    .meta .eqn { color: var(--ink); }
+    .formula {
+      font: 13px/1.45 ui-monospace, monospace;
+      background: var(--panel);
+      border: 1px solid var(--rule);
+      padding: 10px 12px;
+      margin: 0 0 8px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      display: block;
+    }
+    .tex {
+      display: block;
+      width: 100%;
+      background: color-mix(in srgb, var(--panel) 70%, white);
+      border: 1px solid var(--rule);
+      padding: 14px 16px 12px;
+      margin: 0 0 8px;
+      overflow-x: auto;
+      min-height: 2.4em;
+    }
+    .tex .katex-display { margin: 0; text-align: left; }
+    .tex .katex { font-size: 1.15em; }
+    .tally {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin: 0 0 12px;
+      font: 13px/1.3 ui-monospace, monospace;
+    }
+    .tally .lbl {
+      color: var(--mute);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-right: 6px;
+    }
+    .tally .n { font-weight: 600; }
+    .tally div { white-space: nowrap; }
+    .tally .disagree .n { color: var(--margin); }
+    .tally .csv { color: var(--margin); font-size: 11px; font-weight: 400; }
+    .tree-wrap { overflow-x: auto; padding: 12px 4px 28px; }
+    .tnode {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .pill {
+      font: 12px/1.2 ui-monospace, monospace;
+      padding: 5px 11px;
+      border-radius: 999px;
+      border: 1.5px solid var(--rule);
+      background: color-mix(in srgb, var(--paper) 55%, white);
+      white-space: nowrap;
+    }
+    .pill.binary { color: var(--binary); border-color: var(--binary); }
+    .pill.unary { color: var(--unary); border-color: var(--unary); }
+    .pill.variable { color: var(--variable); border-color: var(--variable); }
+    .pill.number { color: var(--number); border-color: var(--number); }
+    .pill.constant { color: var(--constant); border-color: var(--constant); }
+    .pill .typ { opacity: 0.85; }
+    .pill .sep { opacity: 0.55; }
+    .stem {
+      width: 1px;
+      height: 12px;
+      background: var(--rule);
+    }
+    .kids {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      position: relative;
+      padding-top: 0;
+    }
+    .kids::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 12px;
+      right: 12px;
+      height: 1px;
+      background: var(--rule);
+    }
+    .kids.solo::before { display: none; }
+    .kids.solo > .kid > .stem { height: 12px; }
+    .kid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .counts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 0 0 16px;
+    }
+    .counts span {
+      font: 11px/1.2 ui-monospace, monospace;
+      border: 1px solid var(--rule);
+      padding: 3px 7px;
+      border-radius: 999px;
+      color: var(--mute);
+    }
+    dl { margin: 0; max-width: 46rem; }
+    dt { color: var(--mute); font-size: 11px; margin-top: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
+    dd { margin: 2px 0 0; }
+    a { color: var(--margin); }
+    .muted { color: var(--mute); }
+    @media (max-width: 1100px) {
+      .plot-row { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 900px) {
+      main { grid-template-columns: 1fr; }
+      .rail { border-right: 0; border-bottom: 1px solid var(--rule); max-height: 40vh; }
+      .plot-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Formula ledger</h1>
+      <nav class="seg pages">
+        <button type="button" class="on" data-page="formulas">Formulas</button>
+        <button type="button" data-page="beta">β of each expression</button>
+        <button type="button" data-page="contributions">Contributions</button>
+      </nav>
+      <div class="formula-tools">
+      <p class="sub">The original tag is for expressions from Constantin (<a id="released" href="https://github.com/andrei-const/physics-formulae-patterns" target="_blank" rel="noreferrer">GitHub</a>). Extension is a tag for expressions that are not in the original set.</p>
+      <div class="controls">
+        <nav class="seg" id="corpora">
+          <button type="button" class="on" data-corpus="feynman">Feynman</button>
+          <button type="button" data-corpus="wiki">Wikipedia</button>
+          <button type="button" data-corpus="inflation">Encyclopaedia Inflationaris</button>
+          <button type="button" data-corpus="leemis">Leemis</button>
+          <button type="button" data-corpus="fr">f(R)</button>
+        </nav>
+        <nav class="seg" id="branches">
+          <button type="button" class="on" data-branch="">All formulas</button>
+          <button type="button" data-branch="Classical mechanics">Classical mechanics</button>
+          <button type="button" data-branch="Special relativity">Special relativity</button>
+          <button type="button" data-branch="Electromagnetism">Electromagnetism</button>
+          <button type="button" data-branch="Waves and optics">Waves and optics</button>
+          <button type="button" data-branch="Thermodynamics and kinetic theory">Thermodynamics</button>
+          <button type="button" data-branch="Quantum mechanics">Quantum mechanics</button>
+          <button type="button" data-branch="Fluid mechanics">Fluid mechanics</button>
+          <button type="button" data-branch="Continuum mechanics">Continuum mechanics</button>
+          <button type="button" data-branch="Astronomy and astrophysics">Astronomy</button>
+          <button type="button" data-branch="other">Other</button>
+        </nav>
+        <a id="corpus-board" class="board" href="https://www.feynmanlectures.caltech.edu/" target="_blank" rel="noreferrer">Feynman Lectures</a>
+        <label>Search
+          <input id="q" type="search" placeholder="id or formula">
+        </label>
+        <label class="flag" id="flag-c1" title="Drop c (speed of light) from the tree.">
+          <input type="checkbox" id="c1">
+          c = 1
+        </label>
+        <label class="flag" id="flag-hbar1" title="ħ = h/2π = 1. Feynman writes ħ as h/(2π).">
+          <input type="checkbox" id="hbar1">
+          ħ = 1
+        </label>
+        <span class="count" id="count"></span>
+      </div>
+      <div class="legend">
+        <span><i style="background:var(--binary)"></i>binary</span>
+        <span><i style="background:var(--unary)"></i>unary</span>
+        <span><i style="background:var(--variable)"></i>variable</span>
+        <span><i style="background:var(--number)"></i>number / constant</span>
+      </div>
+      </div>
+    </header>
+    <section class="plots" id="plots" hidden>
+      <h2>β of each expression</h2>
+      <p class="cap" id="plot-cap">Each dot is one expression. The x-axis is its complexity. β minimises <span id="beta-loss"></span>, where <span id="beta-f"></span> is the frequency of rank <span id="beta-r"></span> and <span id="beta-p"></span> over the ranks that appear. The horizontal line is the same fit after every expression's operator counts in that corpus are added together and ranked once. Feynman is the released 100. Wikipedia adds the algebraic extension after Doppler. f(R) is included.</p>
+      <div class="plot-row" id="plot-row"></div>
+      <div id="plot-population"></div>
+    </section>
+    <section class="contributions" id="contributions" hidden>
+      <h2>I. Creation of a catalog</h2>
+      <p>The ledger begins from the data release accompanying Statistical Patterns in the Equations of Physics and the Emergence of a Meta-Law of Nature (Constantin, Bartlett, Desmond and Ferreira), <a href="https://github.com/andrei-const/physics-formulae-patterns/commit/2aa199b5a1d210dacd122f97c3e8086d3e54f752" target="_blank" rel="noreferrer">physics-formulae-patterns at commit 2aa199b</a>. That commit contains three corpora: 100 expressions from the Feynman Lectures, 41 from the Wikipedia list of equations named after people, and 70 potentials from the Encyclopaedia Inflationaris. Each released expression is kept under the status original.</p>
+      <p>Two further collections were then brought into the ledger. From the same Wikipedia list, 35 expressions following the cutoff were transcribed, so that this Wikipedia corpus consists of 76 expressions. For the later analysis, the ledger also holds the Leemis univariate distributions. They are not part of commit 2aa199b.</p>
+      <p>Ten closed forms of <span class="math" data-tex="f(R)"></span> written as examples in Sotiriou and Faraoni, <a href="https://arxiv.org/abs/0805.1726" target="_blank" rel="noreferrer">arXiv:0805.1726</a>, are in the ledger as well. They are not part of commit 2aa199b.</p>
+      <p>Operator counts were recomputed from the parsed expression. Physical constants are distinguished from variables. The resulting counts of variables, numbers, constants, and complexity are placed beside the tallies in commit 2aa199b, and a row on which they differ is marked.</p>
+      <p>Each expression is rendered in LaTeX, has its expression tree drawn, and linked to its source.</p>
+      <h2>II. Replacement of the exponential and Zipf–Mandelbrot fits from SBI by log least squares</h2>
+      <h3>The loss function</h3>
+      <p>We propose fitting the parameter <span class="math" data-tex="\beta"></span> by least squares on the differences of logarithms of the predicted and actual rank frequency. It minimises <span class="math" data-tex="\sum_r(\log f_r-\log p_r)^2"></span>, where <span class="math" data-tex="f_r"></span> is the frequency of rank <span class="math" data-tex="r"></span>.</p>
+      <p>For the exponential,</p>
+      <p class="math display" data-tex="p_r=\dfrac{e^{-\beta r}}{\sum_s e^{-\beta s}}."></p>
+      <p>For Zipf–Mandelbrot,</p>
+      <p class="math display" data-tex="p_r=\dfrac{(r+b)^{-\alpha}}{\sum_s(s+b)^{-\alpha}}."></p>
+      <h3>The setup</h3>
+      <p>The fit uses SciPy’s <span class="math" data-tex="\texttt{curve\_fit}"></span>, with no bounds on the parameters. Both formulas are fitted, with this loss, to each of the three corpora: the released Feynman lectures (100 expressions), Wikipedia with the extension (76), and the Encyclopaedia Inflationaris (70). The exponential is started at <span class="math" data-tex="\beta=0.5"></span>. Zipf–Mandelbrot is started at <span class="math" data-tex="\alpha=2"></span>, <span class="math" data-tex="b=2"></span>.</p>
+      <h3>Reproduced results</h3>
+      <p>Each panel is one corpus. The points are the rank frequencies, and the two curves are the exponential and Zipf–Mandelbrot fits from the setup above.</p>
+      <div class="branch-plots">
+      <figure>
+        <img src="zipf-feynman.png" alt="Frequency against rank for Feynman, with the exponential and Zipf–Mandelbrot curves.">
+      </figure>
+      <figure>
+        <img src="zipf-wiki.png" alt="Frequency against rank for Wikipedia, with the exponential and Zipf–Mandelbrot curves.">
+      </figure>
+      <figure>
+        <img src="zipf-inflation.png" alt="Frequency against rank for Encyclopaedia Inflationaris, with the exponential and Zipf–Mandelbrot curves.">
+      </figure>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Corpus</th><th>Formulas</th>
+            <th><span class="math" data-tex="\alpha"></span></th>
+            <th><span class="math" data-tex="b"></span></th>
+            <th><span class="math" data-tex="\alpha/b"></span></th>
+            <th><span class="math" data-tex="\beta"></span> of the exponential</th>
+            <th>Published posterior</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Feynman</td><td>100</td><td>73.5 ± 178</td><td>206 ± 519</td><td>0.356 ± 0.038</td><td>0.342 ± 0.007</td><td>0.342 ± 0.010</td></tr>
+          <tr><td>Wikipedia, released + extension</td><td>76</td><td>1640 ± 2.0×10⁵</td><td>5210 ± 6.2×10⁵</td><td>0.316 ± 0.067</td><td>0.315 ± 0.010</td><td>(0.35 ± 0.03)*</td></tr>
+          <tr><td>Encyclopaedia Inflationaris</td><td>70</td><td>93.9 ± 344</td><td>338 ± 1280</td><td>0.278 ± 0.035</td><td>0.269 ± 0.006</td><td>0.266 ± 0.014</td></tr>
+        </tbody>
+      </table>
+      <p><span class="math" data-tex="\texttt{curve\_fit}"></span> returns the optimal parameters and <span class="math" data-tex="\mathrm{pcov}"></span>, their estimated covariance. The diagonals of the covariance provide the variance of the parameter estimate, and the standard deviation errors on the parameters can be optained by the square roots of the diagonals.</p>
+      <p>* The published posterior for Wikipedia is the authors' value for their list of 78 expressions. The corpus fitted here adds the 35 expressions after the cutoff of 41, so the two lists are not the same.</p>
+      <p>On the three corpora released, the exponential <span class="math" data-tex="\beta"></span> from this fit lies close to the published simulation-based posterior: 0.342 against 0.342 ± 0.010 for Feynman, and 0.269 against 0.266 ± 0.014 for Encyclopaedia Inflationaris.</p>
+      <h3>Approximation by the exponential</h3>
+      <p>When <span class="math" data-tex="b"></span> is large when compared to the ranks, Zipf–Mandelbrot is the exponential written with two parameters. Factor <span class="math" data-tex="b"></span> out of the power,</p>
+      <p class="math display" data-tex="(r+b)^{-\alpha}=b^{-\alpha}\left(1+\frac{r}{b}\right)^{-\alpha}=b^{-\alpha}\exp\!\left(-\alpha\log\left(1+\frac{r}{b}\right)\right)."></p>
+      <p>For <span class="math" data-tex="r/b&lt;1"></span> the logarithm expands as</p>
+      <p class="math display" data-tex="\log\left(1+\frac{r}{b}\right)=\frac{r}{b}-\frac{1}{2}\left(\frac{r}{b}\right)^{2}+\cdots."></p>
+      <p>The leading term produces</p>
+      <p class="math display" data-tex="(r+b)^{-\alpha}\approx b^{-\alpha}\exp\left(-\frac{\alpha}{b}r\right)."></p>
+      <p>The factor <span class="math" data-tex="b^{-\alpha}"></span> does not depend on the rank, so it cancels when <span class="math" data-tex="p_r"></span> is normalised, and the result is the exponential with <span class="math" data-tex="\beta=\alpha/b"></span>. The next term, <span class="math" data-tex="\alpha(r/b)^{2}/2"></span>, stays small while <span class="math" data-tex="r\ll b"></span>.</p>
+      <p>The original paper draws <span class="math" data-tex="\alpha"></span> from 1 to 10 and <span class="math" data-tex="b"></span> from 2 to 20. Both upper ends lie below the values this fit reaches.</p>
+      <h2>III. The smaller β of Encyclopaedia Inflationaris</h2>
+      <p>Encyclopaedia Inflationaris has <span class="math" data-tex="\beta=0.269"></span>, against 0.342 for Feynman and 0.315 for Wikipedia with the extension. The possible accounts are:</p>
+      <ol>
+        <li>The use of natural units, and the prefactor <span class="math" data-tex="M^4"></span> by Encyclopaedia Inflationaris.</li>
+        <li>They are many expressions for one physical concept, the inflaton potential.</li>
+        <li>They are expressions of an unproven theory, slow-roll single-field models with minimal kinetic terms.</li>
+        <li>An energy scale different from the quantities in Feynman, Wikipedia and Cambridge Handbook.</li>
+      </ol>
+      <h3>1. Natural units and the energy-density prefactor</h3>
+      <p>By using the natural units for Feynman and Wikipedia, and setting the EI prefactor to 1, we can measure how much do the conventions of constants affect the fitted beta.</p>
+      <p>Setting <span class="math" data-tex="c=1"></span> and <span class="math" data-tex="\hbar=h/2\pi=1"></span> together moves Feynman from 0.342 ± 0.006 to 0.332 ± 0.006, with 32 formulas changed, and leaves Wikipedia at 0.315 ± 0.010, with 2 formulas changed. </p>
+      <p>Setting <span class="math" data-tex="M^4=1"></span> in all 70 Inflationaris potentials moves <span class="math" data-tex="\beta"></span> from 0.269 ± 0.006 to 0.261 ± 0.006.</p> 
+      <p>Neither rewrite makes the beta of Encyclopaedia Inflationaris meet Feynman or Wikipedia. Natural units and the repeated energy-density prefactor alone do not account for the deviation.</p>
+      <h3>2 & 3. Candidates to one unproven theoretical concept</h3>
+      <p>The standard General Theorey of Relativity is governed by the Einstein–Hilbert action <span class="math" data-tex="S_{\text{EH}} = \frac{1}{16\pi G} \int d^4x \sqrt{-g} \, R"></span>, where <span class="math" data-tex="R"></span> is the Ricci scalar. A class of higher-order curvature invariant modified theories of gravity, specifically the f(R) theories, replace the Einstein–Hilbert action with <span class="math" data-tex="S_{\text{f(R)}} = \int d^4x \sqrt{-g} \, f(R)"></span>. We curated ten closed forms of <span class="math" data-tex="f(R)"></span> expressions, which together are candidates to one physical concept, the function in the gravitational action, which are also expressions of an unproven theory. When the operator counts of these f(R) expressions are pooled, the exponetial fit of this corpus has <span class="math" data-tex="\beta"></span> 0.320 ± 0.021. The corpus being around one concept, and an unproven theory, do not by themselves produce the lower value.</p>
+      <p>The <span class="math" data-tex="f(R)"></span> corpus has 10 expressions and Encyclopaedia Inflationaris has 70. To adjust for that difference in sample size, 2000 samples of 10 expressions were drawn from the EI 70 with seed 20260930. The median <span class="math" data-tex="\beta"></span> is 0.245, most samples fall between 0.230 and 0.259, and the highest sample is 0.305. The difference in corpus size does not seem to explain the difference in <span class="math" data-tex="\beta"></span>.</p>
+      <div class="branch-plots">
+      <figure>
+        <img src="fr-exponential.png" alt="Exponential fit for the ten f(R) expressions.">
+      </figure>
+      <figure>
+        <img src="ei-sample10-beta.png" alt="Distribution of beta from 2000 samples of 10 Encyclopaedia Inflationaris expressions.">
+      </figure>
+      </div>
+      <h3>4. Dependence on the branch of the subject</h3>
+      <p>The remaining account is an energy scale different from the quantities in Feynman and Wikipedia. That difference may be that different branches of physics carry different signatures in the operators they use, and therefore different <span class="math" data-tex="\beta"></span>. </p>
+      <p>We label the Feynman and Wikipedia expressions by branch, and merge branches with few expressions. We fit exponential law to these branches, and the estimates of <span class="math" data-tex="\beta"></span> run from 0.330 to 0.378. The Cambridge Handbook, about 800 expressions, is the natural corpus for enriching the number of expressions of each branch for a more significant fit result.</p>
+      <p>Leemis, a corpus of univariate distributions, has the same <span class="math" data-tex="\beta"></span> as Encyclopaedia Inflationaris, 0.269. That shows that a corpus of mathematical distributions also follows the exponential metalaw. </p>
+      <div class="branch-plots">
+      <figure>
+        <img src="leemis-exponential.png" alt="Exponential fit to the Leemis corpus.">
+      </figure>
+      <figure>
+        <img src="branch-classical-mechanics.png" alt="Exponential fit for classical mechanics and special relativity.">
+      </figure>
+      <figure>
+        <img src="branch-electromagnetism.png" alt="Exponential fit for electromagnetism, waves and optics.">
+      </figure>
+      <figure>
+        <img src="branch-thermodynamics.png" alt="Exponential fit for thermodynamics and kinetic theory.">
+      </figure>
+      <figure>
+        <img src="branch-quantum.png" alt="Exponential fit for quantum mechanics.">
+      </figure>
+      <figure>
+        <img src="branch-fluids.png" alt="Exponential fit for fluid and continuum mechanics.">
+      </figure>
+      </div>
+      <div class="compare-row">
+      <figure>
+        <img src="beta-comparison.png" alt="Beta and its uncertainty for the corpora and for the branches.">
+        <figcaption>Black points are corpora. Green points are branches. The blue point is the branches pooled. The bar is the standard error from <span class="math" data-tex="\texttt{curve\_fit}"></span>.</figcaption>
+      </figure>
+      <table>
+        <thead><tr><th>Branch</th><th>Formulas</th><th>Median complexity</th><th>Log least squares</th></tr></thead>
+        <tbody>
+          <tr><td>Classical mechanics + special relativity</td><td>20</td><td>11</td><td>0.341 ± 0.032</td></tr>
+          <tr><td>Electromagnetism + waves and optics</td><td>46</td><td>10</td><td>0.330 ± 0.007</td></tr>
+          <tr><td>Thermodynamics and kinetic theory</td><td>23</td><td>12</td><td>0.348 ± 0.012</td></tr>
+          <tr><td>Quantum mechanics</td><td>18</td><td>11</td><td>0.367 ± 0.017</td></tr>
+          <tr><td>Fluid + continuum mechanics</td><td>29</td><td>10</td><td>0.378 ± 0.012</td></tr>
+          <tr><td>These branches together</td><td>136</td><td>11</td><td>0.329 ± 0.007</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+    <div class="tip" id="tip"></div>
+    <main>
+      <nav class="rail" id="rail"></nav>
+      <section class="stage" id="stage">
+        <p class="muted">Select a formula. The tree is the counted operator graph, including Pow2/3/4 collapse.</p>
+      </section>
+    </main>
+  </div>
+  <script>
+    const SYM = {
+      theta: "θ", theta1: "θ₁", theta2: "θ₂",
+      sigma: "σ", pi: "π", omega: "ω", omega_0: "ω₀",
+      epsilon: "ε", alpha: "α", gamma: "γ",
+      rho: "ρ", kappa: "κ", mu: "μ", chi: "χ",
+      beta: "β", delta: "δ", lambd: "λ", lambda: "λ", kb: "k_b", kB: "k_b",
+      Ef: "E_f",
+      f_D: "f_D", D_v: "D_v",
+      v_p: "v_p", v_s: "v_s",
+      E_a: "E_a", Z_n: "Z_n", T_m: "T_m",
+      epsilon0: "ε₀", epsilonr: "ε_r",
+      M_Pl: "M_Pl",
+      Lambda1: "Λ₁", Lambda2: "Λ₂", R0: "R₀",
+      Int: "I",
+      Int_0: "I_0",
+      pr: "P",
+      P_F: "P_F",
+      Volt: "V_e",
+      mob: "μ",
+      mom: "μ",
+      Pwr: "P",
+      mu_drift: "μ_drift",
+      g_: "g",
+      Bx: "B_x", By: "B_y", Bz: "B_z",
+      Jz: "J_z",
+      n_rho: "n_ρ",
+      A_vec: "A⃗",
+      sigma_den: "σ_den",
+    };
+    let records = [];
+    let selected = null;
+    let releasedCommit = "";
+    let corpus = "feynman";
+    const expanded = new Set();
+    const RELEASED_REPO = "https://github.com/andrei-const/physics-formulae-patterns";
+    const CORPUS_BOARD = {
+      feynman: {
+        href: "https://www.feynmanlectures.caltech.edu/",
+        label: "Feynman Lectures",
+      },
+      wiki: {
+        href: "https://en.wikipedia.org/wiki/List_of_scientific_equations_named_after_people",
+        label: "named-equations list",
+      },
+      inflation: {
+        href: "https://arxiv.org/abs/1303.3787",
+        label: "arXiv:1303.3787",
+      },
+      leemis: {
+        href: "https://www.math.wm.edu/~leemis/chart/UDR/UDR.html",
+        label: "Leemis UDR chart",
+      },
+      fr: {
+        href: "https://arxiv.org/abs/0805.1726",
+        label: "arXiv:0805.1726",
+      },
+    };
+
+    function pretty(name) { return SYM[name] || name; }
+    function corpusName() { return corpus; }
+    function markCorpus(name) {
+      corpus = name;
+      for (const button of document.querySelectorAll("#corpora button")) {
+        button.classList.toggle("on", button.dataset.corpus === name);
+      }
+    }
+    function c1on() { return document.getElementById("c1").checked; }
+    function hbar1on() { return document.getElementById("hbar1").checked; }
+    function recView(r) {
+      if (c1on() && hbar1on() && r.c1_hbar1) return Object.assign({}, r, r.c1_hbar1);
+      if (hbar1on() && r.hbar1) return Object.assign({}, r, r.hbar1);
+      if (c1on() && r.c1) return Object.assign({}, r, r.c1);
+      return r;
+    }
+    function displayId(r) { return r.id; }
+    function displayFormula(r) { return recView(r).formula; }
+    function csvDisagreements(r) {
+      const d = r && r.csv_disagreements;
+      return d && Object.keys(d).length ? d : null;
+    }
+    function syncUnits() {
+      const inf = corpusName() === "inflation";
+      document.getElementById("flag-c1").hidden = inf;
+      document.getElementById("flag-hbar1").hidden = inf;
+    }
+    function syncReleased(meta) {
+      const sha = meta && meta.released_commit;
+      if (!sha) return;
+      const a = document.getElementById("released");
+      const repo = meta.released_repo || RELEASED_REPO;
+      releasedCommit = sha;
+      a.href = repo.replace(/\/+$/, "") + "/commit/" + sha;
+      a.textContent = "GitHub " + sha.slice(0, 7);
+      a.title = sha;
+    }
+    function syncBoard(meta) {
+      const a = document.getElementById("corpus-board");
+      const board = CORPUS_BOARD[corpusName()] || {};
+      a.href = (meta && meta.board_url) || board.href || "#";
+      a.textContent = (meta && meta.board_label) || board.label || "source";
+      a.hidden = !a.href || a.href === "#";
+    }
+
+    function visible() {
+      const q = document.getElementById("q").value.trim().toLowerCase();
+      return records.filter(r => {
+        if (!q) return true;
+        const blob = [r.id, r.original_id, r.name, r.formula, r.family, r.branch, r.notes, r.source_locator,
+                      r.c1 && r.c1.formula, r.hbar1 && r.hbar1.formula,
+                      r.c1_hbar1 && r.c1_hbar1.formula]
+          .join(" ").toLowerCase();
+        return blob.includes(q);
+      });
+    }
+
+    function isChosen(r) {
+      return !!(r.representative && r.family &&
+        records.filter(x => x.family === r.family).length > 1);
+    }
+
+    function statusChips(r) {
+      const github = releasedCommit
+        ? "Constantin / GitHub " + releasedCommit.slice(0, 7)
+        : "Constantin / GitHub";
+      const tip = r.status === "original"
+        ? " title='" + github + "'"
+        : r.status === "rewritten" ? " title='restated for consistency with the other expressions'"
+        : r.status === "extension" ? " title='not in the original set'" : "";
+      let html = "";
+      if (r.status !== "rewritten") {
+        html += "<span class='chip " + esc(r.status) + "'" + tip + ">" + esc(r.status) + "</span>";
+      }
+      if (c1on() && (r.c1 || r.c1_hbar1)) html += "<span class='chip ones'>c = 1</span>";
+      if (hbar1on() && (r.hbar1 || r.c1_hbar1)) html += "<span class='chip ones'>ħ = 1</span>";
+      if (csvDisagreements(r)) html += "<span class='chip mismatch' title='catalog tally ≠ released CSV'>≠ csv</span>";
+      if (r.consideration === "out") {
+        html += "<span class='chip out' title='sum, series, piecewise, or no closed form in the appendix'>not under consideration</span>";
+      }
+      return html;
+    }
+
+    function defaultMember(members) {
+      return members.find(r => r.family_role === "generalization")
+        || members.find(r => r.family_role === "convention")
+        || members.find(r => r.representative)
+        || members[0];
+    }
+
+    function groups(rows) {
+      const map = new Map();
+      const order = [];
+      for (const r of rows) {
+        const key = r.family || r.id;
+        if (!map.has(key)) {
+          map.set(key, []);
+          order.push(key);
+        }
+        map.get(key).push(r);
+      }
+      return order.map(key => ({key, members: map.get(key)}));
+    }
+
+    function renderRail() {
+      const rows = visible();
+      const bunches = groups(rows);
+      document.getElementById("count").textContent =
+        bunches.length + " entries · " + rows.length + " formulas";
+      const rail = document.getElementById("rail");
+      rail.replaceChildren();
+      for (const g of bunches) {
+        if (g.members.length > 1) {
+          const open = expanded.has(g.key);
+          const head = document.createElement("div");
+          const def = defaultMember(g.members);
+          const inFamily = selected && g.members.some(m => m.original_id === selected.original_id);
+          head.className = "row family-head" + (inFamily && !open ? " sel" : "");
+          head.innerHTML =
+            "<span class='twist'>" + (open ? "▾" : "▸") + "</span>" +
+            "<span class='id'>" + esc(g.key) + "</span>" +
+            "<span class='chip'>" + g.members.length + "</span>" +
+            "<span class='k'>k=" + esc(recView(def).complexity) + "</span>";
+          head.addEventListener("click", ev => {
+            if (ev.target.classList.contains("twist") && expanded.has(g.key)) {
+              expanded.delete(g.key);
+              renderRail();
+              return;
+            }
+            expanded.add(g.key);
+            select(defaultMember(g.members), {skipExpand: true});
+          });
+          rail.appendChild(head);
+          if (open) {
+            for (const r of g.members) rail.appendChild(rowEl(r, true));
+          }
+        } else {
+          rail.appendChild(rowEl(g.members[0], false));
+        }
+      }
+    }
+
+    function rowEl(r, variant) {
+      const el = document.createElement("div");
+      el.className = "row" + (variant ? " variant" : "") +
+        (selected && selected.original_id === r.original_id ? " sel" : "") +
+        (csvDisagreements(r) ? " mismatch" : "");
+      const chip = "<span class='chips'>" + statusChips(r) + "</span>";
+      const from = branchFilter
+        ? "<span class='chip'>" + esc(r.corpus) + "</span>"
+        : "";
+      el.innerHTML =
+        "<span class='twist'></span>" +
+        "<span class='id' title='" + esc(r.name || "") + "'>" + esc(displayId(r)) + "</span>" +
+        from + chip +
+        "<span class='k'>k=" + esc(recView(r).complexity) + "</span>";
+      el.addEventListener("click", () => select(r));
+      return el;
+    }
+
+    function select(r, opts) {
+      selected = r;
+      if (r) {
+        if (r.family && !(opts && opts.skipExpand)) expanded.add(r.family);
+        const hash = r.id;
+        const u = new URL(location.href);
+        u.searchParams.set("corpus", corpusName());
+        u.hash = encodeURIComponent(hash);
+        history.replaceState(null, "", u);
+      }
+      renderRail();
+      renderStage(r);
+    }
+
+    function renderStage(r) {
+      const el = document.getElementById("stage");
+      if (!r) {
+        el.innerHTML = "<p class='muted'>No formula in this slice.</p>";
+        return;
+      }
+      const v = recView(r);
+      const orig = (r.original_id && r.original_id !== r.id && r.family !== "I.6.20")
+        ? " · released as " + esc(r.original_id) : "";
+      const family = r.family
+        ? esc(r.family) + (r.family_role ? " · " + esc(r.family_role) : "")
+        : "—";
+      const source = r.source_url
+        ? "<a href='" + esc(r.source_url) + "' target='_blank' rel='noreferrer'>" +
+          esc(r.source_locator || r.source_url) + "</a>"
+        : (r.source_locator
+          ? esc(r.source_locator)
+          : "<span class='muted'>none (" + esc(r.source_kind) + ")</span>");
+      const title = displayId(r);
+      const formula = displayFormula(r);
+      const showCsv = !c1on() && !hbar1on();
+      function tallyCell(label, value, csv) {
+        const shown = value;
+        const disagree = showCsv && csv !== undefined && Number(csv) !== Number(value);
+        return "<div" + (disagree ? " class='disagree'" : "") + ">" +
+          "<span class='lbl'>" + label + "</span> " +
+          "<span class='n'>" + esc(shown) + "</span>" +
+          (disagree ? " <span class='csv' title='released CSV'>csv " + esc(csv) + "</span>" : "") +
+          "</div>";
+      }
+      el.replaceChildren();
+      const named = r.name
+        ? "<span class='eqn'>" + esc(r.name) + "</span> · "
+        : "";
+      el.insertAdjacentHTML("beforeend",
+        "<h2>" + esc(title) + "</h2>" +
+        "<p class='meta'>" + named + statusChips(r) + orig + "</p>" +
+        "<pre class='formula'>" + esc(formula) + "</pre>" +
+        "<div class='tex' id='tex'></div>" +
+        "<div class='tally'>" +
+          tallyCell("variables", v.n_variables, r.original_n_variables) +
+          tallyCell("numbers", v.n_numbers, r.original_n_numbers) +
+          tallyCell("constants", v.n_constants, r.original_n_constants) +
+          tallyCell("complexity", v.complexity, r.original_complexity) +
+        "</div>" +
+        "<div class='counts' id='counts'></div>" +
+        "<div class='tree-wrap' id='tree'></div>" +
+        "<dl>" +
+          kv("Output", esc(r.output || "—")) +
+          kv("Family", family) +
+          kv("Branch", esc(r.branch || "—")) +
+          kv("Source", source) +
+          kv("Notes", esc(r.notes || "—")) +
+        "</dl>");
+      renderTex(document.getElementById("tex"), v.latex || "");
+      const tree = v.tree;
+      const treeEl = document.getElementById("tree");
+      if (tree) {
+        treeEl.appendChild(renderBox(tree));
+        const counts = countOps(tree);
+        const box = document.getElementById("counts");
+        for (const [k, n] of Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))) {
+          const s = document.createElement("span");
+          s.textContent = pretty(k) + " " + n;
+          box.appendChild(s);
+        }
+      } else if (r.consideration === "out") {
+        treeEl.innerHTML = "<p class='muted'>No expression tree.</p>";
+      }
+    }
+
+    function renderTex(el, tex) {
+      if (!tex) {
+        el.textContent = "";
+        return;
+      }
+      if (window.katex) {
+        window.katex.render(tex, el, {throwOnError: false, displayMode: true});
+      } else {
+        el.textContent = tex;
+      }
+    }
+
+    function renderBox(node) {
+      const wrap = document.createElement("div");
+      wrap.className = "tnode";
+      const pill = document.createElement("div");
+      const kind = node.kind === "op" ? node.arity : node.kind;
+      pill.className = "pill " + kind;
+      const name = document.createElement("span");
+      name.textContent = pretty(node.label);
+      const sep = document.createElement("span");
+      sep.className = "sep";
+      sep.textContent = " | ";
+      const typ = document.createElement("span");
+      typ.className = "typ";
+      typ.textContent = kind;
+      pill.append(name, sep, typ);
+      wrap.appendChild(pill);
+      const children = node.children || [];
+      if (children.length) {
+        const kids = document.createElement("div");
+        kids.className = "kids" + (children.length === 1 ? " solo" : "");
+        for (const child of children) {
+          const kid = document.createElement("div");
+          kid.className = "kid";
+          const down = document.createElement("div");
+          down.className = "stem";
+          kid.appendChild(down);
+          kid.appendChild(renderBox(child));
+          kids.appendChild(kid);
+        }
+        wrap.appendChild(kids);
+      }
+      return wrap;
+    }
+
+    function countOps(node, acc) {
+      acc = acc || {};
+      const key = node.kind === "op" ? node.label : node.kind;
+      acc[key] = (acc[key] || 0) + 1;
+      for (const c of node.children || []) countOps(c, acc);
+      return acc;
+    }
+
+    function kv(k, v) { return "<dt>" + k + "</dt><dd>" + v + "</dd>"; }
+    function esc(s) {
+      return String(s ?? "").replace(/[&<>"']/g, c => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[c]));
+    }
+
+    function pickInitial() {
+      const want = decodeURIComponent((location.hash || "").replace(/^#/, ""));
+      const rows = visible();
+      if (want) {
+        const hit = rows.find(r => r.id === want || r.original_id === want);
+        if (hit) return hit;
+      }
+      return rows.find(r => r.family_role === "generalization")
+        || rows[0]
+        || null;
+    }
+
+    function loadCatalog(name) {
+      return fetch("./" + name + ".json?t=" + Date.now()).then(r => {
+        if (!r.ok) throw new Error("catalog HTTP " + r.status);
+        return r.json();
+      });
+    }
+
+    const BRANCH_NAMES = new Set([
+      "Classical mechanics", "Special relativity", "Electromagnetism",
+      "Waves and optics", "Thermodynamics and kinetic theory",
+      "Quantum mechanics", "Fluid mechanics", "Continuum mechanics",
+      "Astronomy and astrophysics",
+    ]);
+    const POOL_CORPORA = ["feynman", "wiki", "inflation", "leemis", "fr"];
+    let branchFilter = "";
+    let pool = null;
+
+    function loadPool() {
+      if (pool) return Promise.resolve(pool);
+      return Promise.all(POOL_CORPORA.map(loadCatalog)).then(datas => {
+        pool = datas.flatMap(d => (d.records || []).filter(r => r.status !== "qm"));
+        return pool;
+      });
+    }
+
+    function markBranch() {
+      for (const button of document.querySelectorAll("#branches button")) {
+        button.classList.toggle("on", (button.dataset.branch || "") === branchFilter);
+      }
+      document.getElementById("corpus-board").hidden = !!branchFilter;
+    }
+
+    function showBranch(name) {
+      branchFilter = name || "";
+      markBranch();
+      const u = new URL(location.href);
+      if (branchFilter) u.searchParams.set("branch", branchFilter);
+      else u.searchParams.delete("branch");
+      history.replaceState(null, "", u);
+      if (!branchFilter) {
+        boot(corpusName());
+        return;
+      }
+      document.getElementById("count").textContent = "loading…";
+      loadPool().then(rows => {
+        records = rows.filter(r => branchFilter === "other"
+          ? r.branch && !BRANCH_NAMES.has(r.branch)
+          : r.branch === branchFilter);
+        selected = null;
+        expanded.clear();
+        select(records.length ? pickInitial() : null);
+      });
+    }
+
+    function boot(name) {
+      syncUnits();
+      syncBoard();
+      records = [];
+      selected = null;
+      document.getElementById("rail").replaceChildren();
+      document.getElementById("count").textContent = "loading…";
+      return loadCatalog(name).then(data => {
+        records = (data.records || []).filter(r => r.status !== "qm");
+        syncReleased(data);
+        syncBoard(data);
+        expanded.clear();
+        if (name === "feynman") expanded.add("I.6.20");
+        select(pickInitial());
+      }).catch(err => {
+        document.getElementById("stage").innerHTML =
+          "<p>Could not load " + esc(name) + ".json. Serve this folder with python catalog.py --serve.</p>" +
+          "<p class='muted'>" + esc(err.message) + "</p>";
+      });
+    }
+
+    let scatter = null;
+
+    function drawPlots(data) {
+      scatter = data;
+      const row = document.getElementById("plot-row");
+      row.replaceChildren();
+      const all = data.corpora.flatMap(c => c.points);
+      const xMax = Math.max(80, ...all.map(p => p.k));
+      const yMax = Math.max(0.8, ...all.map(p => p.beta),
+        ...data.corpora.map(c => c.corpus_beta || 0));
+      for (const corpus of data.corpora) {
+        const col = document.createElement("div");
+        col.className = "plot-col";
+        col.appendChild(plotCard(corpus, xMax, yMax));
+        row.appendChild(col);
+      }
+      document.getElementById("plot-population").replaceChildren();
+    }
+
+    function plotCard(corpus, xMax, yMax) {
+      const card = document.createElement("div");
+      const isNull = false;
+      const wide = false;
+      card.className = "plot" + (isNull ? " null" : "");
+      const sub = corpus.n_fit + " expressions"
+        + (typeof corpus.corpus_beta === "number"
+          ? " · corpus β " + corpus.corpus_beta.toFixed(3)
+          : "");
+      card.innerHTML = "<h3>" + esc(corpus.label) + "</h3>"
+        + "<p class='n'>" + esc(sub) + "</p>";
+      const W = wide ? 1100 : 320, H = wide ? 260 : 210;
+      const m = {l: 36, r: 12, t: 10, b: 32};
+      const iw = W - m.l - m.r, ih = H - m.t - m.b;
+      const sx = k => m.l + (k / xMax) * iw;
+      const sy = b => m.t + (1 - b / yMax) * ih;
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+      if (wide) svg.style.height = "280px";
+      svg.setAttribute("role", "img");
+      svg.setAttribute("aria-label",
+        corpus.label + ", complexity against β, " + corpus.n_fit + " expressions");
+      const ax = (x1, y1, x2, y2) => {
+        const line = document.createElementNS(svg.namespaceURI, "line");
+        line.setAttribute("x1", x1); line.setAttribute("y1", y1);
+        line.setAttribute("x2", x2); line.setAttribute("y2", y2);
+        line.setAttribute("class", "axis");
+        svg.appendChild(line);
+      };
+      ax(m.l, m.t, m.l, m.t + ih);
+      ax(m.l, m.t + ih, m.l + iw, m.t + ih);
+      const label = (text, x, y, anchor) => {
+        const t = document.createElementNS(svg.namespaceURI, "text");
+        t.setAttribute("x", x); t.setAttribute("y", y);
+        t.setAttribute("text-anchor", anchor || "middle");
+        t.setAttribute("class", "tick");
+        t.textContent = text;
+        svg.appendChild(t);
+      };
+      const tick = xMax > 80 ? 20 : 10;
+      for (let k = 0; k <= xMax; k += tick) {
+        label(String(k), sx(k), m.t + ih + 12);
+      }
+      for (let v = 0; v <= yMax + 1e-9; v += 0.2) {
+        label(v.toFixed(1), m.l - 4, sy(v) + 3, "end");
+      }
+      const xl = document.createElementNS(svg.namespaceURI, "text");
+      xl.setAttribute("x", m.l + iw / 2);
+      xl.setAttribute("y", H - 2);
+      xl.setAttribute("text-anchor", "middle");
+      xl.setAttribute("class", "alabel");
+      xl.textContent = "complexity";
+      svg.appendChild(xl);
+      const yl = document.createElementNS(svg.namespaceURI, "text");
+      yl.setAttribute("x", 11);
+      yl.setAttribute("y", m.t + ih / 2);
+      yl.setAttribute("text-anchor", "middle");
+      yl.setAttribute("class", "alabel");
+      yl.setAttribute("transform", "rotate(-90 11 " + (m.t + ih / 2) + ")");
+      yl.textContent = "β";
+      svg.appendChild(yl);
+      if (typeof corpus.corpus_beta === "number") {
+        const line = document.createElementNS(svg.namespaceURI, "line");
+        line.setAttribute("x1", m.l);
+        line.setAttribute("x2", m.l + iw);
+        line.setAttribute("y1", sy(corpus.corpus_beta));
+        line.setAttribute("y2", sy(corpus.corpus_beta));
+        line.setAttribute("class", "corpus-beta");
+        svg.appendChild(line);
+      }
+      const byK = new Map();
+      for (const p of corpus.points) {
+        if (!byK.has(p.k)) byK.set(p.k, []);
+        byK.get(p.k).push(p);
+      }
+      for (const group of byK.values()) {
+        group.sort((a, b) => a.beta - b.beta || a.id.localeCompare(b.id));
+        group.forEach((p, i) => {
+          const n = group.length;
+          const span = n <= 1 ? 0 : Math.min(0.7, 0.14 * (n - 1));
+          const x = wide ? p.k : p.k + (n <= 1 ? 0 : (i / (n - 1) - 0.5) * span);
+          const c = document.createElementNS(svg.namespaceURI, "circle");
+          c.setAttribute("class", "dot" + (isNull ? " null" : ""));
+          c.dataset.id = p.id;
+          c.setAttribute("cx", sx(x));
+          c.setAttribute("cy", sy(p.beta));
+          c.setAttribute("r", wide ? 2.4 : 3.2);
+          if (wide) c.setAttribute("fill-opacity", "0.55");
+          const tip = isNull
+            ? "Motzkin tree\nk = " + p.k + "    β = " + p.beta.toFixed(3)
+            : (p.name ? p.name + "\n" : "") + p.id
+              + "\nk = " + p.k + "    β = " + p.beta.toFixed(3);
+          c.addEventListener("mouseenter", ev => showTip(ev, tip));
+          c.addEventListener("mousemove", ev => showTip(ev, tip));
+          c.addEventListener("mouseleave", hideTip);
+          if (!isNull) c.addEventListener("click", () => openPoint(corpus.id, p.id));
+          svg.appendChild(c);
+        });
+      }
+      card.appendChild(svg);
+      return card;
+    }
+
+    function showTip(ev, text) {
+      const tip = document.getElementById("tip");
+      tip.style.display = "block";
+      tip.textContent = text;
+      tip.style.left = Math.min(ev.clientX + 12, window.innerWidth - 240) + "px";
+      tip.style.top = (ev.clientY + 14) + "px";
+    }
+    function hideTip() {
+      document.getElementById("tip").style.display = "none";
+    }
+
+    function pageName() {
+      const page = new URLSearchParams(location.search).get("page");
+      if (page === "results") return "contributions";
+      return page === "beta" || page === "contributions" ? page : "formulas";
+    }
+
+    function showPage(page) {
+      document.body.dataset.page = page;
+      document.getElementById("plots").hidden = page !== "beta";
+      document.querySelector("main").hidden = page !== "formulas";
+      document.querySelector(".formula-tools").hidden = page !== "formulas";
+      document.getElementById("contributions").hidden = page !== "contributions";
+      for (const button of document.querySelectorAll(".pages button")) {
+        button.classList.toggle("on", button.dataset.page === page);
+      }
+      const u = new URL(location.href);
+      if (page === "formulas") u.searchParams.delete("page");
+      else u.searchParams.set("page", page);
+      history.replaceState(null, "", u);
+    }
+
+    function openPoint(name, id) {
+      hideTip();
+      showPage("formulas");
+      const u = new URL(location.href);
+      u.searchParams.set("corpus", name);
+      u.hash = encodeURIComponent(id);
+      history.replaceState(null, "", u);
+      if (corpusName() !== name) {
+        markCorpus(name);
+        boot(name);
+        return;
+      }
+      const hit = records.find(r => r.id === id || r.original_id === id);
+      if (hit) select(hit);
+    }
+
+    (function init() {
+      const params = new URLSearchParams(location.search);
+      const fromUrl = params.get("corpus");
+      if (fromUrl && CORPUS_BOARD[fromUrl]) markCorpus(fromUrl);
+      const branchUrl = params.get("branch");
+      if (branchUrl) showBranch(branchUrl);
+      fetch("./expression-beta.json?t=" + Date.now()).then(r => {
+        if (!r.ok) throw new Error("expression-beta HTTP " + r.status);
+        return r.json();
+      }).then(drawPlots).catch(err => {
+        document.getElementById("plot-cap").textContent =
+          "Could not load the β plots. " + err.message;
+      });
+      if (!branchUrl) boot(corpusName());
+      showPage(pageName());
+      if (window.katex) {
+        const opt = {throwOnError: false};
+        katex.render("\\sum_r(\\log f_r-\\log p_r)^2",
+          document.getElementById("beta-loss"), opt);
+        katex.render("f_r", document.getElementById("beta-f"), opt);
+        katex.render("r", document.getElementById("beta-r"), opt);
+        katex.render("p_r=\\dfrac{e^{-\\beta r}}{\\sum_s e^{-\\beta s}}",
+          document.getElementById("beta-p"), opt);
+        for (const el of document.querySelectorAll("#contributions .math")) {
+          katex.render(el.dataset.tex, el, {
+            throwOnError: false,
+            displayMode: el.classList.contains("display"),
+          });
+        }
+      }
+    })();
+
+    for (const button of document.querySelectorAll(".pages button")) {
+      button.addEventListener("click", () => showPage(button.dataset.page));
+    }
+
+    for (const button of document.querySelectorAll("#branches button")) {
+      button.addEventListener("click", () => {
+        if ((button.dataset.branch || "") === branchFilter) return;
+        showBranch(button.dataset.branch || "");
+      });
+    }
+
+    for (const button of document.querySelectorAll("#corpora button")) {
+      button.addEventListener("click", () => {
+        if (!branchFilter && button.dataset.corpus === corpusName()) return;
+        branchFilter = "";
+        markBranch();
+        markCorpus(button.dataset.corpus);
+        const u = new URL(location.href);
+        u.searchParams.set("corpus", corpusName());
+        u.searchParams.delete("branch");
+        u.hash = "";
+        history.replaceState(null, "", u);
+        boot(corpusName());
+      });
+    }
+
+    for (const id of ["q", "c1", "hbar1"]) {
+      document.getElementById(id).addEventListener("input", () => {
+        syncUnits();
+        const rows = visible();
+        if (!selected || !rows.some(r => r.original_id === selected.original_id)) {
+          select(rows[0] || null);
+        } else {
+          select(selected);
+        }
+      });
+    }
+    window.addEventListener("hashchange", () => select(pickInitial()));
+  </script>
+</body>
+</html>
