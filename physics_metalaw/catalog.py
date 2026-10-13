@@ -9,7 +9,8 @@ Source URLs, by corpus:
   feynman   — one HTML chapter per id, `https://www.feynmanlectures.caltech.edu/{I,II,III}_{cc}.html`
   wiki      — per-equation Wikipedia page once identified; until then the named-equations list
   inflation — one PDF for every model, arXiv:1303.3787; locator is the model acronym
-  cambridge — data not released; url is null, kind is `unavailable`
+  feynman_lectures_v1/v2/v3 — Feynman Lectures chapter HTML, one link per equation
+              ((c) Caltech; shown with source links; scripts/build_feynman_lectures_catalog.py)
 """
 from __future__ import annotations
 
@@ -122,6 +123,8 @@ class FormulaRecord:
     operator_counts: Counter = field(default_factory=Counter, repr=False, compare=False)
     consideration: str = ""
     branch: str = ""
+    # False: formula text may not be released; publish counts + refs only.
+    public: bool = True
 
     def to_json(self) -> dict:
         d = asdict(self)
@@ -1232,6 +1235,11 @@ def load_catalog(path: Path) -> list[FormulaRecord]:
         raw.pop("hbar1", None)
         raw.pop("c1_hbar1", None)
         raw.pop("csv_disagreements", None)
+        for extra in ("chapter", "chapter_name", "section", "book_page", "pdf_page",
+                      "equation", "handbook_latex", "operator_counts"):
+            raw.pop(extra, None)
+        known = FormulaRecord.__dataclass_fields__
+        raw = {k: v for k, v in raw.items() if k in known}  # source-specific extras
         rec = FormulaRecord(**raw)
         records.append(attach_counts(apply_constants(rec)))
     return records
@@ -1285,6 +1293,19 @@ SCATTER_CORPORA = (
 )
 
 
+# Feynman Lectures Vol. I-III catalogs. Shown on the Formulas page of the ledger
+# (corpus button "Feynman Lectures"); not in the per-expression scatter, which keeps
+# the five corpora above. The branch test (scripts/branch_test.py) pools them with the
+# 100 benchmark expressions after deduplication.
+FEYNMAN_LECTURES = ("feynman_lectures_v1", "feynman_lectures_v2", "feynman_lectures_v3")
+
+
+def load_feynman_lectures(volume: int | None = None) -> list[FormulaRecord]:
+    """Records of the Feynman Lectures catalogs (one volume, or all present)."""
+    keys = FEYNMAN_LECTURES if volume is None else (f"feynman_lectures_v{volume}",)
+    return [r for key in keys for r in scatter_records(key)]
+
+
 def scatter_records(corpus: str) -> list[FormulaRecord]:
     """Expressions drawn on the ledger's β plots.
 
@@ -1292,6 +1313,11 @@ def scatter_records(corpus: str) -> list[FormulaRecord]:
     released 41 plus the algebraic extension after Doppler. Leemis is the
     laws under consideration. f(R) is the expressions held in that corpus.
     """
+    if corpus in FEYNMAN_LECTURES:
+        path = CATALOG_DIR / f"{corpus}.json"
+        if not path.exists():
+            return []
+        return [r for r in load_catalog(path) if r.consideration == "in" and r.formula.strip()]
     recs = load_catalog(CATALOG_DIR / f"{corpus}.json")
     if corpus in {"leemis", "fr"}:
         return [r for r in recs if r.consideration == "in" and r.formula.strip()]
@@ -1304,8 +1330,8 @@ def scatter_records(corpus: str) -> list[FormulaRecord]:
 def expression_scatter() -> dict:
     """One point per expression: complexity, and β fit on its own ranks.
 
-    Each corpus carries the log-least-squares β of its pooled ranks, drawn
-    as a horizontal line. That fit uses every formula in the corpus, including
+    Each corpus carries the multinomial-MLE β of its pooled ranks (with
+    bootstrap and Fisher errors), drawn as a horizontal line. That fit uses every formula in the corpus, including
     one that has too few ranks for a dot of its own.
     """
     from .beta import expression_beta
@@ -1313,6 +1339,8 @@ def expression_scatter() -> dict:
     corpora = []
     for key, label in SCATTER_CORPORA:
         records = scatter_records(key)
+        if not records:
+            continue
         points = []
         omitted = []
         entries = []
@@ -1331,8 +1359,8 @@ def expression_scatter() -> dict:
             else:
                 row["beta"] = round(float(beta), 4)
                 points.append(row)
-        counts = M.rank_counts(entries)
-        corpus_beta, _ = M.fit_beta_logls(list(counts.values()))
+        fit = M.beta_with_errors(entries)
+        corpus_beta = fit["beta"]
         corpora.append({
             "id": key,
             "label": label,
@@ -1341,12 +1369,19 @@ def expression_scatter() -> dict:
             "omitted": omitted,
             "points": points,
             "corpus_beta": round(float(corpus_beta), 4),
+            "corpus_beta_estimator": "multinomial MLE",
+            "corpus_beta_boot_sigma": round(fit["boot_sigma"], 4),
+            "corpus_beta_p16": round(fit["boot_p16"], 4),
+            "corpus_beta_p84": round(fit["boot_p84"], 4),
+            "corpus_beta_fisher_sigma": round(fit["fisher_sigma"], 4),
         })
     return {
         "note": (
             "Each dot is one expression. The x-axis is its complexity. "
-            "β minimises sum_r (log f_r − log p_r)^2, where f_r is the "
-            "frequency of rank r and p_r = exp(−β r) / sum_s exp(−β s), "
+            "β is the multinomial maximum-likelihood estimate: each operator "
+            "instance is a draw that lands on rank r with probability "
+            "p_r = exp(−β r) / sum_s exp(−β s), and β maximises "
+            "sum_r n_r log p_r, where n_r is the number of instances at rank r, "
             "over the ranks that appear. The horizontal line is the same "
             "fit after every expression's operator counts in that corpus "
             "are added together and ranked once. Feynman and Inflationaris "

@@ -1,0 +1,47 @@
+{
+ "feynman": {
+  "as_written": {
+   "n": 100,
+   "beta": 0.3376,
+   "boot_sigma": 0.0098,
+   "fisher_sigma": 0.0103
+  },
+  "c1_hbar1": {
+   "n": 100,
+   "beta": 0.3479,
+   "boot_sigma": 0.011,
+   "fisher_sigma": 0.0113
+  },
+  "n_changed": 32
+ },
+ "wiki": {
+  "as_written": {
+   "n": 76,
+   "beta": 0.3354,
+   "boot_sigma": 0.011,
+   "fisher_sigma": 0.0113
+  },
+  "c1_hbar1": {
+   "n": 76,
+   "beta": 0.3359,
+   "boot_sigma": 0.011,
+   "fisher_sigma": 0.0113
+  },
+  "n_changed": 2
+ },
+ "inflation": {
+  "as_written": {
+   "n": 70,
+   "beta": 0.2603,
+   "boot_sigma": 0.0057,
+   "fisher_sigma": 0.0073
+  },
+  "M1": {
+   "n": 70,
+   "beta": 0.2573,
+   "boot_sigma": 0.0055,
+   "fisher_sigma": 0.0078
+  },
+  "n_changed": 70
+ }
+}

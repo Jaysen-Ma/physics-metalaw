@@ -94,68 +94,7 @@
       min-height: 0;
       overflow: auto;
     }
-    .plots[hidden], main[hidden], .formula-tools[hidden], .contributions[hidden] { display: none; }
-    .contributions {
-      overflow: auto;
-      padding: 16px 22px 48px;
-      min-height: 0;
-    }
-    .contributions h2 {
-      font: 600 18px/1.25 Georgia, "Iowan Old Style", serif;
-      margin: 26px 0 6px;
-    }
-    .contributions h2:first-child { margin-top: 0; }
-    .contributions h3 {
-      font: 600 15px/1.3 Georgia, "Iowan Old Style", serif;
-      margin: 18px 0 6px;
-    }
-    .contributions p, .contributions li { max-width: none; }
-    .contributions p { margin: 0 0 10px; }
-    .contributions ol { margin: 0; padding-left: 1.2rem; }
-    .contributions li { margin: 0 0 6px; }
-    .contributions table {
-      border-collapse: collapse;
-      font: 13px/1.35 ui-monospace, monospace;
-      margin: 8px 0 14px;
-    }
-    .contributions th, .contributions td {
-      border-bottom: 1px solid var(--rule);
-      padding: 4px 14px 4px 0;
-      text-align: right;
-      vertical-align: baseline;
-    }
-    .contributions th:first-child, .contributions td:first-child { text-align: left; padding-right: 18px; }
-    .contributions th { color: var(--mute); font-weight: 600; font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; }
-    .contributions th .math { text-transform: none; font-size: 14px; }
-    .contributions .note { color: var(--mute); font-size: 12px; }
-    .contributions figure { margin: 8px 0 16px; }
-    .contributions img { width: 100%; height: auto; background: white; border: 1px solid var(--rule); }
-    .contributions img.fit-3 { width: 75%; }
-    .contributions img.fit-2 { width: 50%; }
-    .contributions img.fit-1 { width: 25%; }
-    .contributions img.fit-small { width: 37.5%; }
-    .branch-plots { display: flex; flex-wrap: wrap; }
-    .branch-plots figure { width: 25%; margin: 8px 0 4px; }
-    .branch-plots img { width: 100%; }
-    .compare-row { display: flex; align-items: flex-start; flex-wrap: wrap; gap: 18px; }
-    .compare-row figure { width: 50%; margin: 8px 0 14px; flex: none; }
-    .compare-row figure img { width: 100%; }
-    .compare-row table { flex: 1; min-width: 0; }
-    @media print {
-      body[data-page="contributions"] header,
-      body[data-page="contributions"] .formula-tools,
-      body[data-page="contributions"] main,
-      body[data-page="contributions"] .plots,
-      body[data-page="contributions"] .tip { display: none !important; }
-      body[data-page="contributions"] .contributions { display: block !important; overflow: visible; }
-      body[data-page="contributions"] .branch-plots figure { width: 48%; }
-      body[data-page="contributions"] .compare-row { display: block; }
-      body[data-page="contributions"] .compare-row figure { width: 100%; }
-      body[data-page="contributions"] img { break-inside: avoid; }
-    }
-    .contributions figcaption { color: var(--mute); font-size: 12px; margin-top: 4px; }
-    .contributions .math.display { margin: 0.15em 0 0.7em; }
-    .contributions .math.display .katex-display { margin: 0; text-align: left; }
+    .plots[hidden], main[hidden], .formula-tools[hidden] { display: none; }
     .plots h2 {
       font: 600 15px/1.2 Georgia, "Iowan Old Style", serif;
       margin: 0 0 2px;
@@ -402,13 +341,13 @@
       <nav class="seg pages">
         <button type="button" class="on" data-page="formulas">Formulas</button>
         <button type="button" data-page="beta">β of each expression</button>
-        <button type="button" data-page="contributions">Contributions</button>
       </nav>
       <div class="formula-tools">
       <p class="sub">The original tag is for expressions from Constantin (<a id="released" href="https://github.com/andrei-const/physics-formulae-patterns" target="_blank" rel="noreferrer">GitHub</a>). Extension is a tag for expressions that are not in the original set.</p>
       <div class="controls">
         <nav class="seg" id="corpora">
           <button type="button" class="on" data-corpus="feynman">Feynman</button>
+          <button type="button" data-corpus="feynman_lectures" title="Feynman Lectures Vol. I-III, © Caltech; each expression links to its equation at feynmanlectures.caltech.edu">Feynman Lectures</button>
           <button type="button" data-corpus="wiki">Wikipedia</button>
           <button type="button" data-corpus="inflation">Encyclopaedia Inflationaris</button>
           <button type="button" data-corpus="leemis">Leemis</button>
@@ -451,133 +390,9 @@
     </header>
     <section class="plots" id="plots" hidden>
       <h2>β of each expression</h2>
-      <p class="cap" id="plot-cap">Each dot is one expression. The x-axis is its complexity. β minimises <span id="beta-loss"></span>, where <span id="beta-f"></span> is the frequency of rank <span id="beta-r"></span> and <span id="beta-p"></span> over the ranks that appear. The horizontal line is the same fit after every expression's operator counts in that corpus are added together and ranked once. Feynman is the released 100. Wikipedia adds the algebraic extension after Doppler. f(R) is included.</p>
+      <p class="cap" id="plot-cap">Each dot is one expression; the x-axis is its complexity. β is the decay rate of the exponential law <span id="beta-p"></span>: rank the operator types by how often they occur, and each step down the ranking multiplies the expected frequency by e<sup>−β</sup>. β is the maximum-likelihood estimate under a multinomial model: every operator instance is treated as an independent draw that lands on rank <span id="beta-r"></span> with probability p<sub>r</sub>, and β maximises <span id="beta-loss"></span>, where <span id="beta-f"></span> is the number of instances at rank r. This picks the β at which the model's mean rank equals the observed mean rank. A dot uses one expression's own ranks; the horizontal line uses every expression of the corpus, counts added together and ranked once. The ± after the corpus β is a bootstrap 1σ: the expressions are resampled with replacement 2,000 times, re-ranked and refitted. Feynman is the released 100. Wikipedia adds the algebraic extension after Doppler. f(R) is included.</p>
       <div class="plot-row" id="plot-row"></div>
       <div id="plot-population"></div>
-    </section>
-    <section class="contributions" id="contributions" hidden>
-      <h2>I. Creation of a catalog</h2>
-      <p>The ledger begins from the data release accompanying Statistical Patterns in the Equations of Physics and the Emergence of a Meta-Law of Nature (Constantin, Bartlett, Desmond and Ferreira), <a href="https://github.com/andrei-const/physics-formulae-patterns/commit/2aa199b5a1d210dacd122f97c3e8086d3e54f752" target="_blank" rel="noreferrer">physics-formulae-patterns at commit 2aa199b</a>. That commit contains three corpora: 100 expressions from the Feynman Lectures, 41 from the Wikipedia list of equations named after people, and 70 potentials from the Encyclopaedia Inflationaris. Each released expression is kept under the status original.</p>
-      <p>Two further collections were then brought into the ledger. From the same Wikipedia list, 35 expressions following the cutoff were transcribed, so that this Wikipedia corpus consists of 76 expressions. For the later analysis, the ledger also holds the Leemis univariate distributions. They are not part of commit 2aa199b.</p>
-      <p>Ten closed forms of <span class="math" data-tex="f(R)"></span> written as examples in Sotiriou and Faraoni, <a href="https://arxiv.org/abs/0805.1726" target="_blank" rel="noreferrer">arXiv:0805.1726</a>, are in the ledger as well. They are not part of commit 2aa199b.</p>
-      <p>Operator counts were recomputed from the parsed expression. Physical constants are distinguished from variables. The resulting counts of variables, numbers, constants, and complexity are placed beside the tallies in commit 2aa199b, and a row on which they differ is marked.</p>
-      <p>Each expression is rendered in LaTeX, has its expression tree drawn, and linked to its source.</p>
-      <h2>II. Replacement of the exponential and Zipf–Mandelbrot fits from SBI by log least squares</h2>
-      <h3>The loss function</h3>
-      <p>We propose fitting the parameter <span class="math" data-tex="\beta"></span> by least squares on the differences of logarithms of the predicted and actual rank frequency. It minimises <span class="math" data-tex="\sum_r(\log f_r-\log p_r)^2"></span>, where <span class="math" data-tex="f_r"></span> is the frequency of rank <span class="math" data-tex="r"></span>.</p>
-      <p>For the exponential,</p>
-      <p class="math display" data-tex="p_r=\dfrac{e^{-\beta r}}{\sum_s e^{-\beta s}}."></p>
-      <p>For Zipf–Mandelbrot,</p>
-      <p class="math display" data-tex="p_r=\dfrac{(r+b)^{-\alpha}}{\sum_s(s+b)^{-\alpha}}."></p>
-      <h3>The setup</h3>
-      <p>The fit uses SciPy’s <span class="math" data-tex="\texttt{curve\_fit}"></span>, with no bounds on the parameters. Both formulas are fitted, with this loss, to each of the three corpora: the released Feynman lectures (100 expressions), Wikipedia with the extension (76), and the Encyclopaedia Inflationaris (70). The exponential is started at <span class="math" data-tex="\beta=0.5"></span>. Zipf–Mandelbrot is started at <span class="math" data-tex="\alpha=2"></span>, <span class="math" data-tex="b=2"></span>.</p>
-      <h3>Reproduced results</h3>
-      <p>Each panel is one corpus. The points are the rank frequencies, and the two curves are the exponential and Zipf–Mandelbrot fits from the setup above.</p>
-      <div class="branch-plots">
-      <figure>
-        <img src="zipf-feynman.png" alt="Frequency against rank for Feynman, with the exponential and Zipf–Mandelbrot curves.">
-      </figure>
-      <figure>
-        <img src="zipf-wiki.png" alt="Frequency against rank for Wikipedia, with the exponential and Zipf–Mandelbrot curves.">
-      </figure>
-      <figure>
-        <img src="zipf-inflation.png" alt="Frequency against rank for Encyclopaedia Inflationaris, with the exponential and Zipf–Mandelbrot curves.">
-      </figure>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Corpus</th><th>Formulas</th>
-            <th><span class="math" data-tex="\alpha"></span></th>
-            <th><span class="math" data-tex="b"></span></th>
-            <th><span class="math" data-tex="\alpha/b"></span></th>
-            <th><span class="math" data-tex="\beta"></span> of the exponential</th>
-            <th>Published posterior</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Feynman</td><td>100</td><td>73.5 ± 178</td><td>206 ± 519</td><td>0.356 ± 0.038</td><td>0.342 ± 0.007</td><td>0.342 ± 0.010</td></tr>
-          <tr><td>Wikipedia, released + extension</td><td>76</td><td>1640 ± 2.0×10⁵</td><td>5210 ± 6.2×10⁵</td><td>0.316 ± 0.067</td><td>0.315 ± 0.010</td><td>(0.35 ± 0.03)*</td></tr>
-          <tr><td>Encyclopaedia Inflationaris</td><td>70</td><td>93.9 ± 344</td><td>338 ± 1280</td><td>0.278 ± 0.035</td><td>0.269 ± 0.006</td><td>0.266 ± 0.014</td></tr>
-        </tbody>
-      </table>
-      <p><span class="math" data-tex="\texttt{curve\_fit}"></span> returns the optimal parameters and <span class="math" data-tex="\mathrm{pcov}"></span>, their estimated covariance. The diagonals of the covariance provide the variance of the parameter estimate, and the standard deviation errors on the parameters can be optained by the square roots of the diagonals.</p>
-      <p>* The published posterior for Wikipedia is the authors' value for their list of 78 expressions. The corpus fitted here adds the 35 expressions after the cutoff of 41, so the two lists are not the same.</p>
-      <p>On the three corpora released, the exponential <span class="math" data-tex="\beta"></span> from this fit lies close to the published simulation-based posterior: 0.342 against 0.342 ± 0.010 for Feynman, and 0.269 against 0.266 ± 0.014 for Encyclopaedia Inflationaris.</p>
-      <h3>Approximation by the exponential</h3>
-      <p>When <span class="math" data-tex="b"></span> is large when compared to the ranks, Zipf–Mandelbrot is the exponential written with two parameters. Factor <span class="math" data-tex="b"></span> out of the power,</p>
-      <p class="math display" data-tex="(r+b)^{-\alpha}=b^{-\alpha}\left(1+\frac{r}{b}\right)^{-\alpha}=b^{-\alpha}\exp\!\left(-\alpha\log\left(1+\frac{r}{b}\right)\right)."></p>
-      <p>For <span class="math" data-tex="r/b&lt;1"></span> the logarithm expands as</p>
-      <p class="math display" data-tex="\log\left(1+\frac{r}{b}\right)=\frac{r}{b}-\frac{1}{2}\left(\frac{r}{b}\right)^{2}+\cdots."></p>
-      <p>The leading term produces</p>
-      <p class="math display" data-tex="(r+b)^{-\alpha}\approx b^{-\alpha}\exp\left(-\frac{\alpha}{b}r\right)."></p>
-      <p>The factor <span class="math" data-tex="b^{-\alpha}"></span> does not depend on the rank, so it cancels when <span class="math" data-tex="p_r"></span> is normalised, and the result is the exponential with <span class="math" data-tex="\beta=\alpha/b"></span>. The next term, <span class="math" data-tex="\alpha(r/b)^{2}/2"></span>, stays small while <span class="math" data-tex="r\ll b"></span>.</p>
-      <p>The original paper draws <span class="math" data-tex="\alpha"></span> from 1 to 10 and <span class="math" data-tex="b"></span> from 2 to 20. Both upper ends lie below the values this fit reaches.</p>
-      <h2>III. The smaller β of Encyclopaedia Inflationaris</h2>
-      <p>Encyclopaedia Inflationaris has <span class="math" data-tex="\beta=0.269"></span>, against 0.342 for Feynman and 0.315 for Wikipedia with the extension. The possible accounts are:</p>
-      <ol>
-        <li>The use of natural units, and the prefactor <span class="math" data-tex="M^4"></span> by Encyclopaedia Inflationaris.</li>
-        <li>They are many expressions for one physical concept, the inflaton potential.</li>
-        <li>They are expressions of an unproven theory, slow-roll single-field models with minimal kinetic terms.</li>
-        <li>An energy scale different from the quantities in Feynman, Wikipedia and Cambridge Handbook.</li>
-      </ol>
-      <h3>1. Natural units and the energy-density prefactor</h3>
-      <p>By using the natural units for Feynman and Wikipedia, and setting the EI prefactor to 1, we can measure how much do the conventions of constants affect the fitted beta.</p>
-      <p>Setting <span class="math" data-tex="c=1"></span> and <span class="math" data-tex="\hbar=h/2\pi=1"></span> together moves Feynman from 0.342 ± 0.006 to 0.332 ± 0.006, with 32 formulas changed, and leaves Wikipedia at 0.315 ± 0.010, with 2 formulas changed. </p>
-      <p>Setting <span class="math" data-tex="M^4=1"></span> in all 70 Inflationaris potentials moves <span class="math" data-tex="\beta"></span> from 0.269 ± 0.006 to 0.261 ± 0.006.</p> 
-      <p>Neither rewrite makes the beta of Encyclopaedia Inflationaris meet Feynman or Wikipedia. Natural units and the repeated energy-density prefactor alone do not account for the deviation.</p>
-      <h3>2 & 3. Candidates to one unproven theoretical concept</h3>
-      <p>The standard General Theorey of Relativity is governed by the Einstein–Hilbert action <span class="math" data-tex="S_{\text{EH}} = \frac{1}{16\pi G} \int d^4x \sqrt{-g} \, R"></span>, where <span class="math" data-tex="R"></span> is the Ricci scalar. A class of higher-order curvature invariant modified theories of gravity, specifically the f(R) theories, replace the Einstein–Hilbert action with <span class="math" data-tex="S_{\text{f(R)}} = \int d^4x \sqrt{-g} \, f(R)"></span>. We curated ten closed forms of <span class="math" data-tex="f(R)"></span> expressions, which together are candidates to one physical concept, the function in the gravitational action, which are also expressions of an unproven theory. When the operator counts of these f(R) expressions are pooled, the exponetial fit of this corpus has <span class="math" data-tex="\beta"></span> 0.320 ± 0.021. The corpus being around one concept, and an unproven theory, do not by themselves produce the lower value.</p>
-      <p>The <span class="math" data-tex="f(R)"></span> corpus has 10 expressions and Encyclopaedia Inflationaris has 70. To adjust for that difference in sample size, 2000 samples of 10 expressions were drawn from the EI 70 with seed 20260930. The median <span class="math" data-tex="\beta"></span> is 0.245, most samples fall between 0.230 and 0.259, and the highest sample is 0.305. The difference in corpus size does not seem to explain the difference in <span class="math" data-tex="\beta"></span>.</p>
-      <div class="branch-plots">
-      <figure>
-        <img src="fr-exponential.png" alt="Exponential fit for the ten f(R) expressions.">
-      </figure>
-      <figure>
-        <img src="ei-sample10-beta.png" alt="Distribution of beta from 2000 samples of 10 Encyclopaedia Inflationaris expressions.">
-      </figure>
-      </div>
-      <h3>4. Dependence on the branch of the subject</h3>
-      <p>The remaining account is an energy scale different from the quantities in Feynman and Wikipedia. That difference may be that different branches of physics carry different signatures in the operators they use, and therefore different <span class="math" data-tex="\beta"></span>. </p>
-      <p>We label the Feynman and Wikipedia expressions by branch, and merge branches with few expressions. We fit exponential law to these branches, and the estimates of <span class="math" data-tex="\beta"></span> run from 0.330 to 0.378. The Cambridge Handbook, about 800 expressions, is the natural corpus for enriching the number of expressions of each branch for a more significant fit result.</p>
-      <p>Leemis, a corpus of univariate distributions, has the same <span class="math" data-tex="\beta"></span> as Encyclopaedia Inflationaris, 0.269. That shows that a corpus of mathematical distributions also follows the exponential metalaw. </p>
-      <div class="branch-plots">
-      <figure>
-        <img src="leemis-exponential.png" alt="Exponential fit to the Leemis corpus.">
-      </figure>
-      <figure>
-        <img src="branch-classical-mechanics.png" alt="Exponential fit for classical mechanics and special relativity.">
-      </figure>
-      <figure>
-        <img src="branch-electromagnetism.png" alt="Exponential fit for electromagnetism, waves and optics.">
-      </figure>
-      <figure>
-        <img src="branch-thermodynamics.png" alt="Exponential fit for thermodynamics and kinetic theory.">
-      </figure>
-      <figure>
-        <img src="branch-quantum.png" alt="Exponential fit for quantum mechanics.">
-      </figure>
-      <figure>
-        <img src="branch-fluids.png" alt="Exponential fit for fluid and continuum mechanics.">
-      </figure>
-      </div>
-      <div class="compare-row">
-      <figure>
-        <img src="beta-comparison.png" alt="Beta and its uncertainty for the corpora and for the branches.">
-        <figcaption>Black points are corpora. Green points are branches. The blue point is the branches pooled. The bar is the standard error from <span class="math" data-tex="\texttt{curve\_fit}"></span>.</figcaption>
-      </figure>
-      <table>
-        <thead><tr><th>Branch</th><th>Formulas</th><th>Median complexity</th><th>Log least squares</th></tr></thead>
-        <tbody>
-          <tr><td>Classical mechanics + special relativity</td><td>20</td><td>11</td><td>0.341 ± 0.032</td></tr>
-          <tr><td>Electromagnetism + waves and optics</td><td>46</td><td>10</td><td>0.330 ± 0.007</td></tr>
-          <tr><td>Thermodynamics and kinetic theory</td><td>23</td><td>12</td><td>0.348 ± 0.012</td></tr>
-          <tr><td>Quantum mechanics</td><td>18</td><td>11</td><td>0.367 ± 0.017</td></tr>
-          <tr><td>Fluid + continuum mechanics</td><td>29</td><td>10</td><td>0.378 ± 0.012</td></tr>
-          <tr><td>These branches together</td><td>136</td><td>11</td><td>0.329 ± 0.007</td></tr>
-        </tbody>
-      </table>
-      </div>
     </section>
     <div class="tip" id="tip"></div>
     <main>
@@ -627,6 +442,10 @@
       feynman: {
         href: "https://www.feynmanlectures.caltech.edu/",
         label: "Feynman Lectures",
+      },
+      feynman_lectures: {
+        href: "https://www.feynmanlectures.caltech.edu/",
+        label: "The Feynman Lectures on Physics (© Caltech)",
       },
       wiki: {
         href: "https://en.wikipedia.org/wiki/List_of_scientific_equations_named_after_people",
@@ -965,6 +784,13 @@
     }
 
     function loadCatalog(name) {
+      if (name === "feynman_lectures") {
+        return Promise.all(LECTURE_VOLUMES.map(loadCatalog)).then(datas => ({
+          board_url: "https://www.feynmanlectures.caltech.edu/",
+          board_label: "The Feynman Lectures on Physics (© Caltech)",
+          records: datas.flatMap(d => d.records || []),
+        }));
+      }
       return fetch("./" + name + ".json?t=" + Date.now()).then(r => {
         if (!r.ok) throw new Error("catalog HTTP " + r.status);
         return r.json();
@@ -977,7 +803,9 @@
       "Quantum mechanics", "Fluid mechanics", "Continuum mechanics",
       "Astronomy and astrophysics",
     ]);
-    const POOL_CORPORA = ["feynman", "wiki", "inflation", "leemis", "fr"];
+    const POOL_CORPORA = ["feynman", "feynman_lectures", "wiki", "inflation", "leemis", "fr"];
+    // The Feynman Lectures catalog is one JSON per volume; the page shows them as one corpus.
+    const LECTURE_VOLUMES = ["feynman_lectures_v1", "feynman_lectures_v2", "feynman_lectures_v3"];
     let branchFilter = "";
     let pool = null;
 
@@ -1066,6 +894,7 @@
       const sub = corpus.n_fit + " expressions"
         + (typeof corpus.corpus_beta === "number"
           ? " · corpus β " + corpus.corpus_beta.toFixed(3)
+            + (typeof corpus.corpus_beta_boot_sigma === "number" ? " ± " + corpus.corpus_beta_boot_sigma.toFixed(3) : "")
           : "");
       card.innerHTML = "<h3>" + esc(corpus.label) + "</h3>"
         + "<p class='n'>" + esc(sub) + "</p>";
@@ -1174,8 +1003,7 @@
 
     function pageName() {
       const page = new URLSearchParams(location.search).get("page");
-      if (page === "results") return "contributions";
-      return page === "beta" || page === "contributions" ? page : "formulas";
+      return page === "beta" ? page : "formulas";
     }
 
     function showPage(page) {
@@ -1183,7 +1011,6 @@
       document.getElementById("plots").hidden = page !== "beta";
       document.querySelector("main").hidden = page !== "formulas";
       document.querySelector(".formula-tools").hidden = page !== "formulas";
-      document.getElementById("contributions").hidden = page !== "contributions";
       for (const button of document.querySelectorAll(".pages button")) {
         button.classList.toggle("on", button.dataset.page === page);
       }
@@ -1226,18 +1053,12 @@
       showPage(pageName());
       if (window.katex) {
         const opt = {throwOnError: false};
-        katex.render("\\sum_r(\\log f_r-\\log p_r)^2",
+        katex.render("\\ell(\\beta)=\\sum_r n_r\\log p_r(\\beta)",
           document.getElementById("beta-loss"), opt);
-        katex.render("f_r", document.getElementById("beta-f"), opt);
+        katex.render("n_r", document.getElementById("beta-f"), opt);
         katex.render("r", document.getElementById("beta-r"), opt);
         katex.render("p_r=\\dfrac{e^{-\\beta r}}{\\sum_s e^{-\\beta s}}",
           document.getElementById("beta-p"), opt);
-        for (const el of document.querySelectorAll("#contributions .math")) {
-          katex.render(el.dataset.tex, el, {
-            throwOnError: false,
-            displayMode: el.classList.contains("display"),
-          });
-        }
       }
     })();
 

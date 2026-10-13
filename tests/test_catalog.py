@@ -834,7 +834,11 @@ class ExpressionScatterTests(unittest.TestCase):
 
     def test_one_point_per_fitted_expression(self):
         by = {c["id"]: c for c in self.payload["corpora"]}
-        self.assertEqual(list(by), ["feynman", "wiki", "inflation", "leemis", "fr"])
+        expected = ["feynman", "wiki", "inflation", "leemis", "fr"]
+        self.assertEqual(list(by), expected)
+        for c in by.values():
+            self.assertEqual(c["corpus_beta_estimator"], "multinomial MLE")
+            self.assertLess(c["corpus_beta_p16"], c["corpus_beta"])
         self.assertEqual(by["feynman"]["n_fit"], 100)
         self.assertEqual(by["wiki"]["n"], 41 + len(C._WIKI_EXTENSION))
         self.assertEqual(by["wiki"]["n_fit"], by["wiki"]["n"])
@@ -893,3 +897,32 @@ def _count_label_kind(node, label, kind):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class FeynmanLecturesCatalogTests(unittest.TestCase):
+    """Feynman Lectures catalogs: public with a source link per expression."""
+
+    def test_public_and_loadable(self):
+        found = False
+        for key in C.FEYNMAN_LECTURES:
+            path = C.CATALOG_DIR / f"{key}.json"
+            if not path.exists():
+                continue
+            found = True
+            payload = __import__("json").loads(path.read_text())
+            self.assertTrue(payload["public"])
+            self.assertTrue(payload["release_formulas"])
+            self.assertTrue(all(r["public"] is True for r in payload["records"]))
+            self.assertTrue(all(r["source_url"].startswith("https://www.feynmanlectures.caltech.edu/")
+                                for r in payload["records"]))
+            recs = C.scatter_records(key)
+            self.assertEqual(len(recs), payload["n_records"])
+            ids = [r.id for r in recs]
+            self.assertEqual(len(ids), len(set(ids)))
+            for r in recs:
+                self.assertGreaterEqual(r.complexity, 2, r.id)
+        if not found:
+            self.skipTest("no Feynman Lectures catalog present")
+
+    def test_not_in_expression_scatter(self):
+        self.assertFalse(set(C.FEYNMAN_LECTURES) & {k for k, _ in C.SCATTER_CORPORA})

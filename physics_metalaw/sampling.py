@@ -1,14 +1,13 @@
-"""The one random draw on the contributions page.
+"""The one random draw behind the Encyclopaedia Inflationaris figure in the writeup.
 
-Every curve_fit on that page is deterministic: the loss, the start
-(β = 0.5, or α = 2 and b = 2), and the catalog are fixed. The sample of
+Every other β is the multinomial MLE (M.fit_beta_mle); its bootstrap
+uses M.BOOTSTRAP_SEED. The sample of
 10 Encyclopaedia Inflationaris expressions is the exception. It uses
 SAMPLE_SEED so the median, the band, and the histogram come back the same.
 """
 from __future__ import annotations
 
 import numpy as np
-from scipy.optimize import curve_fit
 
 from . import metalaw as M
 from .catalog import record_as_entry
@@ -22,18 +21,7 @@ def inflation_sample_betas(entries) -> np.ndarray:
     """β for each draw of SAMPLE_SIZE expressions, in draw order."""
 
     def one(subset) -> float:
-        counts = list(M.rank_counts(subset).values())
-        obs = np.sort(np.asarray(counts, dtype=float))[::-1]
-        obs = obs[obs > 0]
-        rank = np.arange(1, obs.size + 1, dtype=float)
-        logf = np.log(obs / obs.sum())
-
-        def model(r, beta):
-            logy = -beta * r
-            return logy - np.logaddexp.reduce(logy)
-
-        popt, _ = curve_fit(model, rank, logf, p0=[0.5])
-        return float(popt[0])
+        return M.fit_beta_mle(list(M.rank_counts(subset).values()))
 
     rng = np.random.default_rng(SAMPLE_SEED)
     idx = np.arange(len(entries))

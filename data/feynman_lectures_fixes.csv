@@ -1,0 +1,84 @@
+id,volume,action,error_type,new_formula,add_constants,reason
+flp3.11.u67,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.11.u118,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.11.u119,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.16.u19,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.18.9,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.18.12,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.18.u13,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.19.u51,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.20.38,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.20.44,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.20.47,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.3.5,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.3.u6,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.3.u8,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.3.u16,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.3.11,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.3.13,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.7.u55,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.9.4,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.9.u8,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.9.u10,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.9.6,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.9.u16,III,reject,amplitude_bracket,,,RHS contains Dirac amplitude brackets <a|b> (not a closed-form expression in physical quantities)
+flp3.5.19,III,reject,amplitude_bracket,,,RHS contains amplitude brackets and the aligned row is truncated
+flp3.7.37,III,reject,amplitude_bracket,,,RHS contains amplitude brackets; C_p(t) (function value) was parsed as a product
+flp3.11.8,III,reject,operator_matrix,,,"Hamiltonian/Pauli matrix or operator expression, not a scalar quantity"
+flp3.11.10,III,reject,operator_matrix,,,"Hamiltonian/Pauli matrix or operator expression, not a scalar quantity"
+flp3.11.11,III,reject,operator_matrix,,,"Hamiltonian/Pauli matrix or operator expression, not a scalar quantity"
+flp3.11.u24,III,reject,operator_matrix,,,"Hamiltonian/Pauli matrix or operator expression, not a scalar quantity"
+flp3.11.u27,III,reject,operator_matrix,,,"Hamiltonian/Pauli matrix or operator expression, not a scalar quantity"
+flp3.11.u116,III,reject,lhs_not_single_quantity,,,"LHS is <K0|W|K0bar> C_m, a product, not a single quantity"
+flp3.18.1,III,reject,lhs_not_single_quantity,,,LHS is a product of amplitudes
+flp3.3.u18,III,reject,lhs_not_single_quantity,,,LHS is a product
+flp1.39.u19,I,reject,lhs_not_single_quantity,,,LHS is a product
+flp2.13.u25,II,reject,lhs_not_single_quantity,,,LHS B_0 L is a product
+flp2.24.14,II,reject,lhs_not_single_quantity,,,LHS k_x a is a product
+flp2.40.15,II,reject,lhs_not_single_quantity,,,LHS rho_1 A_1 v_1 is a product (continuity statement)
+flp2.40.21,II,reject,lhs_not_single_quantity,,,LHS Omega_2 A_2 is a product (conservation statement)
+flp3.18.36,III,reject,function_application,,,P_j(cos theta) (Legendre polynomial) parsed as a product P_j*cos(theta)
+flp2.11.u19,II,reject,function_application,,,"phi(1), phi(2) are potential values at points, parsed as phi*1, phi*2; remaining RHS is a gradient"
+flp1.50.28,I,reject,truncated_row,,,"aligned row truncated; parse gives K*epsilon, not the displayed expression"
+flp2.26.u54,II,reject,truncated_row,,,"aligned row ends in ""+"" (continuation of previous row)"
+flp2.26.u57,II,reject,truncated_row,,,"aligned row ends in ""+"" (continuation of previous row)"
+flp2.41.7,II,reject,truncated_row,,,parse kept 2*pi*r**2 and dropped the stress factor; full RHS has a derivative dω/dr
+flp2.23.17,II,reject,special_function,,,J_0(ωr/c) Bessel function: not in the operator set
+flp2.27.u18,II,reject,derivative_notation,,,"D_f fg is Feynman's partial-differentiation operator notation, not quantities"
+flp2.21.u79,II,reject,implicit_equation,,,b appears on both sides (b = a + (v/c) b)
+flp2.22.u53,II,reject,implicit_equation,,,z_0 appears on both sides (ladder impedance)
+flp2.40.u40,II,reject,implicit_equation,,,"p_0 appears on both sides (Bernoulli balance, not a definition)"
+flp2.32.u94,II,reject,numeric_value_with_units,,,"numerical value with unit text (""sec"" parsed as a variable)"
+flp2.41.u20,II,reject,numeric_value_with_units,,,"numerical value with unit text (""newton·sec/m²"" parsed as a variable)"
+flp3.9.40.r1,III,replace,parse_error,gamma_I*exp(-i*E_I*t/hbar),,\mathit subscript of E_I lost in the second RHS; use E_I as displayed
+flp3.9.40.r2,III,replace,parse_error,gamma_II*exp(-i*E_II*t/hbar),,\mathit subscript of E_II lost and gamma_II garbled to gamma_Upsilon_962
+flp3.9.49,III,replace,parse_error,cos(mu*E_0*t/hbar)**2,,parser took the middle RHS; use the final closed form
+flp3.9.50,III,replace,parse_error,sin(mu*E_0*t/hbar)**2,,parser took the middle RHS; use the final closed form
+flp3.12.37.r3,III,replace,symbol_name,A*(-1 + 2*sqrt(1 + mup**2*B**2/(4*A**2))),,prime on mu' dropped (counts unchanged)
+flp3.12.37.r4,III,replace,symbol_name,-A*(1 + 2*sqrt(1 + mup**2*B**2/(4*A**2))),,prime on mu' dropped (counts unchanged)
+flp3.6.u20,III,replace,symbol_name,-mup,,final RHS is -mu'; prime dropped (counts unchanged)
+flp3.21.u78,III,replace,function_application,J_0*(sin(delta_0 + q*V_0*t/hbar) + q*v*sin(omega*t)*cos(delta_0 + q*V_0*t/hbar)/(hbar*omega)),,J_0[...] is J_0 times the bracket; it was parsed as a Bessel function
+flp3.14.13,III,constants,constant_misclassified,,kappa,κ here is Boltzmann's constant (κT)
+flp3.14.14,III,constants,constant_misclassified,,kappa,κ here is Boltzmann's constant (κT)
+flp1.20.u14,I,replace,parse_error,(x*cos(theta) + y*sin(theta))*(F_y*cos(theta) - F_x*sin(theta)),,spurious [t] marker parsed as a factor t
+flp1.29.3,I,replace,parse_error,-q*sin(theta)*a_0*cos(omega*(t - r/c))/(4*pi*epsilon_0*r*c**2),,retarded-time argument mis-parsed; use the displayed expression
+flp1.31.3,I,replace,function_application,E_0*cos(omega*(t - z/c)),,cos ω(t−z/c) parsed as cos(ω)·(t−z/c)
+flp1.28.6,I,replace,function_application,-q*a_x/(4*pi*epsilon_0*c**2*r),,"a_x(t−r/c) is a retarded function value, parsed as a product"
+flp1.29.1,I,replace,function_application,-q*a*sin(theta)/(4*pi*epsilon_0*c**2*r),,"a(t−r/c) is a retarded function value, parsed as a product"
+flp1.31.26,I,replace,function_application,-N*Delta_z*q_e*v/(2*epsilon_0*c),,"v(ret by z/c) is a retarded value; ""retbyzc"" was parsed as a variable"
+flp1.30.4,I,replace,parse_error,alpha + k*d*sin(theta),,d\sin\theta was parsed as a symbol dsin
+flp1.30.7,I,replace,parse_error,2*pi*d*sin(theta_out)/lambd - 2*pi*d*sin(theta_in)/lambd,,d\sin\theta was parsed as a symbol dsin
+flp1.8.18,I,replace,sign_artifact,-g*t**2/2,,"""-1*"" artefact added a spurious number and multiplication"
+flp1.24.21,I,replace,sign_artifact,-(v_0 + gamma*x_0/2)/(2*omega_gamma),,"""-1*"" artefact; parse distributed the leading minus"
+flp2.11.16,II,replace,function_application,n_0*exp(p_0*E*cos(theta)/(k*T)),,cos θ/kT parsed as cos(θ/kT)
+flp2.19.u25,II,replace,parse_error,phi_u + f,,\underline{\phi} parsed as underline*phi
+flp2.21.u55,II,replace,function_application,omega*p_0*cos(omega*(t - r/c))/(4*pi*epsilon_0*c**2*r),,cos ω(t−r/c) parsed as cos(ω)·(t−r/c)
+flp2.21.13,II,replace,function_application,S/(4*pi*r),,"S(t−r/c) is a retarded function value, parsed as a product"
+flp2.20.3,II,replace,function_application,-J/(2*epsilon_0*c),,"J(t−x/c) is a retarded function value, parsed as a product"
+flp2.23.14,II,replace,parse_error,E_0*exp(i*omega*t)*(1 - (omega*r/c)**2/2**2 + (omega*r/c)**4/(2**2*4**2)),,\kern{-1.25ex} spacing macro parsed as kern*(-1.25*e*x)
+flp2.21.u81,II,replace,parse_error,q/(4*pi*epsilon_0*rp*(1 - v/c)),,factor 1/[1−v/c]_ret dropped by the parser; r' kept as rp
+flp2.36.u73,II,replace,function_application,N*mu*tanh(mu*(H + lambd*M/(epsilon_0*c**2))/(k*T)),,\tanh rendered as (tan h) and parsed as tan(h)·(...)
+flp2.36.28,II,replace,numeric_value_with_units,q*hbar/(2*m),,parser took the numerical value with units; use the symbolic RHS qħ/2m
+flp2.7.26,II,replace,numeric_value_with_units,q_e**2/(4*pi*epsilon_0),,parser took the numerical value with units; use the symbolic RHS
+flp2.8.29,II,replace,function_application,(q_1*phi_1 + q_2*phi_2)/2,,"phi(1), phi(2) are potential values at the charges, parsed as phi*1, phi*2"
+flp2.31.8,II,replace,symbol_name,(alpha_x_x*E_x**2 + (alpha_x_y + alpha_y_x)*E_x*E_y + alpha_y_y*E_y**2)/2,,"index order lost: alpha_yx became alpha_xy, which sympy would merge"

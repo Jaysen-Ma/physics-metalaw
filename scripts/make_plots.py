@@ -1,8 +1,20 @@
-"""Redraw the figures embedded in data/catalog/index.html.
+"""Draw the figures of the README and writeup, and the ledger's expression-beta.json.
 
-Run from the repository root:
+Run from the repository root, after scripts/branch_test.py:
 
     .venv/bin/python scripts/make_plots.py
+
+Every number drawn here is read from results/branch_test.json (written by
+scripts/branch_test.py), except the Encyclopaedia Inflationaris subsample histogram,
+which is recomputed with seed physics_metalaw.sampling.SAMPLE_SEED.
+
+Outputs (PNG for the README, PDF for LaTeX), in writeup/figures/:
+  beta_by_branch          β by branch, Feynman corpus (main figure)
+  rank_frequency_branches rank-frequency of operator counts per branch, with the fitted exponential
+  beta_by_corpus          β by corpus
+  beta_sensitivity        β by branch under the chapter-assignment and notation checks
+  ei_sample10_beta        β of 2000 random subsets of 10 Encyclopaedia Inflationaris potentials
+and data/catalog/expression-beta.json (the ledger's "β of each expression" page).
 """
 from __future__ import annotations
 
@@ -13,196 +25,149 @@ from pathlib import Path
 import matplotlib
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-import numpy as np
-from scipy.optimize import curve_fit
+import matplotlib.pyplot as plt  # noqa: E402
+import numpy as np  # noqa: E402
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 
-from physics_metalaw import metalaw as M
-from physics_metalaw.catalog import CATALOG_DIR, record_as_entry, scatter_records
-from physics_metalaw.sampling import N_DRAWS, SAMPLE_SEED, SAMPLE_SIZE, inflation_sample_betas
+from physics_metalaw.catalog import CATALOG_DIR, expression_scatter, record_as_entry, scatter_records  # noqa: E402
+from physics_metalaw.sampling import N_DRAWS, SAMPLE_SEED, SAMPLE_SIZE, inflation_sample_betas  # noqa: E402
 
-OUT = CATALOG_DIR
-GREEN = "#2ca02c"
-
-
-def _freq(rows):
-    entries = [record_as_entry(r) for r in rows]
-    counts = list(M.rank_counts(entries).values())
-    obs = np.sort(np.asarray(counts, dtype=float))[::-1]
-    obs = obs[obs > 0]
-    freq = obs / obs.sum()
-    rank = np.arange(1, obs.size + 1, dtype=float)
-    return rank, freq
+RESULTS = ROOT / "results" / "branch_test.json"
+FIG = ROOT / "writeup" / "figures"
+LONG = {"SR": "Special relativity", "QM": "Quantum mechanics", "EM": "Electromagnetism",
+        "Waves+optics": "Waves and optics", "Classical": "Classical mechanics",
+        "Thermo": "Thermodynamics", "Fluid+continuum": "Fluid + continuum"}
+COLORS = {"SR": "#d62728", "QM": "#9467bd", "EM": "#1f77b4", "Waves+optics": "#17becf",
+          "Classical": "#7f7f7f", "Thermo": "#ff7f0e", "Fluid+continuum": "#2ca02c"}
+plt.rcParams.update({"font.size": 10, "axes.spines.top": False, "axes.spines.right": False})
 
 
-def fit_exp(rank, freq):
-    logf = np.log(freq)
-
-    def model(r, beta):
-        logy = -beta * r
-        return logy - np.logaddexp.reduce(logy)
-
-    popt, pcov = curve_fit(model, rank, logf, p0=[0.5])
-    beta = float(popt[0])
-    se = float(np.sqrt(pcov[0, 0]))
-    curve = np.exp(model(rank, beta))
-    return beta, se, curve
-
-
-def fit_zipf(rank, freq):
-    logf = np.log(freq)
-
-    def model(r, alpha, b):
-        logy = -alpha * np.log(r + b)
-        return logy - np.logaddexp.reduce(logy)
-
-    popt, _ = curve_fit(model, rank, logf, p0=[2.0, 2.0])
-    return np.exp(model(rank, *popt))
-
-
-def panel(rows, title, path):
-    rank, freq = _freq(rows)
-    beta, _, curve = fit_exp(rank, freq)
-    fig, ax = plt.subplots(figsize=(6.36, 6.0), dpi=100)
-    ax.plot(rank, freq, "o", color="black", markersize=5, label="Observed")
-    ax.plot(rank, curve, color=GREEN, label=f"Exponential\n$\\beta={beta:.3f}$")
-    ax.set_yscale("log")
-    ax.set_xlabel("Rank")
-    ax.set_ylabel("Frequency")
-    ax.set_title(f"{title}\nn={len(rows)}")
-    ax.legend(frameon=False)
-    fig.tight_layout()
-    fig.savefig(path)
+def save(fig, name):
+    FIG.mkdir(parents=True, exist_ok=True)
+    fig.savefig(FIG / f"{name}.pdf", bbox_inches="tight")
+    fig.savefig(FIG / f"{name}.png", dpi=200, bbox_inches="tight")
     plt.close(fig)
-    print(path.name, len(rows), f"{beta:.3f}")
+    print(f"writeup/figures/{name}.{{pdf,png}}")
 
 
-def zipf_figure():
-    names = [
-        ("feynman", "Feynman", "zipf-feynman.png"),
-        ("wiki", "Wikipedia", "zipf-wiki.png"),
-        ("inflation", "Encyclopaedia Inflationaris", "zipf-inflation.png"),
-    ]
-    for key, title, filename in names:
-        rows = scatter_records(key)
-        rank, freq = _freq(rows)
-        beta, _, exp_curve = fit_exp(rank, freq)
-        zm = fit_zipf(rank, freq)
-        fig, ax = plt.subplots(figsize=(6.36, 6.0), dpi=100)
-        ax.plot(rank, freq, "o", color="black", markersize=5, label="Observed")
-        ax.plot(rank, exp_curve, color=GREEN, label=f"Exponential\n$\\beta={beta:.3f}$")
-        ax.plot(rank, zm, color="#1f77b4", label="Zipf–Mandelbrot")
-        ax.set_yscale("log")
-        ax.set_xlabel("Rank")
-        ax.set_ylabel("Frequency")
-        ax.set_title(f"{title}\nn={len(rows)}")
-        ax.legend(frameon=False)
-        fig.tight_layout()
-        path = OUT / filename
-        fig.savefig(path)
-        plt.close(fig)
-        print(path.name, len(rows), f"{beta:.3f}")
-
-
-def sample_histogram():
-    entries_rows = scatter_records("inflation")
-    entries = [record_as_entry(r) for r in entries_rows]
-    betas = inflation_sample_betas(entries)
-    fig, ax = plt.subplots(figsize=(6.36, 6.0), dpi=100)
-    ax.hist(betas, bins=30, color="black", histtype="stepfilled", alpha=0.85)
-    ax.axvline(np.median(betas), color=GREEN, lw=1.5,
-               label=f"median {np.median(betas):.3f}")
-    ax.axvline(0.320, color="0.45", ls="--", lw=1.2, label="f(R) 0.320")
-    ax.set_xlabel(r"$\beta$")
-    ax.set_ylabel("Samples")
-    ax.set_title(f"EI, samples of {SAMPLE_SIZE}\n{N_DRAWS} draws, seed {SAMPLE_SEED}")
-    ax.legend(frameon=False)
-    fig.tight_layout()
-    path = OUT / "ei-sample10-beta.png"
-    fig.savefig(path)
-    plt.close(fig)
-    print(path.name, f"median {np.median(betas):.3f}")
-
-
-def comparison():
-    labels = {}
-    for name in ("feynman.json", "wiki.json"):
-        payload = json.loads((OUT / name).read_text())
-        for rec in payload["records"]:
-            if rec.get("branch"):
-                labels[rec["id"]] = rec["branch"]
-    fw = scatter_records("feynman") + scatter_records("wiki")
-    merge = [
-        ("Classical mechanics + special relativity",
-         ["Classical mechanics", "Special relativity"]),
-        ("Electromagnetism + waves and optics",
-         ["Electromagnetism", "Waves and optics"]),
-        ("Thermodynamics and kinetic theory",
-         ["Thermodynamics and kinetic theory"]),
-        ("Quantum mechanics", ["Quantum mechanics"]),
-        ("Fluid + continuum mechanics",
-         ["Fluid mechanics", "Continuum mechanics"]),
-    ]
-    items = []
-    for key, title in [
-        ("feynman", "Feynman"),
-        ("wiki", "Wikipedia"),
-        ("inflation", "Encyclopaedia Inflationaris"),
-        ("leemis", "Leemis"),
-        ("fr", "f(R)"),
-    ]:
-        rows = scatter_records(key)
-        beta, se, _ = fit_exp(*_freq(rows))
-        items.append((title, len(rows), beta, se, "corpus"))
-    branch_ids = set()
-    for title, parts in merge:
-        rows = [r for r in fw if labels.get(r.id) in parts]
-        beta, se, _ = fit_exp(*_freq(rows))
-        items.append((title, len(rows), beta, se, "branch"))
-        branch_ids.update(parts)
-        panel(rows, title, OUT / {
-            "Classical mechanics + special relativity": "branch-classical-mechanics.png",
-            "Electromagnetism + waves and optics": "branch-electromagnetism.png",
-            "Thermodynamics and kinetic theory": "branch-thermodynamics.png",
-            "Quantum mechanics": "branch-quantum.png",
-            "Fluid + continuum mechanics": "branch-fluids.png",
-        }[title])
-    rows = [r for r in fw if labels.get(r.id) in branch_ids]
-    beta, se, _ = fit_exp(*_freq(rows))
-    items.append(("These branches together", len(rows), beta, se, "pool"))
-
-    ylabels = [f"{name}  (n={n})" for name, n, _, _, _ in items][::-1]
-    betas = np.array([b for _, _, b, _, _ in items][::-1])
-    ses = np.array([s for _, _, _, s, _ in items][::-1])
-    kinds = [k for *_, k in items][::-1]
-    colors = {"corpus": "black", "branch": GREEN, "pool": "#1f77b4"}
-    fig, ax = plt.subplots(figsize=(8.2, 6.4), dpi=110)
-    y = np.arange(len(ylabels))
-    for yy, b, s, k in zip(y, betas, ses, kinds):
-        ax.errorbar(b, yy, xerr=s, fmt="o", color=colors[k], capsize=3, markersize=5)
+def beta_by_branch(res):
+    table = res["main"]["table"]
+    pooled = res["pooled_all"]
+    fig, ax = plt.subplots(figsize=(6.4, 3.6))
+    y = np.arange(len(table))[::-1]
+    for yy, d in zip(y, table):
+        ax.errorbar(d["beta"], yy, xerr=d["quoted_sigma"], fmt="o", color=COLORS[d["branch"]], capsize=3, ms=6)
+        mark = "$^{\\dagger}$" if d["quoted_sigma_kind"] == "Fisher" else ""
+        ax.annotate(f"{d['beta']:.3f} ± {d['quoted_sigma']:.3f}{mark}", (d["beta"] + d["quoted_sigma"] + 0.004, yy),
+                    va="center", fontsize=8)
+    ax.axvspan(pooled["beta"] - pooled["boot_sigma"], pooled["beta"] + pooled["boot_sigma"], color="0.85", zorder=0)
+    ax.axvline(pooled["beta"], color="0.4", lw=1, ls="--", zorder=0)
+    ax.text(pooled["beta"] + 0.003, -0.45, f"all {pooled['n']}: {pooled['beta']:.3f} ± {pooled['boot_sigma']:.3f}",
+            ha="left", fontsize=7.5, color="0.3")
     ax.set_yticks(y)
-    ax.set_yticklabels(ylabels)
-    ax.set_xlabel(r"$\beta$")
-    ax.set_xlim(0.22, 0.46)
+    ax.set_yticklabels([f"{LONG[d['branch']]} (n={d['n']})" for d in table])
+    ax.set_xlabel(r"$\beta$ (multinomial MLE, $\pm1\sigma$)")
+    ax.set_xlim(0.19, 0.50)
+    ax.set_ylim(-0.7, len(table) - 0.4)
+    g = res["main"]["tests"][0]
+    ax.set_title(f"Feynman corpus by branch: shared vs separate β, LR = {g['LR']:.1f} (df {g['df']}), "
+                 f"ΔAIC = {g['dAIC']:.0f}", fontsize=9)
+    fig.text(0.01, -0.07, "Bars: bootstrap σ (2000 resamples of expressions); † Fisher σ.", fontsize=7, color="0.3")
+    save(fig, "beta_by_branch")
+
+
+def rank_frequency(res):
+    table = res["main"]["table"]
+    fig, axes = plt.subplots(2, 4, figsize=(9.6, 4.8), sharey=True)
+    for ax, d in zip(axes.flat, table):
+        rf = res["rank_frequency"][d["branch"]]
+        ax.plot(rf["rank"], rf["freq"], "o", color="black", ms=3.5)
+        ax.plot(rf["rank"], rf["model"], color=COLORS[d["branch"]], lw=1.5)
+        ax.set_yscale("log")
+        ax.set_title(f"{LONG[d['branch']]}\nn={d['n']}, β={d['beta']:.3f}", fontsize=8.5)
+        ax.set_xlim(0, 22)
+    ax = axes.flat[-1]
+    for d in table:
+        rf = res["rank_frequency"][d["branch"]]
+        ax.plot(rf["rank"], rf["model"], color=COLORS[d["branch"]], lw=1.2, label=d["branch"])
+    ax.set_yscale("log")
+    ax.set_title("Fitted exponentials", fontsize=8.5)
+    ax.legend(fontsize=6, frameon=False)
+    ax.set_xlim(0, 22)
+    for a in axes[1]:
+        a.set_xlabel("Rank")
+    for a in axes[:, 0]:
+        a.set_ylabel("Frequency")
     fig.tight_layout()
-    path = OUT / "beta-comparison.png"
-    fig.savefig(path)
-    plt.close(fig)
-    print(path.name)
+    save(fig, "rank_frequency_branches")
+
+
+def beta_by_corpus(res):
+    corp = res["corpora"]
+    fig, ax = plt.subplots(figsize=(6.4, 3.0))
+    y = np.arange(len(corp))[::-1]
+    for yy, d in zip(y, corp):
+        c = "#d62728" if d["key"] == "inflation" else "black"
+        ax.errorbar(d["beta"], yy, xerr=d["boot_sigma"], fmt="o", color=c, capsize=3, ms=6)
+        ax.annotate(f"{d['beta']:.3f} ± {d['boot_sigma']:.3f}", (d["beta"] + d["boot_sigma"] + 0.004, yy),
+                    va="center", fontsize=8)
+    ax.set_yticks(y)
+    ax.set_yticklabels([f"{d['label']} (n={d['n']})" for d in corp])
+    ax.set_xlabel(r"$\beta$ (multinomial MLE, bootstrap $\pm1\sigma$)")
+    ax.set_xlim(0.22, 0.42)
+    save(fig, "beta_by_corpus")
+
+
+def sensitivity(res):
+    sens = res["sensitivity"]
+    order = [d["branch"] for d in res["main"]["table"]]
+    fig, ax = plt.subplots(figsize=(6.4, 3.8))
+    off = np.linspace(-0.3, 0.3, len(sens))
+    marks = ["o", "s", "^", "D", "v"]
+    for j, s in enumerate(sens):
+        bm = {d["branch"]: d for d in s["table"]}
+        for i, k in enumerate(order[::-1]):
+            if k in bm:
+                d = bm[k]
+                ax.errorbar(d["beta"], i + off[j], xerr=d["quoted_sigma"], fmt=marks[j], ms=4, capsize=2,
+                            color=f"C{j}", label=s["label"] if i == 0 else None)
+    ax.set_yticks(range(len(order)))
+    ax.set_yticklabels([LONG[k] for k in order[::-1]])
+    ax.set_xlabel(r"$\beta$")
+    ax.legend(fontsize=7, frameon=False, loc="upper center", bbox_to_anchor=(0.45, -0.16), ncol=3)
+    save(fig, "beta_sensitivity")
+
+
+def ei_sample():
+    entries = [record_as_entry(r) for r in scatter_records("inflation")]
+    betas = inflation_sample_betas(entries)
+    fig, ax = plt.subplots(figsize=(4.8, 3.2))
+    ax.hist(betas, bins=30, color="black", alpha=0.85)
+    ax.axvline(np.median(betas), color="#d62728", lw=1.5, label=f"median {np.median(betas):.3f}")
+    ax.set_xlabel(r"$\beta$ of a random subset")
+    ax.set_ylabel("Subsets")
+    ax.set_title(f"EI, {N_DRAWS} subsets of {SAMPLE_SIZE} (seed {SAMPLE_SEED})", fontsize=9)
+    ax.legend(frameon=False, fontsize=8)
+    save(fig, "ei_sample10_beta")
+    return dict(median=float(np.median(betas)), p16=float(np.percentile(betas, 16)),
+                p84=float(np.percentile(betas, 84)), max=float(betas.max()))
 
 
 def main() -> int:
-    import json
-    from physics_metalaw.catalog import expression_scatter
-    (OUT / "expression-beta.json").write_text(json.dumps(expression_scatter()) + "\n")
-    print("expression-beta.json")
-    zipf_figure()
-    panel(scatter_records("fr"), "f(R)", OUT / "fr-exponential.png")
-    panel(scatter_records("leemis"), "Leemis", OUT / "leemis-exponential.png")
-    sample_histogram()
-    comparison()
+    res = json.loads(RESULTS.read_text())
+    if res.get("quick"):
+        print("warning: results come from a --quick run")
+    (CATALOG_DIR / "expression-beta.json").write_text(json.dumps(expression_scatter()) + "\n")
+    print("data/catalog/expression-beta.json")
+    beta_by_branch(res)
+    rank_frequency(res)
+    beta_by_corpus(res)
+    sensitivity(res)
+    ei = ei_sample()
+    print("EI subsample:", {k: round(v, 3) for k, v in ei.items()})
+    (ROOT / "results" / "ei_sample10.json").write_text(json.dumps(ei, indent=1) + "\n")
     return 0
 
 

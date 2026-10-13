@@ -234,11 +234,25 @@ _CALL_TEX = {
     "sech": lambda a: rf"\operatorname{{sech}}\left({a}\right)",
     "coth": lambda a: rf"\coth\left({a}\right)",
     "zeta": lambda a: rf"\zeta\left({a}\right)",
+    "Abs": lambda a: rf"\left|{a}\right|",
+    "Gamma": lambda a: rf"\Gamma\left({a}\right)",
+    "erf": lambda a: rf"\operatorname{{erf}}\left({a}\right)",
+    "erfc": lambda a: rf"\operatorname{{erfc}}\left({a}\right)",
 }
 
 
-def formula_latex(expr: str) -> str:
-    """LaTeX for a Python/sympy formula, preserving written order."""
+def formula_latex(expr: str, symbol_tex=None) -> str:
+    """LaTeX for a Python/sympy formula, preserving written order.
+
+    ``symbol_tex`` optionally maps a symbol name to LaTeX (return None to fall
+    back to the default); corpora with their own naming conventions use it.
+    """
+    def name_tex(name: str) -> str:
+        if symbol_tex is not None:
+            tex = symbol_tex(name[:-4] if name.endswith("_sym") else name)
+            if tex is not None:
+                return tex
+        return _symbol_tex(name)
 
     def paren(tex: str, inner: int, outer: int) -> str:
         return tex if inner >= outer else rf"\left({tex}\right)"
@@ -295,7 +309,7 @@ def formula_latex(expr: str) -> str:
         if isinstance(node, ast.Constant):
             return str(node.value), _PREC_ATOM
         if isinstance(node, ast.Name):
-            return _symbol_tex(node.id), _PREC_ATOM
+            return name_tex(node.id), _PREC_ATOM
         raise TypeError(f"unhandled node: {ast.dump(node)}")
 
     parts = [emit(ast.parse(side, mode="eval"))[0]
@@ -783,3 +797,89 @@ def rank_counts(entries: list[EIEntry]) -> Counter:
         total[NULLARY_NUMBER] += e.n_numbers
         total[NULLARY_CONSTANT] += e.n_constants
     return total
+
+
+# --- Default estimator: multinomial maximum likelihood --------------------
+# Each operator instance is one draw from p_r = exp(-beta r) / sum_s exp(-beta s)
+# over the R observed ranks (counts sorted descending). This is the likelihood
+# the shared-vs-separate tests use. curve_fit / log least squares stay available
+# (fit_beta_logls, scripts/make_plots.fit_exp_curvefit) but are not the default.
+MLE_BOUNDS = (0.0, 5.0)
+BOOTSTRAP_REPS = 2000
+BOOTSTRAP_SEED = 20261013
+
+
+def _mle_from_sorted(obs: np.ndarray) -> float:
+    from scipy.optimize import minimize_scalar
+    rank = np.arange(1, obs.size + 1, dtype=float)
+    n = obs.sum()
+    rbar = float((obs * rank).sum() / n)
+
+    def nll(beta):
+        lp = -beta * rank
+        return beta * rbar + np.logaddexp.reduce(lp)  # per-instance −loglik
+    res = minimize_scalar(nll, bounds=MLE_BOUNDS, method="bounded",
+                          options={"xatol": 1e-10})
+    return float(res.x)
+
+
+def fit_beta_mle(counts) -> float:
+    """Multinomial MLE of β on the ranked positive counts (any order in)."""
+    return _mle_from_sorted(_positive_rank_counts(counts))
+
+
+def fisher_sigma(beta: float, n_ranks: int, n_instances: float) -> float:
+    """1/sqrt(Fisher information): N Var_p(r) for the truncated exponential."""
+    rank = np.arange(1, n_ranks + 1, dtype=float)
+    lp = -beta * rank
+    p = np.exp(lp - np.logaddexp.reduce(lp))
+    var = float((p * rank ** 2).sum() - (p * rank).sum() ** 2)
+    return float(1.0 / np.sqrt(n_instances * var)) if var > 0 else float("nan")
+
+
+def _count_matrix(entries: list) -> np.ndarray:
+    """Rows = expressions, columns = operator types (incl. x, a, c)."""
+    per = []
+    for e in entries:
+        per.append(rank_counts([e]))
+    keys = sorted({k for c in per for k in c})
+    return np.array([[c.get(k, 0) for k in keys] for c in per], dtype=float)
+
+
+def beta_with_errors(entries: list, reps: int = BOOTSTRAP_REPS,
+                     seed: int = BOOTSTRAP_SEED) -> dict:
+    """β (multinomial MLE) with a bootstrap over expressions and the Fisher error.
+
+    Each bootstrap replicate resamples the expressions with replacement, sums
+    their operator counts, re-ranks, and refits. Returns n, beta, boot_sigma,
+    boot_p16, boot_p84, fisher_sigma, n_instances, n_ranks.
+    """
+    mat = _count_matrix(entries)
+    tot = mat.sum(axis=0)
+    obs = np.sort(tot[tot > 0])[::-1]
+    beta = _mle_from_sorted(obs)
+    out = {"n": len(entries), "beta": beta, "n_instances": int(obs.sum()),
+           "n_ranks": int(obs.size),
+           "fisher_sigma": fisher_sigma(beta, obs.size, obs.sum())}
+    if reps and len(entries) > 1:
+        rng = np.random.default_rng(seed)
+        bs = np.empty(reps)
+        n = len(entries)
+        for i in range(reps):
+            w = np.bincount(rng.integers(0, n, n), minlength=n)
+            t = w @ mat
+            o = np.sort(t[t > 0])[::-1]
+            bs[i] = _mle_from_sorted(o) if o.size >= 2 else np.nan
+        bs = bs[np.isfinite(bs)]
+        out.update(boot_sigma=float(bs.std(ddof=1)),
+                   boot_p16=float(np.percentile(bs, 16)),
+                   boot_p84=float(np.percentile(bs, 84)), reps=int(bs.size), seed=seed)
+    return out
+
+
+def counts_with_fisher(rank_ordered_counts) -> dict:
+    """For aggregate-only data (e.g. published rank counts): MLE and Fisher error only."""
+    obs = _positive_rank_counts(rank_ordered_counts)
+    beta = _mle_from_sorted(obs)
+    return {"beta": beta, "fisher_sigma": fisher_sigma(beta, obs.size, obs.sum()),
+            "n_instances": int(obs.sum()), "n_ranks": int(obs.size)}

@@ -222,3 +222,15 @@ __marimo__/
 runs/
 logs/
 .scratch/
+data/feynman/
+# Private / dropped corpora (kept on disk, never tracked)
+data/catalog/cambridge.json
+scripts/build_cambridge_catalog.py
+# LaTeX build files (writeup/main.pdf is kept)
+writeup/*.aux
+writeup/*.bbl
+writeup/*.blg
+writeup/*.fdb_latexmk
+writeup/*.fls
+writeup/*.out
+writeup/*.log

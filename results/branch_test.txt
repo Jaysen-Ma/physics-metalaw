@@ -1,0 +1,153 @@
+Feynman corpus: 1016 expressions (benchmark 100 + lectures {'v1': 278, 'v2': 443, 'v3': 195}); removed {'v1: one of the 100 benchmark expressions': 29, 'v1: same chapter, shape and constants as a benchmark expression': 2, 'v2: one of the 100 benchmark expressions': 25, 'v2: exact duplicate of an earlier expression': 13, 'v2: same chapter, shape and constants as a benchmark expression': 6, 'v3: one of the 100 benchmark expressions': 9, 'v3: same chapter, shape and constants as a benchmark expression': 1, 'v3: exact duplicate of an earlier expression': 11}
+labels: {'Electromagnetism': 312, 'Quantum mechanics': 221, 'Waves and optics': 126, 'Classical mechanics': 105, 'Special relativity': 89, 'Thermodynamics and kinetic theory': 73, 'Continuum mechanics': 32, 'mathematics': 31, 'Fluid mechanics': 10, 'probability': 9, 'general relativity (excluded)': 6, 'vector algebra': 1, 'inverse-square flux, no branch': 1}
+
+== main: fine branches ==
+  SR               n=  89 N_ops= 1073 R=14 β=0.308 boot=0.012 [0.294,0.318] fisher=0.011
+  QM               n= 221 N_ops= 2374 R=17 β=0.291 boot=0.007 [0.284,0.297] fisher=0.007
+  EM               n= 312 N_ops= 3285 R=18 β=0.352 boot=0.007 [0.346,0.360] fisher=0.006
+  Waves+optics     n= 126 N_ops= 1448 R=15 β=0.343 boot=0.008 [0.335,0.351] fisher=0.010
+  Classical        n= 105 N_ops= 1014 R=15 β=0.359 boot=0.012 [0.347,0.372] fisher=0.012
+  Thermo           n=  73 N_ops=  727 R=16 β=0.408 boot=0.019 [0.390,0.427] fisher=0.016
+  Fluid+continuum  n=  42 N_ops=  360 R=13 β=0.433 boot=0.020 [0.415,0.455] fisher=0.024
+  all branches: n={'SR': 89, 'QM': 221, 'EM': 312, 'Waves+optics': 126, 'Classical': 105, 'Thermo': 73, 'Fluid+continuum': 42} β=0.308, 0.291, 0.352, 0.343, 0.359, 0.408, 0.433 shared=0.336 LR=102.05 df=6 p_chi2=9.36e-20 p_perm=0.0002 ΔAIC=-90.1 ΔBIC=-46.6
+  SR vs rest: n={'SR': 89, 'rest': 879} β=0.308, 0.339 shared=0.336 LR=6.89 df=1 p_chi2=0.00866 p_perm=0.0075 (Bonf ×7: 0.0525) ΔAIC=-4.9 ΔBIC=+2.3
+  QM vs rest: n={'QM': 221, 'rest': 747} β=0.291, 0.347 shared=0.333 LR=51.15 df=1 p_chi2=8.58e-13 p_perm=0.0002 (Bonf ×7: 0.0017) ΔAIC=-49.1 ΔBIC=-41.9
+  EM vs rest: n={'EM': 312, 'rest': 656} β=0.352, 0.325 shared=0.333 LR=13.83 df=1 p_chi2=0.0002 p_perm=0.0002 (Bonf ×7: 0.0017) ΔAIC=-11.8 ΔBIC=-4.6
+  Waves+optics vs rest: n={'Waves+optics': 126, 'rest': 842} β=0.343, 0.330 shared=0.332 LR=1.57 df=1 p_chi2=0.211 p_perm=0.2039 (Bonf ×7: 1.0000) ΔAIC=+0.4 ΔBIC=+7.7
+  Classical vs rest: n={'Classical': 105, 'rest': 863} β=0.359, 0.332 shared=0.334 LR=4.70 df=1 p_chi2=0.0302 p_perm=0.0325 (Bonf ×7: 0.2274) ΔAIC=-2.7 ΔBIC=+4.5
+  Thermo vs rest: n={'Thermo': 73, 'rest': 895} β=0.408, 0.328 shared=0.333 LR=26.91 df=1 p_chi2=2.13e-07 p_perm=0.0002 (Bonf ×7: 0.0017) ΔAIC=-24.9 ΔBIC=-17.7
+  Fluid+continuum vs rest: n={'Fluid+continuum': 42, 'rest': 926} β=0.433, 0.331 shared=0.333 LR=19.44 df=1 p_chi2=1.04e-05 p_perm=0.0002 (Bonf ×7: 0.0017) ΔAIC=-17.4 ΔBIC=-10.2
+  SR vs QM: n={'SR': 89, 'QM': 221} β=0.308, 0.291 shared=0.295 LR=1.83 df=1 p_chi2=0.176 p_perm=0.1397 (Bonf ×21: 1.0000) ΔAIC=+0.2 ΔBIC=+6.3
+  SR vs EM: n={'SR': 89, 'EM': 312} β=0.308, 0.352 shared=0.342 LR=11.97 df=1 p_chi2=0.000541 p_perm=0.0002 (Bonf ×21: 0.0052) ΔAIC=-10.0 ΔBIC=-3.6
+  SR vs Waves+optics: n={'SR': 89, 'Waves+optics': 126} β=0.308, 0.343 shared=0.328 LR=5.68 df=1 p_chi2=0.0172 p_perm=0.0090 (Bonf ×21: 0.1890) ΔAIC=-3.7 ΔBIC=+2.2
+  SR vs Classical: n={'SR': 89, 'Classical': 105} β=0.308, 0.359 shared=0.332 LR=9.74 df=1 p_chi2=0.0018 p_perm=0.0035 (Bonf ×21: 0.0735) ΔAIC=-7.7 ΔBIC=-2.1
+  SR vs Thermo: n={'SR': 89, 'Thermo': 73} β=0.308, 0.408 shared=0.345 LR=28.28 df=1 p_chi2=1.05e-07 p_perm=0.0002 (Bonf ×21: 0.0052) ΔAIC=-26.3 ΔBIC=-20.8
+  SR vs Fluid+continuum: n={'SR': 89, 'Fluid+continuum': 42} β=0.308, 0.433 shared=0.333 LR=24.11 df=1 p_chi2=9.11e-07 p_perm=0.0002 (Bonf ×21: 0.0052) ΔAIC=-22.1 ΔBIC=-16.8
+  QM vs EM: n={'QM': 221, 'EM': 312} β=0.291, 0.352 shared=0.325 LR=44.78 df=1 p_chi2=2.21e-11 p_perm=0.0002 (Bonf ×21: 0.0052) ΔAIC=-42.8 ΔBIC=-36.1
+  QM vs Waves+optics: n={'QM': 221, 'Waves+optics': 126} β=0.291, 0.343 shared=0.308 LR=20.01 df=1 p_chi2=7.72e-06 p_perm=0.0002 (Bonf ×21: 0.0052) ΔAIC=-18.0 ΔBIC=-11.8
+  QM vs Classical: n={'QM': 221, 'Classical': 105} β=0.291, 0.359 shared=0.308 LR=25.43 df=1 p_chi2=4.58e-07 p_perm=0.0002 (Bonf ×21: 0.0052) ΔAIC=-23.4 ΔBIC=-17.3
+  QM vs Thermo: n={'QM': 221, 'Thermo': 73} β=0.291, 0.408 shared=0.312 LR=52.64 df=1 p_chi2=4e-13 p_perm=0.0002 (Bonf ×21: 0.0052) ΔAIC=-50.6 ΔBIC=-44.6
+  QM vs Fluid+continuum: n={'QM': 221, 'Fluid+continuum': 42} β=0.291, 0.433 shared=0.303 LR=36.78 df=1 p_chi2=1.32e-09 p_perm=0.0002 (Bonf ×21: 0.0052) ΔAIC=-34.8 ΔBIC=-28.9
+  EM vs Waves+optics: n={'EM': 312, 'Waves+optics': 126} β=0.352, 0.343 shared=0.350 LR=0.62 df=1 p_chi2=0.43 p_perm=0.4124 (Bonf ×21: 1.0000) ΔAIC=+1.4 ΔBIC=+7.8
+  EM vs Classical: n={'EM': 312, 'Classical': 105} β=0.352, 0.359 shared=0.354 LR=0.22 df=1 p_chi2=0.639 p_perm=0.6353 (Bonf ×21: 1.0000) ΔAIC=+1.8 ΔBIC=+8.1
+  EM vs Thermo: n={'EM': 312, 'Thermo': 73} β=0.352, 0.408 shared=0.361 LR=11.13 df=1 p_chi2=0.000848 p_perm=0.0005 (Bonf ×21: 0.0105) ΔAIC=-9.1 ΔBIC=-2.8
+  EM vs Fluid+continuum: n={'EM': 312, 'Fluid+continuum': 42} β=0.352, 0.433 shared=0.358 LR=11.13 df=1 p_chi2=0.000848 p_perm=0.0010 (Bonf ×21: 0.0210) ΔAIC=-9.1 ΔBIC=-2.9
+  Waves+optics vs Classical: n={'Waves+optics': 126, 'Classical': 105} β=0.343, 0.359 shared=0.349 LR=1.01 df=1 p_chi2=0.314 p_perm=0.2447 (Bonf ×21: 1.0000) ΔAIC=+1.0 ΔBIC=+6.8
+  Waves+optics vs Thermo: n={'Waves+optics': 126, 'Thermo': 73} β=0.343, 0.408 shared=0.363 LR=12.51 df=1 p_chi2=0.000405 p_perm=0.0002 (Bonf ×21: 0.0052) ΔAIC=-10.5 ΔBIC=-4.8
+  Waves+optics vs Fluid+continuum: n={'Waves+optics': 126, 'Fluid+continuum': 42} β=0.343, 0.433 shared=0.358 LR=12.62 df=1 p_chi2=0.000382 p_perm=0.0002 (Bonf ×21: 0.0052) ΔAIC=-10.6 ΔBIC=-5.1
+  Classical vs Thermo: n={'Classical': 105, 'Thermo': 73} β=0.359, 0.408 shared=0.378 LR=6.08 df=1 p_chi2=0.0136 p_perm=0.0085 (Bonf ×21: 0.1785) ΔAIC=-4.1 ΔBIC=+1.4
+  Classical vs Fluid+continuum: n={'Classical': 105, 'Fluid+continuum': 42} β=0.359, 0.433 shared=0.375 LR=7.81 df=1 p_chi2=0.00519 p_perm=0.0020 (Bonf ×21: 0.0420) ΔAIC=-5.8 ΔBIC=-0.6
+  Thermo vs Fluid+continuum: n={'Thermo': 73, 'Fluid+continuum': 42} β=0.408, 0.433 shared=0.415 LR=0.80 df=1 p_chi2=0.373 p_perm=0.3922 (Bonf ×21: 1.0000) ΔAIC=+1.2 ΔBIC=+6.2
+  pooled all n=1016 β=0.334±0.003; branch-labelled n=968 β=0.333±0.003
+
+== coarse split ==
+  coarse: all: n={'Classical+SR': 194, 'QM': 221, 'EM+waves': 438, 'Thermo': 73, 'Fluid+continuum': 42} β=0.328, 0.291, 0.350, 0.408, 0.433 shared=0.336 LR=93.31 df=4 p_chi2=2.6e-19 p_perm=0.0002 ΔAIC=-85.3 ΔBIC=-56.4
+
+== sensitivity: Ambiguous chapters dropped ==
+  SR               n=  32 N_ops=  376 R= 9 β=0.233 boot=0.012 [0.224,0.247] fisher=0.022
+  QM               n= 151 N_ops= 1635 R=17 β=0.283 boot=0.007 [0.276,0.290] fisher=0.008
+  EM               n= 198 N_ops= 2080 R=17 β=0.337 boot=0.008 [0.331,0.347] fisher=0.008
+  Waves+optics     n=  48 N_ops=  610 R=14 β=0.307 boot=0.010 [0.301,0.321] fisher=0.014
+  Classical        n=  75 N_ops=  628 R=13 β=0.374 boot=0.017 [0.361,0.395] fisher=0.017
+  Thermo           n=  61 N_ops=  592 R=15 β=0.428 boot=0.023 [0.408,0.452] fisher=0.018
+  Fluid+continuum  n=  42 N_ops=  360 R=13 β=0.433 boot=0.020 [0.415,0.455] fisher=0.024
+  all branches: n={'SR': 32, 'QM': 151, 'EM': 198, 'Waves+optics': 48, 'Classical': 75, 'Thermo': 61, 'Fluid+continuum': 42} β=0.233, 0.283, 0.337, 0.307, 0.374, 0.428, 0.433 shared=0.328 LR=114.61 df=6 p_chi2=2.2e-22 p_perm=0.0005 ΔAIC=-102.6 ΔBIC=-62.1
+  SR vs rest: n={'SR': 32, 'rest': 575} β=0.233, 0.330 shared=0.327 LR=17.46 df=1 p_chi2=2.93e-05 p_perm=0.0005 (Bonf ×7: 0.0035) ΔAIC=-15.5 ΔBIC=-8.7
+  QM vs rest: n={'QM': 151, 'rest': 456} β=0.283, 0.342 shared=0.326 LR=38.02 df=1 p_chi2=6.99e-10 p_perm=0.0005 (Bonf ×7: 0.0035) ΔAIC=-36.0 ΔBIC=-29.3
+  EM vs rest: n={'EM': 198, 'rest': 409} β=0.337, 0.321 shared=0.326 LR=3.17 df=1 p_chi2=0.0751 p_perm=0.0770 (Bonf ×7: 0.5387) ΔAIC=-1.2 ΔBIC=+5.6
+  Waves+optics vs rest: n={'Waves+optics': 48, 'rest': 559} β=0.307, 0.327 shared=0.325 LR=1.78 df=1 p_chi2=0.182 p_perm=0.1824 (Bonf ×7: 1.0000) ΔAIC=+0.2 ΔBIC=+7.0
+  Classical vs rest: n={'Classical': 75, 'rest': 532} β=0.374, 0.324 shared=0.328 LR=8.91 df=1 p_chi2=0.00284 p_perm=0.0010 (Bonf ×7: 0.0070) ΔAIC=-6.9 ΔBIC=-0.2
+  Thermo vs rest: n={'Thermo': 61, 'rest': 546} β=0.428, 0.318 shared=0.325 LR=39.22 df=1 p_chi2=3.79e-10 p_perm=0.0005 (Bonf ×7: 0.0035) ΔAIC=-37.2 ΔBIC=-30.5
+  Fluid+continuum vs rest: n={'Fluid+continuum': 42, 'rest': 565} β=0.433, 0.322 shared=0.326 LR=22.67 df=1 p_chi2=1.92e-06 p_perm=0.0005 (Bonf ×7: 0.0035) ΔAIC=-20.7 ΔBIC=-13.9
+
+== sensitivity: Ambiguous chapters reassigned ==
+  SR               n=  32 N_ops=  376 R= 9 β=0.233 boot=0.012 [0.224,0.247] fisher=0.022
+  QM               n= 182 N_ops= 1991 R=17 β=0.303 boot=0.007 [0.295,0.310] fisher=0.007
+  EM               n= 343 N_ops= 3757 R=18 β=0.335 boot=0.006 [0.329,0.341] fisher=0.006
+  Waves+optics     n=  63 N_ops=  760 R=17 β=0.313 boot=0.007 [0.308,0.323] fisher=0.012
+  Classical        n=  75 N_ops=  628 R=13 β=0.374 boot=0.017 [0.361,0.395] fisher=0.017
+  Thermo           n=  89 N_ops=  802 R=17 β=0.381 boot=0.017 [0.366,0.399] fisher=0.014
+  Fluid+continuum  n=  44 N_ops=  373 R=13 β=0.435 boot=0.020 [0.417,0.457] fisher=0.024
+  all branches: n={'SR': 32, 'QM': 182, 'EM': 343, 'Waves+optics': 63, 'Classical': 75, 'Thermo': 89, 'Fluid+continuum': 44} β=0.233, 0.303, 0.335, 0.313, 0.374, 0.381, 0.435 shared=0.331 LR=76.83 df=6 p_chi2=1.61e-14 p_perm=0.0005 ΔAIC=-64.8 ΔBIC=-22.4
+  SR vs rest: n={'SR': 32, 'rest': 796} β=0.233, 0.331 shared=0.329 LR=18.07 df=1 p_chi2=2.13e-05 p_perm=0.0005 (Bonf ×7: 0.0035) ΔAIC=-16.1 ΔBIC=-9.0
+  QM vs rest: n={'QM': 182, 'rest': 646} β=0.303, 0.337 shared=0.329 LR=16.05 df=1 p_chi2=6.17e-05 p_perm=0.0005 (Bonf ×7: 0.0035) ΔAIC=-14.1 ΔBIC=-7.0
+  EM vs rest: n={'EM': 343, 'rest': 485} β=0.335, 0.324 shared=0.329 LR=2.18 df=1 p_chi2=0.14 p_perm=0.1459 (Bonf ×7: 1.0000) ΔAIC=-0.2 ΔBIC=+6.9
+  Waves+optics vs rest: n={'Waves+optics': 63, 'rest': 765} β=0.313, 0.330 shared=0.329 LR=1.85 df=1 p_chi2=0.173 p_perm=0.1779 (Bonf ×7: 1.0000) ΔAIC=+0.1 ΔBIC=+7.2
+  Classical vs rest: n={'Classical': 75, 'rest': 753} β=0.374, 0.327 shared=0.330 LR=7.82 df=1 p_chi2=0.00517 p_perm=0.0065 (Bonf ×7: 0.0455) ΔAIC=-5.8 ΔBIC=+1.3
+  Thermo vs rest: n={'Thermo': 89, 'rest': 739} β=0.381, 0.324 shared=0.329 LR=16.44 df=1 p_chi2=5.03e-05 p_perm=0.0005 (Bonf ×7: 0.0035) ΔAIC=-14.4 ΔBIC=-7.4
+  Fluid+continuum vs rest: n={'Fluid+continuum': 44, 'rest': 784} β=0.435, 0.326 shared=0.329 LR=22.50 df=1 p_chi2=2.1e-06 p_perm=0.0005 (Bonf ×7: 0.0035) ΔAIC=-20.5 ΔBIC=-13.4
+
+== sensitivity: Bracket/imaginary-unit expressions dropped ==
+  SR               n=  88 N_ops= 1061 R=14 β=0.307 boot=0.012 [0.291,0.316] fisher=0.011
+  QM               n= 164 N_ops= 1526 R=17 β=0.301 boot=0.008 [0.294,0.309] fisher=0.008
+  EM               n= 273 N_ops= 2766 R=18 β=0.352 boot=0.007 [0.346,0.360] fisher=0.007
+  Waves+optics     n=  99 N_ops=  959 R=14 β=0.351 boot=0.010 [0.340,0.361] fisher=0.013
+  Classical        n=  97 N_ops=  917 R=15 β=0.368 boot=0.013 [0.357,0.382] fisher=0.013
+  Thermo           n=  69 N_ops=  704 R=16 β=0.404 boot=0.018 [0.386,0.422] fisher=0.016
+  Fluid+continuum  n=  39 N_ops=  324 R=13 β=0.438 boot=0.023 [0.419,0.465] fisher=0.026
+  all branches: n={'SR': 88, 'QM': 164, 'EM': 273, 'Waves+optics': 99, 'Classical': 97, 'Thermo': 69, 'Fluid+continuum': 39} β=0.307, 0.301, 0.352, 0.351, 0.368, 0.404, 0.438 shared=0.344 LR=70.06 df=6 p_chi2=3.98e-13 p_perm=0.0005 ΔAIC=-58.1 ΔBIC=-15.9
+  SR vs rest: n={'SR': 88, 'rest': 741} β=0.307, 0.343 shared=0.339 LR=9.03 df=1 p_chi2=0.00266 p_perm=0.0015 (Bonf ×7: 0.0105) ΔAIC=-7.0 ΔBIC=-0.0
+  QM vs rest: n={'QM': 164, 'rest': 665} β=0.301, 0.347 shared=0.338 LR=21.70 df=1 p_chi2=3.18e-06 p_perm=0.0005 (Bonf ×7: 0.0035) ΔAIC=-19.7 ΔBIC=-12.7
+  EM vs rest: n={'EM': 273, 'rest': 556} β=0.352, 0.333 shared=0.339 LR=5.16 df=1 p_chi2=0.0231 p_perm=0.0170 (Bonf ×7: 0.1189) ΔAIC=-3.2 ΔBIC=+3.9
+  Waves+optics vs rest: n={'Waves+optics': 99, 'rest': 730} β=0.351, 0.334 shared=0.336 LR=1.55 df=1 p_chi2=0.214 p_perm=0.2034 (Bonf ×7: 1.0000) ΔAIC=+0.5 ΔBIC=+7.5
+  Classical vs rest: n={'Classical': 97, 'rest': 732} β=0.368, 0.334 shared=0.337 LR=6.50 df=1 p_chi2=0.0108 p_perm=0.0060 (Bonf ×7: 0.0420) ΔAIC=-4.5 ΔBIC=+2.5
+  Thermo vs rest: n={'Thermo': 69, 'rest': 760} β=0.404, 0.334 shared=0.339 LR=20.17 df=1 p_chi2=7.08e-06 p_perm=0.0005 (Bonf ×7: 0.0035) ΔAIC=-18.2 ΔBIC=-11.2
+  Fluid+continuum vs rest: n={'Fluid+continuum': 39, 'rest': 790} β=0.438, 0.334 shared=0.337 LR=17.77 df=1 p_chi2=2.5e-05 p_perm=0.0005 (Bonf ×7: 0.0035) ΔAIC=-15.8 ΔBIC=-8.7
+
+== sensitivity: Vol. III dropped ==
+  SR               n=  89 N_ops= 1073 R=14 β=0.308 boot=0.012 [0.294,0.318] fisher=0.011
+  QM               n=  26 N_ops=  262 R=15 β=0.338 boot=0.016 [0.322,0.353] fisher=0.023
+  EM               n= 312 N_ops= 3285 R=18 β=0.352 boot=0.007 [0.346,0.360] fisher=0.006
+  Waves+optics     n= 126 N_ops= 1448 R=15 β=0.343 boot=0.008 [0.335,0.351] fisher=0.010
+  Classical        n= 105 N_ops= 1014 R=15 β=0.359 boot=0.012 [0.347,0.372] fisher=0.012
+  Thermo           n=  73 N_ops=  727 R=16 β=0.408 boot=0.019 [0.390,0.427] fisher=0.016
+  Fluid+continuum  n=  42 N_ops=  360 R=13 β=0.433 boot=0.020 [0.415,0.455] fisher=0.024
+  all branches: n={'SR': 89, 'QM': 26, 'EM': 312, 'Waves+optics': 126, 'Classical': 105, 'Thermo': 73, 'Fluid+continuum': 42} β=0.308, 0.338, 0.352, 0.343, 0.359, 0.408, 0.433 shared=0.352 LR=42.55 df=6 p_chi2=1.43e-07 p_perm=0.0005 ΔAIC=-30.6 ΔBIC=+11.5
+  SR vs rest: n={'SR': 89, 'rest': 684} β=0.308, 0.356 shared=0.350 LR=16.21 df=1 p_chi2=5.68e-05 p_perm=0.0010 (Bonf ×7: 0.0070) ΔAIC=-14.2 ΔBIC=-7.2
+  QM vs rest: n={'QM': 26, 'rest': 747} β=0.338, 0.347 shared=0.347 LR=0.15 df=1 p_chi2=0.697 p_perm=0.6952 (Bonf ×7: 1.0000) ΔAIC=+1.8 ΔBIC=+8.9
+  EM vs rest: n={'EM': 312, 'rest': 461} β=0.352, 0.343 shared=0.347 LR=1.23 df=1 p_chi2=0.268 p_perm=0.2329 (Bonf ×7: 1.0000) ΔAIC=+0.8 ΔBIC=+7.8
+  Waves+optics vs rest: n={'Waves+optics': 126, 'rest': 647} β=0.343, 0.347 shared=0.346 LR=0.13 df=1 p_chi2=0.716 p_perm=0.6892 (Bonf ×7: 1.0000) ΔAIC=+1.9 ΔBIC=+8.9
+  Classical vs rest: n={'Classical': 105, 'rest': 668} β=0.359, 0.348 shared=0.349 LR=0.76 df=1 p_chi2=0.384 p_perm=0.3473 (Bonf ×7: 1.0000) ΔAIC=+1.2 ΔBIC=+8.2
+  Thermo vs rest: n={'Thermo': 73, 'rest': 700} β=0.408, 0.343 shared=0.347 LR=17.21 df=1 p_chi2=3.35e-05 p_perm=0.0005 (Bonf ×7: 0.0035) ΔAIC=-15.2 ΔBIC=-8.2
+  Fluid+continuum vs rest: n={'Fluid+continuum': 42, 'rest': 731} β=0.433, 0.345 shared=0.348 LR=14.02 df=1 p_chi2=0.000181 p_perm=0.0005 (Bonf ×7: 0.0035) ΔAIC=-12.0 ΔBIC=-5.0
+
+== power ==
+  SR               vs rest Δβ=+0.02 power=0.33
+  SR               vs rest Δβ=+0.04 power=0.79
+  SR               vs rest Δβ=+0.06 power=0.98
+  SR               vs rest Δβ=+0.08 power=1.00
+  QM               vs rest Δβ=+0.02 power=0.59
+  QM               vs rest Δβ=+0.04 power=0.99
+  QM               vs rest Δβ=+0.06 power=1.00
+  QM               vs rest Δβ=+0.08 power=1.00
+  EM               vs rest Δβ=+0.02 power=0.71
+  EM               vs rest Δβ=+0.04 power=1.00
+  EM               vs rest Δβ=+0.06 power=1.00
+  EM               vs rest Δβ=+0.08 power=1.00
+  Waves+optics     vs rest Δβ=+0.02 power=0.47
+  Waves+optics     vs rest Δβ=+0.04 power=0.96
+  Waves+optics     vs rest Δβ=+0.06 power=1.00
+  Waves+optics     vs rest Δβ=+0.08 power=1.00
+  Classical        vs rest Δβ=+0.02 power=0.37
+  Classical        vs rest Δβ=+0.04 power=0.89
+  Classical        vs rest Δβ=+0.06 power=1.00
+  Classical        vs rest Δβ=+0.08 power=1.00
+  Thermo           vs rest Δβ=+0.02 power=0.19
+  Thermo           vs rest Δβ=+0.04 power=0.55
+  Thermo           vs rest Δβ=+0.06 power=0.88
+  Thermo           vs rest Δβ=+0.08 power=0.99
+  Fluid+continuum  vs rest Δβ=+0.02 power=0.14
+  Fluid+continuum  vs rest Δβ=+0.04 power=0.42
+  Fluid+continuum  vs rest Δβ=+0.06 power=0.77
+  Fluid+continuum  vs rest Δβ=+0.08 power=0.94
+
+== corpora ==
+  Feynman (AI Feynman benchmark)           n= 100 β=0.338 boot=0.010 fisher=0.010
+  Feynman (benchmark + Lectures I-III)     n=1016 β=0.334 boot=0.003 fisher=0.003
+  Wikipedia                                n=  76 β=0.335 boot=0.011 fisher=0.011
+  Encyclopaedia Inflationaris              n=  70 β=0.260 boot=0.006 fisher=0.007
+  Leemis                                   n=  61 β=0.291 boot=0.009 fisher=0.009
+  f(R)                                     n=  10 β=0.346 boot=0.030 fisher=0.037
+  EI vs Feynman benchmark: n={'Feynman benchmark': 100, 'EI': 70} β=0.338, 0.260 shared=0.290 LR=38.89 df=1 p_chi2=4.47e-10 p_perm=0.0002 ΔAIC=-36.9 ΔBIC=-31.1
+
+done in 77 s
