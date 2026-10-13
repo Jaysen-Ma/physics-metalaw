@@ -4,7 +4,7 @@
 <!-- TODO(author): name and link, e.g. Chun Hin Ma? -->
 
 <a href="writeup/main.pdf"><img src="https://img.shields.io/badge/Write--up-PDF-red" alt="Write-up PDF"></a>
-<a href="data/catalog/index.html"><img src="https://img.shields.io/badge/Formula-ledger-blue" alt="Formula ledger"></a>
+<a href="https://jaysen-ma.github.io/physics-metalaw/data/catalog/index.html"><img src="https://img.shields.io/badge/Formula-ledger-blue" alt="Formula ledger"></a>
 </div>
 
 > **Work in progress.** This README, the [write-up](writeup/main.pdf), and the project page are under active revision; reported numbers and wording may change.
@@ -52,7 +52,7 @@ Special relativity includes relativistic electrodynamics (Vol. I ch. 34; Vol. II
 2. **Constant conventions ruled out**: natural units and the energy-density prefactor shift $\beta$ by at most 0.01 and do not close the gap.
 3. **Lagrangian form ruled out**: ten $f(R)$ Lagrangians have the textbook value of $\beta$, and subsets of ten potentials rarely reach it.
 4. **Branch dependence of $\beta$** within one textbook source, the main result: a catalog of 1,016 deduplicated Feynman expressions and a likelihood-ratio test that rejects one $\beta$ for all branches.
-5. **Expression catalog with provenance.** The [formula ledger](data/catalog/index.html) builds on the data release accompanying [arXiv:2408.11065](https://arxiv.org/abs/2408.11065) ([physics-formulae-patterns, commit 2aa199b](https://github.com/andrei-const/physics-formulae-patterns/commit/2aa199b5a1d210dacd122f97c3e8086d3e54f752)): 100 Feynman Lectures expressions, 41 Wikipedia equations named after people, and 70 Encyclopaedia Inflationaris potentials. We add 35 post-cutoff Wikipedia entries (76 total), Leemis univariate distributions, ten $f(R)$ Lagrangians, and 1,012 expressions extracted from Feynman Lectures Vol. I–III, each hand-checked against source. Operator counts are recomputed from parsed expressions (physical constants distinguished from variables) and compared to the release. Each entry includes LaTeX rendering, an expression tree, and a source link.
+5. **Expression catalog with provenance.** The [formula ledger](https://jaysen-ma.github.io/physics-metalaw/data/catalog/index.html) builds on the data release accompanying [arXiv:2408.11065](https://arxiv.org/abs/2408.11065) ([physics-formulae-patterns, commit 2aa199b](https://github.com/andrei-const/physics-formulae-patterns/commit/2aa199b5a1d210dacd122f97c3e8086d3e54f752)): 100 Feynman Lectures expressions, 41 Wikipedia equations named after people, and 70 Encyclopaedia Inflationaris potentials. We add 35 post-cutoff Wikipedia entries (76 total), Leemis univariate distributions, ten $f(R)$ Lagrangians, and 1,012 expressions extracted from Feynman Lectures Vol. I–III, each hand-checked against source. Operator counts are recomputed from parsed expressions (physical constants distinguished from variables) and compared to the release. Each entry includes LaTeX rendering, an expression tree, and a source link.
 
 ## Formula ledger
 
