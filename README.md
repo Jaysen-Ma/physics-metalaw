@@ -1,6 +1,15 @@
 # Exploring variation in the exponential metalaw of physics
 
+<div align="center">
+
+<a href="writeup/main.pdf"><img src="https://img.shields.io/badge/Write--up-PDF-red" alt="Write-up PDF"></a>
+<a href="https://jaysen-ma.github.io/physics-metalaw/data/catalog/index.html"><img src="https://img.shields.io/badge/Formula-ledger-blue" alt="Formula ledger"></a>
+
+</div>
+
 A personal research project revisiting the inflationary difference, comparisons with modified gravity, and variation across physics branches.
+
+> **Work in progress.** This README, the [write-up](writeup/main.pdf), and the [formula ledger](https://jaysen-ma.github.io/physics-metalaw/data/catalog/index.html) are still being updated. Reported numbers and wording may change.
 
 ## Current analysis
 
