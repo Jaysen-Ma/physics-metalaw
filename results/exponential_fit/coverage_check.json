@@ -1,0 +1,306 @@
+{
+  "seed": 20261026,
+  "n_datasets_per_scenario": 200,
+  "n_boot": 400,
+  "beta": 0.35,
+  "threshold": null,
+  "n_branches": 7,
+  "n_comparisons": 21,
+  "resampling": {
+    "homogeneous_equations": "equations",
+    "heterogeneous_equations": "equations",
+    "chapter_dependence": "chapters"
+  },
+  "limitations": "Synthetic count vectors, not expression trees. Finite simulation precision. Chapter scenario includes a branch with only four clusters. This does not establish coverage on real corpora.",
+  "code_sha256": {
+    "scripts/exponential_coverage_check.py": "99fb101607773d3f783bee7283b58856dfd89e22ae2a563c62d68a270d49b191",
+    "physics_metalaw/exponential_fit.py": "9fb29ed689605450598a98fcc7e9743f16d3abb7b6ecf2ce244dc37e106e13e1"
+  },
+  "scenarios": {
+    "homogeneous_equations": {
+      "simultaneous_false_positive_rate": {
+        "n": 200,
+        "count": 3,
+        "n_missing": 0,
+        "rate": 0.015,
+        "monte_carlo_ci95": [
+          0.003104107621553509,
+          0.0432082819177126
+        ]
+      },
+      "coverage_by_branch": [
+        {
+          "n": 200,
+          "count": 187,
+          "n_missing": 0,
+          "rate": 0.935,
+          "monte_carlo_ci95": [
+            0.8914127634961848,
+            0.9649392913430209
+          ]
+        },
+        {
+          "n": 200,
+          "count": 170,
+          "n_missing": 0,
+          "rate": 0.85,
+          "monte_carlo_ci95": [
+            0.7928412963314493,
+            0.8964504764781374
+          ]
+        },
+        {
+          "n": 200,
+          "count": 183,
+          "n_missing": 0,
+          "rate": 0.915,
+          "monte_carlo_ci95": [
+            0.8673948341704476,
+            0.9497040813697427
+          ]
+        },
+        {
+          "n": 200,
+          "count": 181,
+          "n_missing": 0,
+          "rate": 0.905,
+          "monte_carlo_ci95": [
+            0.8556233600231474,
+            0.9418303902748797
+          ]
+        },
+        {
+          "n": 200,
+          "count": 183,
+          "n_missing": 0,
+          "rate": 0.915,
+          "monte_carlo_ci95": [
+            0.8673948341704476,
+            0.9497040813697427
+          ]
+        },
+        {
+          "n": 200,
+          "count": 185,
+          "n_missing": 0,
+          "rate": 0.925,
+          "monte_carlo_ci95": [
+            0.8793157746003387,
+            0.9574171962629073
+          ]
+        },
+        {
+          "n": 200,
+          "count": 179,
+          "n_missing": 0,
+          "rate": 0.895,
+          "monte_carlo_ci95": [
+            0.8439812944524971,
+            0.9338187729712882
+          ]
+        }
+      ],
+      "mean_estimation_error_by_branch": [
+        0.005874062147592423,
+        0.010915773317483826,
+        0.00667713614637306,
+        0.008689824546526921,
+        0.00615935869160201,
+        0.009953954273676974,
+        0.0074737721254500376
+      ],
+      "failed_draws": 0,
+      "boundary_draws": 0
+    },
+    "heterogeneous_equations": {
+      "simultaneous_false_positive_rate": {
+        "n": 200,
+        "count": 10,
+        "n_missing": 0,
+        "rate": 0.05,
+        "monte_carlo_ci95": [
+          0.02423416547210855,
+          0.09002753770135137
+        ]
+      },
+      "coverage_by_branch": [
+        {
+          "n": 200,
+          "count": 174,
+          "n_missing": 0,
+          "rate": 0.87,
+          "monte_carlo_ci95": [
+            0.8153476694765874,
+            0.9132916472314246
+          ]
+        },
+        {
+          "n": 200,
+          "count": 187,
+          "n_missing": 0,
+          "rate": 0.935,
+          "monte_carlo_ci95": [
+            0.8914127634961848,
+            0.9649392913430209
+          ]
+        },
+        {
+          "n": 200,
+          "count": 189,
+          "n_missing": 0,
+          "rate": 0.945,
+          "monte_carlo_ci95": [
+            0.9037223555660872,
+            0.9722277454479935
+          ]
+        },
+        {
+          "n": 200,
+          "count": 183,
+          "n_missing": 0,
+          "rate": 0.915,
+          "monte_carlo_ci95": [
+            0.8673948341704476,
+            0.9497040813697427
+          ]
+        },
+        {
+          "n": 200,
+          "count": 180,
+          "n_missing": 0,
+          "rate": 0.9,
+          "monte_carlo_ci95": [
+            0.8497872121322442,
+            0.937840633745934
+          ]
+        },
+        {
+          "n": 200,
+          "count": 179,
+          "n_missing": 0,
+          "rate": 0.895,
+          "monte_carlo_ci95": [
+            0.8439812944524971,
+            0.9338187729712882
+          ]
+        },
+        {
+          "n": 200,
+          "count": 181,
+          "n_missing": 0,
+          "rate": 0.905,
+          "monte_carlo_ci95": [
+            0.8556233600231474,
+            0.9418303902748797
+          ]
+        }
+      ],
+      "mean_estimation_error_by_branch": [
+        0.011783246266632755,
+        0.0021707521787825757,
+        0.0008100661720121493,
+        0.005790411012385595,
+        0.004886336339047788,
+        0.009452569996701816,
+        0.01177583081098446
+      ],
+      "failed_draws": 0,
+      "boundary_draws": 0
+    },
+    "chapter_dependence": {
+      "simultaneous_false_positive_rate": {
+        "n": 200,
+        "count": 19,
+        "n_missing": 0,
+        "rate": 0.095,
+        "monte_carlo_ci95": [
+          0.058169609725120246,
+          0.14437663997685252
+        ]
+      },
+      "coverage_by_branch": [
+        {
+          "n": 200,
+          "count": 153,
+          "n_missing": 0,
+          "rate": 0.765,
+          "monte_carlo_ci95": [
+            0.700038127352751,
+            0.8219292653993124
+          ]
+        },
+        {
+          "n": 200,
+          "count": 169,
+          "n_missing": 0,
+          "rate": 0.845,
+          "monte_carlo_ci95": [
+            0.787262356784294,
+            0.8921905998959034
+          ]
+        },
+        {
+          "n": 200,
+          "count": 167,
+          "n_missing": 0,
+          "rate": 0.835,
+          "monte_carlo_ci95": [
+            0.7761565322881794,
+            0.883616880041946
+          ]
+        },
+        {
+          "n": 200,
+          "count": 149,
+          "n_missing": 0,
+          "rate": 0.745,
+          "monte_carlo_ci95": [
+            0.6787246033612795,
+            0.8038591847995418
+          ]
+        },
+        {
+          "n": 200,
+          "count": 157,
+          "n_missing": 0,
+          "rate": 0.785,
+          "monte_carlo_ci95": [
+            0.7215289561159428,
+            0.8398183046676637
+          ]
+        },
+        {
+          "n": 200,
+          "count": 155,
+          "n_missing": 0,
+          "rate": 0.775,
+          "monte_carlo_ci95": [
+            0.7107603940312353,
+            0.8308974528701735
+          ]
+        },
+        {
+          "n": 200,
+          "count": 152,
+          "n_missing": 0,
+          "rate": 0.76,
+          "monte_carlo_ci95": [
+            0.6946937143528605,
+            0.8174280961075273
+          ]
+        }
+      ],
+      "mean_estimation_error_by_branch": [
+        0.02638814243638975,
+        0.007520969119170532,
+        0.010424096550582782,
+        0.01913672488471639,
+        0.02138915233335467,
+        0.021334989865393773,
+        0.023331907200735937
+      ],
+      "failed_draws": 0,
+      "boundary_draws": 0
+    }
+  }
+}

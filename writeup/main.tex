@@ -2,18 +2,19 @@
 \usepackage[margin=0.9in]{geometry}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{longtable}
 \usepackage{amsmath}
 \usepackage{float}
 \usepackage[hidelinks]{hyperref}
 \usepackage{caption}
-\usepackage[numbers,sort&compress]{natbib}
+\usepackage[numbers,square,sort&compress]{natbib}
 \usepackage{microtype}
 \graphicspath{{figures/}}
 \input{generated/numbers.tex}
 % \input is not expandable inside tabular; the TeX primitive is.
 \makeatletter\newcommand{\tabinput}[1]{\@@input #1 }\makeatother
 
-\title{The grammar of physics is branch-dependent:\\ evidence from the Feynman Lectures}
+\title{Exploring variation in the exponential metalaw of physics}
 % TODO(author): author name and affiliation (Chun Hin Ma?). Not filled in on purpose.
 \author{}
 \date{}
@@ -22,182 +23,311 @@
 \maketitle
 
 \begin{center}
-\fbox{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{\centering
-\emph{Working draft: this document is being actively edited and updated; numbers and text may change.}\par\medskip
-Draft date: \today.
-}}
+\small\itshape Work in progress: this writeup is still being updated.
 \end{center}
 
 \begin{abstract}
-It has been reported~\citep{constantin2024} that operators in equations of physics, ranked by frequency, follow an exponential law $p_r\propto e^{-\beta r}$, with $\beta\approx0.34$ for the Feynman Lectures and Wikipedia but a lower value for the inflaton potentials of Encyclopaedia Inflationaris. We re-estimate $\beta$ by multinomial maximum likelihood, with bootstrap uncertainty over expressions, and confirm the gap: $\betaEI\pm\sigEI$ for Encyclopaedia Inflationaris against $\betaFeynBench\pm\sigFeynBench$ for the Feynman benchmark (likelihood ratio 38.9, permutation $p<0.00025$). We then test the explanations suggested for it in turn. Constant conventions do not account for it: natural units ($c=\hbar=1$) and setting the potentials' amplitude prefactor to one shift $\beta$ by at most 0.01 and widen rather than close the gap. Nor does the Lagrangian form of the potentials: ten $f(R)$ gravity Lagrangians give $\betafR\pm\sigfR$, in line with the textbook corpora, and random subsets of ten potentials rarely reach that value. The remaining suggestion, that the potentials describe a different physical regime, we recast as a question that can be tested within one source: does $\beta$ depend on the branch of physics? We extend the 100 expressions of the AI Feynman benchmark with every closed-form equation of the Feynman Lectures on Physics, Vol.~I--III, that sets a quantity equal to an expression built from nullary, unary and binary operators: \nFeynAll{} expressions after deduplication, \nLabelled{} of them assigned to seven branches by chapter. A shared $\beta$ is rejected (likelihood ratio \LRall{} on \dfall{} degrees of freedom, permutation $p<0.00025$, $\Delta\mathrm{AIC}=\dAICall$, $\Delta\mathrm{BIC}=\dBICall$). Against the other branches combined, quantum mechanics ($\betaQM\pm\sigQM$) lies below the rest, thermodynamics ($\betaThermo\pm\sigThermo$) and fluid and continuum mechanics ($\betaFluid\pm\sigFluid$) above it, and electromagnetism ($\betaEM\pm\sigEM$) slightly above it; special relativity ($\betaSR\pm\sigSR$, with relativistic electrodynamics chapters counted as relativity) is low before but not after multiple-comparison correction. The exponent of the rank law is therefore not one number for physics but depends on the branch.
+Previous work has found that the ranked frequencies of mathematical operators in physics equations approximately follow an exponential law. The fitted decay rate for Encyclopaedia Inflationaris is lower than those of several broader physics collections. Proposed explanations concern the conventions used to write the equations, the inflationary collection's focus on one physical concept, its hypothetical models, and the energy scales involved. We revisit the fitted difference using log least squares and estimate uncertainty by resampling whole equations. We examine the proposed explanations through changes to constant conventions and comparisons with modified-gravity models and physics branches. Setting $c=\hbar=1$ in the textbook expressions and removing the common amplitude prefactor from the inflationary potentials leave most of the fitted difference intact. A comparison collection from modified gravity, which also contains hypothetical models focused on one physical concept, gives a decay rate close to the inflationary value. The fitted rates vary across seven branches of the expanded Feynman collection, with some estimates changing substantially when ambiguous chapters are reassigned. These comparisons document variation in operator-frequency patterns across the selected collections, while leaving its physical explanation unresolved.
 \end{abstract}
 
-\begin{figure}[h]\centering
-\includegraphics[width=0.8\linewidth]{beta_by_branch.pdf}
-\caption{$\beta$ (multinomial MLE) for each branch of the Feynman corpus (AI Feynman benchmark plus the Feynman Lectures Vol.~I--III, deduplicated). Bars are $\pm1\sigma$: bootstrap over expressions, except special relativity (Fisher $\sigma$, marked $\dagger$; Section~\ref{sec:methods}). The dashed line and grey band are all \nPooled{} expressions pooled, $\betaPooled\pm\sigPooled$.}\label{fig:main}
-\end{figure}
-
 \section{Introduction}
-Previous work~\citep{constantin2024} represents each equation of physics as an expression tree and counts its operators: nullary operators (variables, constants, numbers), unary operators (such as $\sin$, $\exp$, $\sqrt{\cdot}$) and binary operators ($+$, $-$, $\times$, $\div$, powers). Summing counts over a corpus and ranking operator types by frequency yields an exponentially decaying frequency at rank $r$,
+Previous work~\citep{constantin2024} has shown that the ranked frequencies of mathematical operators in physics equations can be described by an exponential law, in contrast to Zipf's power law for word frequencies in natural language. Each equation is represented as an expression tree, and occurrences of each operator type are counted across a collection of equations. The operator types are then ranked from most to least frequent. The counting convention includes variables, constants and numerical literals alongside arithmetic operations and named functions.
+
+The exponential model takes the form
 \begin{equation}
-p_r(\beta) = \frac{e^{-\beta r}}{\sum_{s=1}^{R} e^{-\beta s}},\qquad r=1,\dots,R,
+p_r(\beta)=\frac{e^{-\beta r}}{\sum_{s=1}^{R}e^{-\beta s}},
+\qquad r=1,\ldots,R,
 \label{eq:law}
 \end{equation}
-where $R$ is the number of operator types that occur. Using simulation-based inference, that study reports $\beta=0.342\pm0.010$ for 100 expressions from the Feynman Lectures (the AI Feynman benchmark~\citep{udrescu2020}), $0.35\pm0.03$ for equations from Wikipedia, and a lower $0.266\pm0.014$ for the inflaton potentials of Encyclopaedia Inflationaris~\citep{martin2014}, and interprets the exponential law with a characteristic $\beta$ as a statistical regularity of how physics is written.
+where $R$ is the number of operator types present. The decay rate $\beta$ describes how rapidly frequency decreases with rank. A larger value corresponds to a more concentrated distribution, in which the most frequent types account for a greater share of occurrences.
 
-The lower value for Encyclopaedia Inflationaris is the puzzle we start from. Several accounts of it are possible: the conventions for constants (natural units, and an energy-density prefactor shared by all potentials); the form of the expressions (the potentials enter a Lagrangian, and are many candidate expressions for one concept in a theory that is not established); and a different energy scale or physical regime from that of the textbook equations. We address them in this order. The first two can be tested directly, by rewriting the expressions and by measuring a comparable corpus of Lagrangians. The third cannot be tested on Encyclopaedia Inflationaris alone, so we recast it as a question that can be answered within one source: if $\beta$ depends on the regime an equation describes, it should differ between branches of physics written by the same author. The published corpora are not suited to that test: the 100 benchmark expressions span seven branches but provide only 2--33 expressions per branch, too few to resolve $\beta$ values that differ by a few hundredths, and cross-source comparisons would confound branch with notation and editorial convention. We therefore assemble a single-source corpus large enough to resolve branches: every closed-form equation of the Feynman Lectures on Physics~\citep{feynman} satisfying the selection rule of Section~\ref{sec:data}, together with the benchmark.
+The original study found similar fitted decay rates for the Feynman benchmark, Wikipedia equations and the Cambridge Handbook of Physics Formulas. Encyclopaedia Inflationaris gave a lower rate~\citep{constantin2024}. The proposed explanations concerned the treatment of physical constants, the collection's focus on one physical concept, the hypothetical nature of its models, and the energy scales involved. These possibilities motivate comparisons of both the way the equations are written and the kinds of physics represented in each collection.
 
-Our contributions follow this argument:
-\begin{enumerate}
-\item a re-estimation of $\beta$ for Encyclopaedia Inflationaris and five other corpora with one likelihood-based estimator, confirming the lower value (Section~\ref{sec:corpora});
-\item tests of the constant conventions---natural units and the amplitude prefactor---which do not close the gap (Section~\ref{sec:units});
-\item a test of the Lagrangian form with ten $f(R)$ Lagrangians, which do not reproduce the low value (Section~\ref{sec:fr});
-\item a catalog of \nFeynAll{} deduplicated Feynman expressions with operator counts, chapter-level branch labels and source links (Section~\ref{sec:data}), and a likelihood-ratio test, calibrated by permutation, of a shared $\beta$ against branch-specific values, which finds that $\beta$ depends on the branch of physics (Section~\ref{sec:results}).
-\end{enumerate}
+This project revisits the fitted difference and examines these proposed explanations. We estimate decay rates by log least squares and use whole-equation resampling to obtain individual bootstrap intervals. Applying the same procedure across the collections allows us to compare their fitted rates and assess how much those estimates vary when the selected equations change.
 
-\section{Data}\label{sec:data}
+We first examine constant conventions. Setting $c=\hbar=1$ removes explicit factors of the speed of light and the reduced Planck constant from textbook expressions. Removing the common amplitude prefactor $M^4$ from the inflationary potentials makes a corresponding change to that collection. Such rewritings can change the operator counts even when they describe the same physics. We measure how much these particular changes alter the fitted difference.
 
-\subsection{Corpora}
-\begin{description}
-\item[Feynman benchmark.] The 100 expressions of the AI Feynman benchmark~\citep{udrescu2020} as released with~\citep{constantin2024}, each traced to a chapter of the Feynman Lectures. Each carries a branch label.
-\item[Feynman Lectures, Vol.~I--III.] Expressions extracted from the online edition~\citep{feynman} (below): 309 from Vol.~I, 487 from Vol.~II and 216 from Vol.~III after the manual recheck.
-\item[Wikipedia.] The 41 released expressions from the list of equations named after people~\citep{wikinamed}, and the 35 added after the release cutoff in the same list (\nWiki{} in total).
-\item[Encyclopaedia Inflationaris (EI).] The \nEI{} released inflaton potentials~\citep{martin2014}.
-\item[Leemis.] The \nLeemis{} probability density functions of the univariate distribution chart~\citep{leemis2008} that satisfy the selection rule; a corpus of mathematics rather than physics.
-\item[$f(R)$.] Ten closed forms of $f(R)$ from the modified-gravity literature~\citep{sotiriou2010}: candidate expressions for one function in the gravitational action.
-\end{description}
+Encyclopaedia Inflationaris assembles alternative models of single-field slow-roll inflation, expressed through proposed forms of the inflaton potential~\citep{martin2014}. The collection therefore focuses on one physical quantity and consists of hypothetical models proposed to describe inflation. The broader textbook collections cover many quantities and physical topics. This difference in scope may affect which operators occur and how frequently they are used.
 
-\subsection{Selection rule}
-An equation is retained if it equates a single quantity to a closed-form expression whose operators are nullary (variables, named physical constants, numbers), unary or binary; operator counts refer to the right-hand side. Equations are excluded if the left-hand side is not a single plain quantity (e.g.\ vector components written as products, derivatives, or multiple quantities), if the right-hand side contains a derivative, integral, sum, limit, operator hat or complex conjugate, if it is trivial (a single symbol or number), or if it lacks an equals sign. Physical constants ($c$, $\hbar$, $h$, $G$, $k_B$, $\epsilon_0$, $\mu_0$, $e$, \dots) are counted as constants, not variables. Powers $x^2$, $x^3$ and $x^4$ are each counted as one unary operator, following the upstream convention~\citep{constantin2024}.
+To explore this possibility, we assemble a comparison collection from $f(R)$ gravity. In these theories, the gravitational action contains a function of the scalar curvature $R$, and different models propose different forms of this function~\citep{sotiriou2010}. Like the inflationary collection, this collection contains hypothetical models focused on one physical concept. It allows us to ask whether another collection with these features has a similar fitted rate, although the comparison cannot separate the effects of the two features. Section~\ref{sec:data} and Appendix~\ref{app:catalogue} identify the papers used to assemble the collection and the source of each expression.
 
-\subsection{Extraction from the Feynman Lectures}
-The online Feynman Lectures embed equations as \LaTeX{} source rendered by MathJax. From the chapter HTML (Vol.~I chapters 1--52, Vol.~II 1--42, Vol.~III 1--21) we extract every display equation, expand page-level macros, split aligned environments into rows, attach continuation rows (\texttt{\&=}) to their left-hand side, and record the equation number. Duplicate renderings of the same equation (wide and narrow layouts) are dropped. Each row is filtered by the selection rule, parsed from \LaTeX{} into a symbolic expression, and counted with the same pipeline as the other corpora. Of 4{,}980 display equations, the automatic pipeline retains 1{,}063 (Vol.~I 311 of 1{,}152; Vol.~II 502 of 2{,}195; Vol.~III 250 of 1{,}633). After the manual recheck below, 1{,}012 remain (Vol.~I 309, Vol.~II 487, Vol.~III 216). Each record stores volume, chapter, section, equation number and a link to the equation on the Caltech site.
+The proposed dependence on energy scale also motivates a comparison across branches of physics. We expand the 100-expression AI Feynman benchmark~\citep{udrescu2020} with expressions from all three volumes of the Feynman Lectures~\citep{feynman}. Comparing branches within a single source reduces differences arising from notation and editorial conventions. We also examine alternative assignments for chapters that span more than one branch. These comparisons explore variation with physical domain, but do not isolate energy scale from other differences between the equations.
 
-\paragraph{Deduplication.} A Lectures record is dropped if it is one of the 100 benchmark expressions (63 records, matched by equation number or, failing that, by chapter and operator signature), if it has the same chapter, operator shape and constants as a benchmark expression (9), or if it is symbolically identical to an earlier record (24). This leaves \nLectAdded{} Lectures expressions and a Feynman corpus of \nFeynAll{}.
+This project makes three contributions. First, it provides a reproducible reassessment of the fitted decay rates with individual bootstrap uncertainty estimates. Second, it assembles an expanded Feynman collection with source references and branch labels, together with a catalogue of \nfR{} modified-gravity expressions. Third, it examines how the fitted rates vary with constant conventions, the scope of the collections and the assignment of equations to physics branches.
 
-\paragraph{Quality assurance.} After two rounds of sampled checks, we compared all 1{,}063 retained records by hand to the source \LaTeX{}. The recheck altered 83 records (Table~\ref{tab:recheck}): 51 were rejected and 32 corrected. The most frequent issues were amplitude brackets $\langle a|b\rangle$ on the right-hand side (25 records, all Vol.~III), which the parser had collapsed to single symbols, and function notation such as $J(t-x/c)$ or $\cos\omega(t-r/c)$ parsed as products (13). Corrections are applied post hoc from a tracked file, \texttt{data/feynman\_lectures\_fixes.csv}, listing for each changed record the action, error type, revised expression and reason; corrected catalog entries retain the prior expression. Time averages $\langle x\rangle$ of a physical quantity are retained as one symbol; $q_e$ is counted as a variable, as in the benchmark.
+Section~\ref{sec:data} describes the collections, operator counting, fitting procedure and uncertainty estimates. Section~\ref{sec:ei} revisits the inflationary difference through changes to constant conventions and the modified-gravity comparison. Section~\ref{sec:results} examines variation across physics branches and sensitivity to their classification. Section~\ref{sec:discussion} discusses the interpretation and limitations of these comparisons, including their possible relevance to symbolic regression. Section~\ref{sec:conclusion} summarises what the comparisons establish and which explanations remain unresolved. The appendices document catalogue sources, sensitivity checks, bootstrap calibration and the exponential limit of the Zipf--Mandelbrot distribution.
 
-\begin{table}[H]\centering\small
-\begin{tabular}{lrrrr}\toprule
-Error type & Vol.~I & Vol.~II & Vol.~III & Action\\\midrule
-Amplitude brackets on the right-hand side & -- & -- & 25 & reject\\
-Operator or matrix expression & -- & -- & 5 & reject\\
-Left-hand side not one quantity & 1 & 4 & 3 & reject\\
-Function value parsed as a product & 4 & 7 & 2 & 2 reject, 11 fix\\
-Truncated aligned row & 1 & 3 & -- & reject\\
-Implicit equation (quantity on both sides) & -- & 3 & -- & reject\\
-Numerical value with unit text & -- & 4 & -- & 2 reject, 2 fix\\
-Special function or derivative notation & -- & 2 & -- & reject\\
-Other parse error (macro, lost subscript, wrong row) & 4 & 3 & 4 & fix\\
-Sign artefact ($-1\times$) & 2 & -- & -- & fix\\
-Symbol name only (counts unchanged) & -- & 1 & 3 & fix\\
-Constant counted as a variable ($\kappa$ for $k_B$) & -- & -- & 2 & fix\\\midrule
-Total & 12 & 27 & 44 & 51 reject, 32 fix\\\bottomrule
-\end{tabular}
-\caption{Changes from the full recheck of the Feynman Lectures records against the source \LaTeX{}.}\label{tab:recheck}
-\end{table}
+\section{Data and methods}\label{sec:data}
 
-\subsection{Branches}
-Each Lectures chapter is assigned to one branch (classical mechanics, special relativity, electromagnetism, waves and optics, thermodynamics and kinetic theory, quantum mechanics, fluid mechanics, continuum mechanics) or to a label excluded from the branch test (mathematics, probability, general relativity, overview chapters); benchmark expressions retain their published labels. Fluid and continuum mechanics are merged (10 and 32 expressions). Relativistic electrodynamics (Vol.~I ch.~34; Vol.~II ch.~25, 26 and 28) is coded as special relativity, as is the single benchmark expression labelled electromagnetism from those chapters (Vol.~I ch.~34). Of the \nFeynAll{} expressions, \nLabelled{} lie in the seven test branches; the remaining 48 are mathematics (31), probability (9), general relativity (6) and two unassigned.
+\subsection{Equation collections}
+We begin with three collections released with the original study~\citep{constantin2024}: 100 expressions from the AI Feynman benchmark, 41 equations from Wikipedia's list of scientific equations named after people~\citep{wikinamed}, and 70 inflaton potentials from Encyclopaedia Inflationaris~\citep{martin2014}. We extend the Wikipedia collection with 35 algebraic expressions, bringing its total to \nWiki{}. As a mathematical comparison, we also include \nLeemis{} probability density or mass functions from Leemis and McQueston~\citep{leemis2008}.
 
-\section{Methods}\label{sec:methods}
+For the comparison across physics branches, we expand the Feynman benchmark using expressions from all three volumes of the Feynman Lectures~\citep{feynman}. After selection and deduplication, this adds \nLectAdded{} expressions. The combined collection contains \nFeynAll{} expressions, of which \nLabelled{} are assigned to the seven branches considered here. Because the original benchmark is part of the expanded collection, the two collections overlap.
 
-\paragraph{What $\beta$ is.} For a group of expressions, count how often each operator type appears (each variable, constant, number, $\sin$, $+$, $\times$, \dots{} counts as one instance) and rank types from most to least frequent. The parameter $\beta$ governs how rapidly frequencies decay with rank: by Eq.~\eqref{eq:law}, each step down the ranking multiplies the expected frequency by $e^{-\beta}$. At $\beta=0.34$, each rank carries roughly 71\% of the frequency of the preceding rank; larger $\beta$ concentrates usage on fewer operator types, smaller $\beta$ spreads it more evenly.
+The modified-gravity collection contains \nfR{} proposed curvature functions from the review and model papers listed in Appendix~\ref{app:catalogue}. These expressions include related variants: 17 come from the model families examined by P\'erez-Romero and Nesseris~\citep{perezromero2018}. The collection therefore contains \nfR{} expressions, which should not be interpreted as \nfR{} independent model families. Each catalogue entry records its expression and source, and Appendix~\ref{app:catalogue} provides the corresponding source table.
 
-\paragraph{Estimator.} We estimate $\beta$ by maximum likelihood under a multinomial model. Sum the operator counts of the group, sort the $R$ operator types that occur by count, $n_1\ge n_2\ge\dots\ge n_R$, and treat each of the $N=\sum_r n_r$ operator instances as an independent draw that lands on rank $r$ with probability $p_r(\beta)$ from Eq.~\eqref{eq:law}. The probability of the observed counts is then multinomial, $P(n_1,\dots,n_R\mid\beta)=\frac{N!}{\prod_r n_r!}\prod_r p_r(\beta)^{n_r}$, and the log-likelihood, up to a term that does not depend on $\beta$, is
+\subsection{Equation selection and operator counting}
+For the additional Feynman Lectures expressions, we select equations that give one quantity as an explicit algebraic expression. We count operators on the right-hand side. We exclude expressions consisting of a single symbol or number, as well as those containing derivatives, integrals, sums, limits, operator hats or complex conjugates.
+
+Each expression is represented as a tree, following the counting conventions of the original study~\citep{constantin2024}. Arithmetic operations and named functions contribute operator occurrences. Variables, physical constants and numerical literals are also counted, each as a separate category of tree leaves. Powers $x^2$, $x^3$ and $x^4$ are represented by distinct unary operators. Appendix~\ref{app:catalogue} gives further transcription and counting conventions.
+
+We assign expressions from the Lectures to physics branches according to their source chapters. Benchmark expressions retain their existing labels, apart from the relativistic-electrodynamics adjustment described in Appendix~\ref{app:catalogue}. Combining fluid and continuum mechanics gives seven branches: classical mechanics, special relativity, electromagnetism, waves and optics, thermodynamics and kinetic theory, quantum mechanics, and fluid and continuum mechanics.
+
+The other 48 expressions remain in the expanded collection but are excluded from the seven-branch comparison. They comprise 31 mathematics expressions, nine probability expressions, six general-relativity expressions and two without a branch assignment. Some chapters span more than one branch; we examine alternative assignments for these chapters as a sensitivity check.
+
+\subsection{Fitting the exponential decay rate}\label{sec:methods}
+For each collection or branch, we count occurrences of every operator type and arrange the positive counts in descending order,
+\[
+n_1\geq n_2\geq\cdots\geq n_R>0.
+\]
+The observed frequency at rank $r$ is
+\[
+f_r=\frac{n_r}{N},
+\qquad N=\sum_{r=1}^{R}n_r.
+\]
+We fit the normalised exponential model introduced in Eq.~\eqref{eq:law} by minimising the squared differences between observed and model log frequencies:
 \begin{equation}
-\ell(\beta) = \sum_{r=1}^{R} n_r \log p_r(\beta) = -\beta\sum_r r\,n_r - N\log\sum_{s=1}^{R}e^{-\beta s},
+Q(\beta)=\sum_{r=1}^{R}\left[\log f_r-\log p_r(\beta)\right]^2.
+\label{eq:logls}
 \end{equation}
-and $\hat\beta$ maximises $\ell$ (bounded scalar optimisation on $[0,5]$). Setting $d\ell/d\beta=0$ shows that the estimate is the $\beta$ for which the model mean rank of an operator instance equals the observed mean rank, $\sum_r r\,n_r/N$. Unlike a linear fit to $\log n_r$ versus $r$, the likelihood weights each rank by its instance count, so sparse tail ranks with one or two instances carry little weight.
+Each observed rank receives equal weight in this criterion. We include every operator type with a positive count. Types absent from a collection are omitted because their log frequencies are undefined.
 
-\paragraph{Uncertainty.} Uncertainty is estimated by bootstrapping over expressions rather than operator instances, because instances within a single expression are not independent. For each group we resample expressions with replacement (2{,}000 replicates, seed 20261013), sum counts, re-rank operator types and refit; the standard deviation across replicates is the bootstrap $\sigma$. Re-ranking is essential, since which operator occupies rank 3 can change between replicates. We also report the Fisher error $\sigma_F = [N\,\mathrm{Var}_{p(\hat\beta)}(r)]^{-1/2}$, which treats instances as independent. In the main analysis the two agree to within 0.004 for every branch. We quote the Fisher $\sigma$ for special relativity and the bootstrap $\sigma$ elsewhere: without the relativistic electrodynamics chapters, special relativity would have 32 expressions over only 9 ranks, with a few long expressions dominating the instance count, and its bootstrap distribution becomes skewed, so we use the Fisher value for this branch throughout.
+The ranking is constructed separately for each collection or branch. Consequently, both the number of observed types and the operator occupying a particular rank can differ between groups. The fitted rate $\hat\beta$ summarises how concentrated each ranked distribution is; it does not describe which operators are most common.
 
-\paragraph{Tests.} For $G$ groups we compare a shared model (one $\beta$, ranks computed within each group) to separate $\beta_g$ via the likelihood ratio $\Lambda = 2(\ell_{\text{sep}}-\ell_{\text{shared}})$ on $G-1$ degrees of freedom. Because the $\chi^2$ reference assumes independent operator instances, we calibrate $\Lambda$ by permutation: expressions are shuffled among groups of the observed sizes and $\Lambda$ recomputed \permreps{} times; $p=(k+1)/(\permreps+1)$, where $k$ counts permutations at least as extreme (smallest attainable $p=1/4001\approx0.00025$). We report $\Delta\mathrm{AIC}$ and $\Delta\mathrm{BIC}$ (separate minus shared; negative values favour separate $\beta$), with $N$ the operator-instance count in the BIC.
+We constrain the numerical optimisation to $0\leq\beta\leq5$ and flag fits near either boundary. Calculating this fitted summary does not require operator occurrences within an equation to be independent. The assumptions needed to interpret its uncertainty enter through the resampling procedure below.
 
-We consider three test families: all seven branches jointly; each branch against the other six pooled (Bonferroni factor 7); and all 21 pairwise branch comparisons (Bonferroni factor 21).
+\subsection{Uncertainty from equation resampling}
+We estimate uncertainty by resampling whole equations within each collection or branch. Each bootstrap sample contains the same number of equations as the original group, drawn with replacement. An equation can therefore appear more than once in a sample, while another may be absent.
 
-\paragraph{Power.} The minimum detectable pairwise difference in $\beta$ at $\alpha=0.05$ and 80\% power is $(z_{0.975}+z_{0.8})\sqrt{\sigma_a^2+\sigma_b^2}$. We additionally simulate multinomial counts at the observed $N$ and $R$ for a branch and the pooled remainder, with the branch $\beta$ shifted by $\Delta\beta$, and record the fraction of $\chi^2$ likelihood-ratio tests rejecting at 5\% (1{,}000 simulations per point; $N$ deflated by the squared bootstrap-to-Fisher $\sigma$ ratio when that ratio exceeds one).
+For each sample, we recount the operators, determine which types are present, rank their frequencies and refit $\beta$. Repeating this procedure \bootN{} times gives a distribution of fitted rates. We report the fit to the original collection, the standard deviation of the bootstrap estimates as a standard error, and their 2.5th and 97.5th percentiles as an individual 95\% bootstrap interval.
 
-\section{The lower \texorpdfstring{$\beta$}{beta} of Encyclopaedia Inflationaris}\label{sec:ei}
+Resampling whole equations keeps together the operators that occur within each expression. Interpreting the resulting intervals as sampling uncertainty assumes that the equations are sufficiently independent and represent a wider collection of comparable expressions. Related equations or variants of the same model can limit this assumption. The intervals also do not account for systematic omissions or transcription errors in the collections.
 
-\subsection{\texorpdfstring{$\beta$}{beta} by corpus}\label{sec:corpora}
-Table~\ref{tab:corpus} and Figure~\ref{fig:corpus} compare corpora using the same estimator. The Feynman benchmark, full Feynman corpus, Wikipedia and $f(R)$ are mutually consistent ($\beta$ in the range 0.334--0.346). Encyclopaedia Inflationaris is lower: $\betaEI\pm\sigEI$ vs.\ $\betaFeynBench\pm\sigFeynBench$ for the benchmark ($\Lambda=38.9$, df 1, permutation $p<0.00025$, $\Delta\mathrm{AIC}=-37$, $\Delta\mathrm{BIC}=-31$). Leemis, a corpus of probability densities rather than physics, falls between them ($\betaLeemis\pm\sigLeemis$).
+The 95\% level is approximate. Its accuracy depends on how well resampling the observed equations represents variation in the fitted rate. We report intervals for each rate individually. The synthetic checks in Appendix~\ref{app:calibration} examine their coverage and show that it can fall below the nominal level.
+
+We also resample whole source chapters to examine dependence among equations from the same chapter. This check, together with alternative branch assignments and selection rules, is described in Appendix~\ref{app:sensitivity}.
+
+For reproducibility, we use random seed \bootSeed{} and calculate percentiles by linear interpolation (Hyndman--Fan type~7). Failed and degenerate fits are recorded, and intervals affected by missing fits are marked unresolved.
+
+\section{Revisiting the inflationary difference}\label{sec:ei}
+
+\subsection{Baseline comparison}
+Table~\ref{tab:corpus} and Figure~\ref{fig:corpus} summarise the corpus fits. The Feynman benchmark gives $\hat\beta=\betaFeynBench$ with an individual interval of $[\loFeynBench,\hiFeynBench]$. Encyclopaedia Inflationaris gives $\hat\beta=\betaEI$ with $[\loEI,\hiEI]$. Their point estimates differ by 0.073, and their individual intervals do not overlap. Thus, the lower inflationary estimate is reproduced under our procedure.
 
 \begin{table}[H]\centering\small
-\begin{tabular}{lrrrrr}\toprule
-Corpus & Expr. & Instances & $\hat\beta$ & Boot.\ $\sigma$ & Fisher $\sigma$\\\midrule
+\resizebox{\linewidth}{!}{\begin{tabular}{lrrrrrr}\toprule
+Corpus & Expr. & Instances & Ranks & $\hat\beta$ & Boot.\ SE & Individual interval\\\midrule
 \tabinput{generated/corpus_table.tex}
-\bottomrule
-\end{tabular}
-\caption{$\beta$ by corpus (multinomial MLE; bootstrap 2{,}000 replicates).}\label{tab:corpus}
+\bottomrule\end{tabular}}
+\caption{Corpus estimates from log least squares. Intervals are nominal individual 95\% equation-bootstrap intervals. The instances column counts all operator occurrences, including nullary types.}\label{tab:corpus}
 \end{table}
-
 \begin{figure}[H]\centering
-\includegraphics[width=0.75\linewidth]{beta_by_corpus.pdf}
-\caption{$\beta$ by corpus, bootstrap $\pm1\sigma$. Encyclopaedia Inflationaris in red.}\label{fig:corpus}
+\includegraphics[width=0.8\linewidth]{beta_by_corpus.pdf}
+\caption{Corpus estimates and nominal individual 95\% equation-bootstrap intervals.}\label{fig:corpus}
 \end{figure}
 
 \subsection{Constant conventions}\label{sec:units}
-Encyclopaedia Inflationaris writes its potentials in natural units, and every potential carries an energy-density prefactor $M^4$, whereas the textbook corpora keep $c$, $\hbar$ and other constants explicit. Both conventions change the operator counts. Rewriting the Feynman benchmark with $c=\hbar=1$ (32 expressions affected) shifts its $\beta$ from 0.338 to $0.348\pm0.011$, and Wikipedia (2 affected) from 0.335 to $0.336\pm0.011$; setting $M=1$ in all 70 potentials moves Encyclopaedia Inflationaris from 0.260 to $0.257\pm0.006$ (\texttt{results/units\_check.json}). Each rewrite changes $\beta$ by at most 0.01, and the benchmark--EI gap widens rather than closes. The conventions for constants do not explain the lower value.
+Setting $c=\hbar=1$ moves the Feynman benchmark estimate from 0.342 to 0.332, affecting 32 expressions. For Wikipedia, two expressions are affected and both estimates round to 0.315. Removing the amplitude prefactor by setting $M=1$ in all 70 inflationary potentials moves their estimate from 0.269 to 0.261.
 
-\subsection{Lagrangian form: \texorpdfstring{$f(R)$}{f(R)} gravity}\label{sec:fr}
-The inflaton potentials are terms in a Lagrangian rather than equations for a measured quantity, and they are many candidate expressions for one concept in a theory that is not established. Ten closed forms of $f(R)$, the function that replaces the Ricci scalar in the Einstein--Hilbert action~\citep{sotiriou2010}, share all three properties. They give $\betafR\pm\sigfR$, in line with the textbook corpora (Table~\ref{tab:corpus}). Because this corpus is small, we compare it with subsets of the same size: 2{,}000 random subsets of 10 Encyclopaedia Inflationaris potentials (seed 20260930) have median $\beta=0.257$ (16--84\%: 0.242--0.273, maximum 0.312; \texttt{results/ei\_sample10.json}), so a corpus of ten potentials rarely reaches the $f(R)$ value (Figure~\ref{fig:ei}). Being a Lagrangian, or a set of candidates for one unproven concept, does not by itself produce a low $\beta$.
+After these rewritings, the benchmark--inflation gap is 0.071, compared with 0.073 originally. The specified changes therefore leave most of the point-estimate difference intact. They test these particular conventions and do not account for every possible way of representing the expressions.
 
-\begin{figure}[H]\centering
-\includegraphics[width=0.5\linewidth]{ei_sample10_beta.pdf}
-\caption{$\beta$ of 2{,}000 random subsets of 10 Encyclopaedia Inflationaris potentials.}\label{fig:ei}
-\end{figure}
+\subsection{Comparison with modified gravity}\label{sec:fr}
+The \nfR{} modified-gravity expressions give $\hat\beta=\betafR$ with an individual interval of $[\lofR,\hifR]$. The point estimate is close to the inflationary value, and the intervals overlap. This comparison provides no clear separation between the two collections.
 
-The remaining account is that the potentials describe a different energy scale or physical regime. Encyclopaedia Inflationaris offers no second regime to compare with, but the question has a testable form within a single source: whether $\beta$ depends on the branch of physics an equation belongs to. Section~\ref{sec:results} answers it.
+Both collections contain hypothetical models focused on one physical concept. Their similar estimates are compatible with those proposed explanations, but the comparison cannot establish either as the cause. In particular, it does not separate hypothetical status from focus on a single concept. Related variants within the modified-gravity collection also limit the independence assumption used for equation resampling.
 
-\section{Branch dependence within the Feynman Lectures}\label{sec:results}
+Taken together, these comparisons reproduce the inflationary difference and show that the tested constant changes leave it largely unchanged. They do not identify why it arises. The proposed role of physical domain motivates the following comparison within the Feynman collection.
 
-\subsection{\texorpdfstring{$\beta$}{beta} by branch}
-Table~\ref{tab:branch} and Figure~\ref{fig:main} report $\hat\beta$ by branch. Figure~\ref{fig:rf} plots rank-frequency data with fitted exponentials: the law fits each branch reasonably well, with the largest residuals in the sparse highest ranks.
+\section{Variation across physics branches}\label{sec:results}
+
+\subsection{Fitted rates}
+The seven branch estimates range from 0.325 to 0.422 (Table~\ref{tab:branch} and Figure~\ref{fig:main}). As an example of this variation, fluid and continuum mechanics gives $\hat\beta=\betaFluid$ with an individual interval of $[\loFluid,\hiFluid]$, while quantum mechanics gives $\hat\beta=\betaQM$ with $[\loQM,\hiQM]$. These intervals are separated.
 
 \begin{table}[H]\centering\small
-\resizebox{\linewidth}{!}{\begin{tabular}{lrrrrrrrr}\toprule
-Branch & Expr. & Instances $N$ & Ranks $R$ & $\hat\beta$ & Boot.\ $\sigma$ & Fisher $\sigma$ & Quoted $\sigma$ & $p$ vs rest (Bonf.)\\\midrule
+\resizebox{\linewidth}{!}{\begin{tabular}{lrrrrrr}\toprule
+Branch & Expr. & Instances & Ranks & $\hat\beta$ & Boot.\ SE & Individual interval\\\midrule
 \tabinput{generated/branch_table.tex}
-\midrule
-All Feynman expressions & \nPooled & 10693 & & \betaPooled & \sigPooled & 0.003 & \sigPooled & \\\bottomrule
-\end{tabular}}
-\caption{$\beta$ by branch, Feynman corpus. Last column: permutation $p$ of the branch against the other six pooled, times 7 (Bonferroni); ``$<$'' means no permutation was as extreme. $^a$Fisher $\sigma$ quoted (Section~\ref{sec:methods}).}\label{tab:branch}
+\bottomrule\end{tabular}}
+\caption{Branch estimates and nominal individual 95\% equation-bootstrap intervals.}\label{tab:branch}
 \end{table}
-
+\begin{figure}[H]\centering
+\includegraphics[width=0.8\linewidth]{beta_by_branch.pdf}
+\caption{Fitted rates across the seven Feynman branches, with nominal individual 95\% equation-bootstrap intervals.}\label{fig:main}
+\end{figure}
 \begin{figure}[H]\centering
 \includegraphics[width=\linewidth]{rank_frequency_branches.pdf}
-\caption{Rank-frequency of operator instances in each branch (points) and the fitted exponential (line). Last panel: the seven fitted laws together.}\label{fig:rf}
+\caption{Observed rank--frequency distributions and fitted exponentials for the seven branches.}\label{fig:rf}
 \end{figure}
 
-\subsection{Shared versus separate \texorpdfstring{$\beta$}{beta}}
-Branch-specific $\beta$ fits substantially better than a single shared value: $\Lambda=\LRall$ on \dfall{} degrees of freedom ($\chi^2$ $p=\pchiall$; permutation $p<0.00025$, with none of \permreps{} permutations as extreme), $\Delta\mathrm{AIC}=\dAICall$, $\Delta\mathrm{BIC}=\dBICall$. Coarser grouping into five branches (classical mechanics with special relativity; electromagnetism with waves and optics) yields the same conclusion ($\Lambda=93.3$, df 4, permutation $p<0.00025$, $\Delta\mathrm{AIC}=-85$).
+Figure~\ref{fig:rf} shows the distributions that these rates summarise. Each branch is ranked separately, so the operator at a given rank need not be the same across branches. The comparisons concern the shapes of the ranked distributions; operator identities require separate examination.
 
-After Bonferroni correction (Table~\ref{tab:branch}), four branches differ from the pooled remainder: quantum mechanics is lower; thermodynamics, fluid and continuum mechanics, and---by a smaller margin---electromagnetism ($0.352$ vs.\ $0.325$ for the rest, $\Lambda=13.8$) are higher. Special relativity is low before correction ($p=0.0075$) but not after ($p=0.05$). Waves and optics ($p=1.00$ corrected) and classical mechanics ($p=0.23$ corrected) are consistent with the remainder.
+\subsection{Sensitivity to the collection}
+Branch assignment affects the estimates. Removing chapters with ambiguous labels changes the special-relativity estimate from 0.382 to 0.231, with an individual interval of [0.204, 0.289]. Reassigning those chapters gives the same special-relativity estimate because the same expressions leave that group. This sensitivity concerns how the collection is defined and should be considered alongside the main branch comparison.
 
-Table~\ref{tab:pairs} lists uncorrected pairwise permutation $p$-values. Electromagnetism, waves and optics and classical mechanics cluster together (pairwise $p$ between 0.24 and 0.64), as do thermodynamics and fluid and continuum mechanics ($p=0.39$) and special relativity with quantum mechanics ($p=0.14$). Special relativity differs from classical mechanics before correction ($p=0.0035$; $\Lambda=9.7$, $\Delta\mathrm{AIC}=-7.7$). Under the $\times21$ correction (threshold $0.05/21\approx0.0024$), quantum mechanics differs from every branch except special relativity; special relativity differs from electromagnetism, thermodynamics and fluid and continuum mechanics; electromagnetism, waves and optics and classical mechanics each differ from fluid and continuum mechanics; and electromagnetism and waves and optics differ from thermodynamics. Classical mechanics vs.\ thermodynamics ($p=0.0085$ uncorrected), special relativity vs.\ waves and optics ($p=0.0090$) and special relativity vs.\ classical mechanics ($p=0.0035$) do not survive correction.
-
-\begin{table}[H]\centering\small
-\begin{tabular}{lccccccc}\toprule
- & SR & QM & EM & Waves & Classical & Thermo & Fluid\\\midrule
-\tabinput{generated/pairwise_table.tex}
-\bottomrule
-\end{tabular}
-\caption{Pairwise permutation $p$-values (\permreps{} permutations, uncorrected). ``$<0.0002$'' means no permutation was as extreme ($p\le1/4001$).}\label{tab:pairs}
-\end{table}
-
-\paragraph{Power.} The minimum detectable pairwise difference (80\% power, $\alpha=0.05$) is 0.026--0.029 among electromagnetism, quantum mechanics and waves and optics; 0.036--0.045 for pairs involving special relativity or classical mechanics with those branches; and 0.057--0.078 for pairs with thermodynamics or fluid and continuum mechanics. For $\Delta\beta=0.04$ against the remainder, simulated power is $\ge 0.99$ for quantum mechanics and electromagnetism, 0.96 for waves and optics, 0.89 for classical mechanics, 0.79 for special relativity, and 0.55 and 0.42 for thermodynamics and fluid and continuum mechanics. Non-rejections for waves and optics and classical mechanics are therefore informative at the $\sim 0.03$--$0.04$ scale: deviations of that magnitude would likely have been detected. The full grid is in \texttt{results/branch\_test.json}.
+Whole-chapter resampling gives wider individual intervals for quantum mechanics and fluid mechanics, while leaving them separated. The fluid and continuum collection contains only four chapters, limiting the information available for this check. Appendix~\ref{app:sensitivity} reports the chapter analysis and the assignment, notation and volume checks.
 
 \section{Discussion}\label{sec:discussion}
 
-\paragraph{Small branches.} The quoted Fisher $\sigma$ for special relativity treats operator instances as independent and may be too small. Permutation $p$-values do not rely on either uncertainty estimate. Fluid and continuum mechanics (42 expressions) and thermodynamics (73) are likewise small; power to detect a difference of 0.04 from the rest is about one half for them.
+\subsection{What the fitted rate describes}
+The fitted $\beta$ is a one-parameter summary of a ranked operator distribution under the stated criterion. Ranking discards operator identities: two collections can have similar fitted rates while using different operators. Conversely, variation in $\beta$ describes a difference in the concentration of the ranked frequencies, without identifying which physical or representational choices produced it.
 
-\paragraph{Extraction errors.} All retained records were hand-checked against source \LaTeX{}; 83 of 1{,}063 were rejected or corrected (Section~\ref{sec:data}). Subtle mis-parses may remain (e.g.\ a dropped prime or mis-read index with negligible count change). Before recheck, errors concentrated in Vol.~III (44 of 250 records changed, vs.\ 12 of 311 in Vol.~I and 27 of 502 in Vol.~II); recheck moved the quantum-mechanics $\beta$ from 0.300 to 0.291.
+The observed operator sets also differ between branches. Because each fit uses the types present in its own group, the comparisons reflect both the observed vocabulary and its relative frequencies.
 
-\paragraph{Scope.} All expressions derive from one textbook series and its benchmark subset. The results show that $\beta$ varies across branches \emph{as represented in the Feynman Lectures}; generalisation to other texts is untested. Counts follow conventions aligned with~\citep{constantin2024} (constants vs.\ variables; powers $x^2$--$x^4$ as unary operators), and the selection rule omits differential and integral equations, which dominate much of the subject matter in every branch.
+\subsection{Corpus construction and uncertainty}
+The collections consist of selected expressions. Inclusion criteria, algebraic representation, branch labels and the number of variants retained from a model family can all affect the resulting counts. The branch-assignment checks demonstrate one such effect. A single source reduces some differences in notation and editorial choices, but cannot make the selected expressions representative of every equation in a branch.
 
-\section{Conclusion}
-The lower $\beta$ of Encyclopaedia Inflationaris is confirmed with a likelihood-based estimator, and two suggested explanations are ruled out: rewriting the constants (natural units, the amplitude prefactor) changes $\beta$ by at most 0.01 and widens the gap, and a corpus of $f(R)$ Lagrangians, also candidates for one unproven concept, has the textbook value. Recast as a question about physical regime, the remaining explanation is supported within a single source: in the Feynman Lectures plus the AI Feynman benchmark, the exponential rank law for operator frequencies holds in each branch, but a common $\beta$ is strongly rejected. Thermodynamics and fluid and continuum mechanics lie above electromagnetism, waves and optics and classical mechanics, and quantum mechanics lies below them. A single $\beta$ for ``physics'' is thus an average over branches whose estimates differ by up to 0.14, and a corpus drawn from one subject, such as inflaton potentials, need not share the textbook value.
+Equation resampling measures variation when drawing comparable equations from the observed collection. It preserves dependence within equations, but does not capture systematic selection or transcription errors. Chapter resampling examines one source of dependence between equations. In the synthetic calibration checks, the individual intervals contained the population rate in 74.5\% to 94.5\% of datasets across the tested branches and scenarios, below the nominal 95\% level. We therefore treat the reported intervals as approximate uncertainty estimates (Appendix~\ref{app:calibration}).
+
+\subsection{Physical interpretation and symbolic regression}
+The lower inflationary estimate persists after the specified constant changes, while the expanded modified-gravity collection has a similar estimate to inflation. These observations leave the physical explanation unresolved. In particular, the branch comparison does not isolate energy scale from other differences between the equations.
+
+Operator statistics from individual domains could nevertheless be useful when constructing priors for symbolic regression. The relevant prior might describe operator identities and combinations as well as the rank--frequency decay rate. Whether such domain-specific priors improve equation recovery requires a separate evaluation.
+
+\section{Conclusion}\label{sec:conclusion}
+We revisit the exponential metalaw using log least squares and individual equation-bootstrap intervals. The lower fitted rate of Encyclopaedia Inflationaris relative to the Feynman benchmark is reproduced, and the specified changes to constant conventions leave most of the difference intact. The expanded modified-gravity collection gives a rate close to the inflationary value. Within the Feynman collection, the fitted rates vary across branches, although branch assignment affects the estimates and the intervals are approximate. The project documents these patterns and their sensitivity to the construction of the collections, while leaving their physical explanation open.
+
+\appendix
+\section{Catalogue sources and transcription conventions}\label{app:catalogue}
+The catalogue records the expression and its source reference. Lectures entries include volume, chapter and equation identifiers. The additional Wikipedia entries follow the original release cutoff in the same alphabetical list. The source references and counting metadata are retained with the individual records.
+
+Physical constants such as $c$, $\hbar$ and $G$ are classified as constants. The symbol $q_e$ retains its classification as a variable in the benchmark. Time averages written as $\langle x\rangle$ are represented by a single symbol. In the modified-gravity catalogue, $R$ denotes curvature rather than the gas constant, and model parameters are counted as variables. The catalogue stores the full curvature function: when a source writes $F(R)=R+f(R)$, the correction $f(R)$ is combined with $R$. Optional additional terms proposed later in a source are not included in the defining expression unless that expression itself contains them.
+
+For branch assignment, the benchmark expression from the relativistic-electrodynamics chapter in Volume~I is assigned to special relativity. The corresponding Lectures chapters---Volume~I, Chapter~34, and Volume~II, Chapters~25, 26 and 28---receive the same classification. The catalogue records ambiguous assignments for the sensitivity analysis.
+
+
+Table~\ref{tab:frsources} identifies the source used to transcribe each modified-gravity expression. Where a review is cited, it is the transcription source; the citation does not attribute the original proposal of every model to that review. The entry identifiers match those in the catalogue.
+
+\begin{longtable}{@{}p{0.65\linewidth}p{0.25\linewidth}@{}}
+\caption{Transcription sources for the \nfR{} modified-gravity expressions.}\label{tab:frsources}\\
+\toprule
+Catalogue entry & Source \\\midrule
+\endfirsthead
+\multicolumn{2}{l}{\tablename\ \thetable\ (continued)}\\
+\toprule
+Catalogue entry & Source \\\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\texttt{\detokenize{fr.power}} & \citep{sotiriou2010} \\
+\texttt{\detokenize{fr.inverse_power}} & \citep{sotiriou2010} \\
+\texttt{\detokenize{fr.quadratic}} & \citep{sotiriou2010} \\
+\texttt{\detokenize{fr.inverse_plus_quadratic}} & \citep{sotiriou2010} \\
+\texttt{\detokenize{fr.chameleon}} & \citep{sotiriou2010} \\
+\texttt{\detokenize{fr.logarithm}} & \citep{nojiri2003} \\
+\texttt{\detokenize{fr.exponential}} & \citep{carloni2006} \\
+\texttt{\detokenize{fr.sine}} & \citep{sotiriou2010} \\
+\texttt{\detokenize{fr.two_scales}} & \citep{sotiriou2010} \\
+\texttt{\detokenize{fr.starobinsky_2007}} & \citep{sotiriou2010} \\
+\texttt{\detokenize{fr.hu_sawicki}} & \citep{hu2007} \\
+\texttt{\detokenize{fr.tsujikawa}} & \citep{defelice2010} \\
+\texttt{\detokenize{fr.exponential_gravity}} & \citep{nunes2016} \\
+\texttt{\detokenize{fr.appleby_battye}} & \citep{appleby2007} \\
+\texttt{\detokenize{fr.miranda_log}} & \citep{miranda2009} \\
+\texttt{\detokenize{fr.rational_nojiri}} & \citep{nojiri2011} \\
+\texttt{\detokenize{fr.two_tanh}} & \citep{nojiri2011} \\
+\texttt{\detokenize{fr.odd_rational}} & \citep{nojiri2011} \\
+\texttt{\detokenize{fr.kruglov_arctan}} & \citep{kruglov2014} \\
+\texttt{\detokenize{fr.kruglov_arctan_quadratic}} & \citep{kruglov2015} \\
+\texttt{\detokenize{fr.pn_sqrt}} & \citep{perezromero2018} \\
+\texttt{\detokenize{fr.pn_inverse}} & \citep{perezromero2018} \\
+\texttt{\detokenize{fr.pn_three_halves}} & \citep{perezromero2018} \\
+\texttt{\detokenize{fr.pn_arctanh}} & \citep{perezromero2018} \\
+\texttt{\detokenize{fr.pn_sin}} & \citep{perezromero2018} \\
+\texttt{\detokenize{fr.pn_sinh}} & \citep{perezromero2018} \\
+\texttt{\detokenize{fr.pn_exp}} & \citep{perezromero2018} \\
+\texttt{\detokenize{fr.pn_tanh}} & \citep{perezromero2018} \\
+\texttt{\detokenize{fr.pn_asin}} & \citep{perezromero2018} \\
+\texttt{\detokenize{fr.pn_log}} & \citep{perezromero2018} \\
+\texttt{\detokenize{fr.pn_tan}} & \citep{perezromero2018} \\
+\texttt{\detokenize{fr.pn_arctan}} & \citep{perezromero2018} \\
+\texttt{\detokenize{fr.pn_erf}} & \citep{perezromero2018} \\
+\texttt{\detokenize{fr.pn_asinh}} & \citep{perezromero2018} \\
+\texttt{\detokenize{fr.pn_polynomial}} & \citep{perezromero2018} \\
+\texttt{\detokenize{fr.pn_pade}} & \citep{perezromero2018} \\
+\texttt{\detokenize{fr.pn_hypergeometric}} & \citep{perezromero2018} \\
+\end{longtable}
+
+\section{Sensitivity checks}\label{app:sensitivity}
+
+\subsection{Source-chapter resampling}
+We resample whole chapters jointly across branches. Each chapter is assigned to a stratum corresponding to the branch containing most of its retained equations, with ties resolved using the recorded branch order. Within each stratum, we sample the original number of chapters with replacement. Every equation from a selected chapter receives the same multiplicity, including equations assigned to other branches. This preserves dependence induced by the 11 chapters represented in more than one branch; the number of equations per branch can vary between replicates.
+
+The individual chapter-bootstrap interval is [0.375, 0.523] for fluid and continuum mechanics and [0.279, 0.356] for quantum mechanics. Both are wider than their equation-bootstrap intervals. The four chapters represented in fluid and continuum mechanics provide a small number of resampling units, so this check gives limited information about its uncertainty.
+\begin{figure}[H]\centering
+\includegraphics[width=0.85\linewidth]{chapter_bootstrap.pdf}
+\caption{Equation and joint chapter bootstrap intervals at the nominal individual 95\% level. Labels give the number of source chapters represented in each branch.}\label{fig:chapter}
+\end{figure}
+
+\subsection{Branch assignments and selection}
+The alternative specifications remove chapters with ambiguous assignments, reassign those chapters, remove expressions flagged for averages or imaginary units, or remove Volume~III. They use the same log-least-squares fitting procedure. Table~\ref{tab:assignment} reports the estimates and individual equation-bootstrap intervals; the original branch assignment remains the main analysis.
+
+\begin{table}[H]\centering\scriptsize
+\begin{tabular}{llrrl}\toprule
+Specification & Branch & Expr. & $\hat\beta$ & Individual interval\\\midrule
+Ambiguous chapters removed & SR & 32 & 0.231 & [0.204, 0.289] \\
+ & QM & 151 & 0.320 & [0.284, 0.350] \\
+ & EM & 198 & 0.315 & [0.302, 0.351] \\
+ & Waves & 48 & 0.291 & [0.265, 0.341] \\
+ & Classical & 75 & 0.354 & [0.298, 0.390] \\
+ & Thermo & 61 & 0.405 & [0.368, 0.461] \\
+ & Fluid & 42 & 0.422 & [0.377, 0.483] \\
+\midrule
+Ambiguous chapters reassigned & SR & 32 & 0.231 & [0.204, 0.289] \\
+ & QM & 182 & 0.335 & [0.299, 0.364] \\
+ & EM & 343 & 0.336 & [0.315, 0.359] \\
+ & Waves & 63 & 0.303 & [0.283, 0.345] \\
+ & Classical & 75 & 0.354 & [0.298, 0.388] \\
+ & Thermo & 89 & 0.353 & [0.321, 0.388] \\
+ & Fluid & 44 & 0.419 & [0.374, 0.478] \\
+\midrule
+Notation-flagged expressions removed & SR & 88 & 0.395 & [0.314, 0.437] \\
+ & QM & 164 & 0.317 & [0.284, 0.341] \\
+ & EM & 273 & 0.330 & [0.318, 0.361] \\
+ & Waves & 99 & 0.362 & [0.320, 0.393] \\
+ & Classical & 97 & 0.365 & [0.309, 0.386] \\
+ & Thermo & 69 & 0.400 & [0.368, 0.449] \\
+ & Fluid & 39 & 0.422 & [0.380, 0.500] \\
+\midrule
+Volume III removed & SR & 89 & 0.382 & [0.321, 0.431] \\
+ & QM & 26 & 0.349 & [0.319, 0.426] \\
+ & EM & 312 & 0.325 & [0.313, 0.353] \\
+ & Waves & 126 & 0.346 & [0.303, 0.368] \\
+ & Classical & 105 & 0.360 & [0.296, 0.377] \\
+ & Thermo & 73 & 0.403 & [0.370, 0.451] \\
+ & Fluid & 42 & 0.422 & [0.378, 0.481] \\
+\bottomrule\end{tabular}
+\caption{Alternative branch assignments and selection rules. Each entry reports the fitted rate and its nominal individual 95\% equation-bootstrap interval. Waves denotes waves and optics; fluid denotes fluid and continuum mechanics.}\label{tab:assignment}
+\end{table}
+
+\section{Bootstrap calibration}\label{app:calibration}
+We examine interval coverage using 200 synthetic datasets in each of three scenarios, each with seven branches and 400 bootstrap replicates. All scenarios have population marginal operator frequencies following an exponential with rate $\beta=0.35$. The first uses identical distributions and independent equation count vectors. The second varies equation counts, operator vocabularies and expression lengths, with dependence within an equation introduced through a shared random probability vector. The third introduces a shared random probability vector within each chapter and resamples whole chapters, including a branch with only four chapters.
+
+For each branch, we record how often the individual percentile interval contains the population rate. Coverage across the tested branches and scenarios ranges from 74.5\% to 94.5\%, with the lowest value in the chapter-dependent scenario. The nominal 95\% intervals therefore do not consistently achieve that coverage in these checks. We also record failed fits and binomial Monte Carlo intervals for the coverage estimates. The synthetic count vectors do not enforce the grammar of expression trees. These simulations diagnose limitations in the specified cases and do not provide a calibration correction for the observed corpora.
+
+\section{Exponential limit of the Zipf--Mandelbrot distribution}\label{app:zipf-limit}
+For a fixed set of ranks $r=1,\ldots,R$, the normalised Zipf--Mandelbrot distribution is
+\begin{equation}
+p_r(\alpha,b)=\frac{(r+b)^{-\alpha}}{\sum_{s=1}^{R}(s+b)^{-\alpha}},
+\qquad \alpha>0,\quad b>0.
+\end{equation}
+An exponential distribution is obtained when $b\to\infty$ and $\alpha/b\to\beta>0$. To see this, cancel the common factor $b^{-\alpha}$ from the numerator and denominator:
+\begin{equation}
+p_r(\alpha,b)=\frac{\exp[-\alpha\log(1+r/b)]}{\sum_{s=1}^{R}\exp[-\alpha\log(1+s/b)]}.
+\end{equation}
+Since $R$ is fixed, the expansion
+\begin{equation}
+\alpha\log(1+r/b)=\frac{\alpha}{b}r+O\!\left(\frac{\alpha R^2}{b^2}\right)
+\end{equation}
+holds uniformly over the ranks. Under the specified scaling, the remainder tends to zero and hence
+\begin{equation}
+p_r(\alpha,b)\longrightarrow\frac{e^{-\beta r}}{\sum_{s=1}^{R}e^{-\beta s}},
+\end{equation}
+recovering Eq.~\eqref{eq:law}. The scaling of both parameters matters: if $b$ increases while $\alpha$ is held fixed, the limiting distribution is uniform, $p_r\to1/R$.
+
+This limiting relationship helps interpret comparisons of the Zipf--Mandelbrot and exponential models. Whether fitted parameters for a particular corpus approach this regime requires examining their values relative to the observed rank range. The limiting argument alone makes no claim about the empirical preference between the models.
 
 \bibliographystyle{unsrtnat}
 \bibliography{refs}

@@ -1,6 +1,6 @@
 """The one random draw behind the Encyclopaedia Inflationaris figure in the writeup.
 
-Every other β is the multinomial MLE (M.fit_beta_mle); its bootstrap
+Every other β is the log-least-squares fit (M.fit_beta_logls); its bootstrap
 uses M.BOOTSTRAP_SEED. The sample of
 10 Encyclopaedia Inflationaris expressions is the exception. It uses
 SAMPLE_SEED so the median, the band, and the histogram come back the same.
@@ -21,7 +21,7 @@ def inflation_sample_betas(entries) -> np.ndarray:
     """β for each draw of SAMPLE_SIZE expressions, in draw order."""
 
     def one(subset) -> float:
-        return M.fit_beta_mle(list(M.rank_counts(subset).values()))
+        return M.fit_beta_logls(list(M.rank_counts(subset).values()))[0]
 
     rng = np.random.default_rng(SAMPLE_SEED)
     idx = np.arange(len(entries))

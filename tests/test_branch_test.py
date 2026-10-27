@@ -44,12 +44,12 @@ class FeynmanCorpusTests(unittest.TestCase):
 
     def test_branch_beta(self):
         C = BT.Counts([r for r, _, _ in self.rows])
-        want = {"SR": 0.308, "QM": 0.291, "EM": 0.352, "Waves+optics": 0.343, "Classical": 0.359,
-                "Thermo": 0.408, "Fluid+continuum": 0.433}
+        want = {"SR": 0.382, "QM": 0.327, "EM": 0.325, "Waves+optics": 0.346, "Classical": 0.360,
+                "Thermo": 0.403, "Fluid+continuum": 0.422}
         for k, b in want.items():
-            self.assertAlmostEqual(BT.mle([C.obs(self.groups[k])])[0], b, places=3, msg=k)
-        stat = BT.lrt(C, [self.groups[k] for k in BT.ORDER])[0]
-        self.assertAlmostEqual(stat, 102.05, places=1)
+            self.assertAlmostEqual(BT.M.fit_beta_logls(C.obs(self.groups[k]))[0], b, places=3, msg=k)
+        stat = BT.compare(C, [self.groups[k] for k in BT.ORDER])[0]
+        self.assertAlmostEqual(stat, 30.62, places=1)
 
 
 if __name__ == "__main__":

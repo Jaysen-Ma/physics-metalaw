@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Do unit conventions explain the lower β of Encyclopaedia Inflationaris?
 
-β (multinomial MLE, bootstrap 2000, seed 20261013) of
+β (log least squares, bootstrap 2000, seed 20261013) of
   * the Feynman benchmark and Wikipedia as written, and with c = 1 and ħ = 1;
   * Encyclopaedia Inflationaris as written, and with the amplitude M set to 1 in every potential.
 Rewritten formulas are recounted. Writes results/units_check.json.
@@ -37,7 +37,7 @@ def entry(record, formula):
 def fit(entries):
     d = M.beta_with_errors(entries)
     return dict(n=d["n"], beta=round(d["beta"], 4), boot_sigma=round(d["boot_sigma"], 4),
-                fisher_sigma=round(d["fisher_sigma"], 4))
+                fit_sigma=round(d["fit_sigma"], 4))
 
 
 def main() -> int:

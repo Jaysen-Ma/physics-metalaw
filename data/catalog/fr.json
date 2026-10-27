@@ -1,11 +1,11 @@
 {
   "corpus": "fr",
-  "citation": "Ten closed forms of f(R) written as examples in Sotiriou and Faraoni, arXiv:0805.1726. Not a released catalog.",
+  "citation": "Closed forms of f(R). The first ten are examples in Sotiriou and Faraoni, arXiv:0805.1726. Later records cite Hu–Sawicki, Tsujikawa, exponential gravity, Appleby–Battye, Miranda et al., Nojiri–Odintsov, Kruglov, and Pérez-Romero and Nesseris. Not a released catalog.",
   "source_kind": "compiled",
   "source_url": "https://arxiv.org/abs/0805.1726",
   "board_url": "https://arxiv.org/abs/0805.1726",
   "board_label": "arXiv:0805.1726",
-  "n_records": 10,
+  "n_records": 37,
   "policies": [
     "extension"
   ],
@@ -33,7 +33,7 @@
       "source_kind": "compiled",
       "source_url": "https://arxiv.org/html/0805.1726#S4.SS1.SSS1.p7.m2",
       "source_locator": "f(R) ∝ R^n",
-      "notes": "",
+      "notes": "Sec. IV.1.1, the first demonstrative example. Cited there to Capozziello, Carloni and Troisi (2003).",
       "name": "R^n",
       "constant_names": [],
       "variable_names": [
@@ -41,6 +41,8 @@
         "n"
       ],
       "consideration": "in",
+      "branch": "",
+      "public": true,
       "tree": {
         "label": "Pow",
         "arity": "binary",
@@ -86,7 +88,7 @@
       "source_kind": "compiled",
       "source_url": "https://arxiv.org/html/0805.1726#S4.SS1.SSS1.p8.m1",
       "source_locator": "f(R) = R − μ^{2(n+1)}/R^n",
-      "notes": "",
+      "notes": "Sec. IV.1.1, the second demonstrative example. Cited there to Carroll, Duvvuri, Trodden and Turner (2004). The case n = 1 is R − μ^4/R.",
       "name": "R − μ^{2(n+1)}/R^n",
       "constant_names": [],
       "variable_names": [
@@ -95,6 +97,8 @@
         "n"
       ],
       "consideration": "in",
+      "branch": "",
+      "public": true,
       "tree": {
         "label": "Subtract",
         "arity": "binary",
@@ -205,7 +209,7 @@
       "source_kind": "compiled",
       "source_url": "https://arxiv.org/html/0805.1726#S5.SS1.SSS2.p17.m2",
       "source_locator": "f(R) = R + α R^2",
-      "notes": "",
+      "notes": "Sec. V.1.2, short-range scalar field. Cited there to Starobinsky (1980).",
       "name": "R + α R^2",
       "constant_names": [],
       "variable_names": [
@@ -213,6 +217,8 @@
         "alpha"
       ],
       "consideration": "in",
+      "branch": "",
+      "public": true,
       "tree": {
         "label": "Add",
         "arity": "binary",
@@ -278,7 +284,7 @@
       "source_kind": "compiled",
       "source_url": "https://arxiv.org/html/0805.1726#S5.E175.m1",
       "source_locator": "f(R) = R − μ^4/R + a R^2",
-      "notes": "",
+      "notes": "Sec. V.2.2, the quadratic correction added to the prototype R − μ^4/R when discussing stability of de Sitter space.",
       "name": "R − μ^4/R + a R^2",
       "constant_names": [],
       "variable_names": [
@@ -287,6 +293,8 @@
         "mu"
       ],
       "consideration": "in",
+      "branch": "",
+      "public": true,
       "tree": {
         "label": "Add",
         "arity": "binary",
@@ -385,7 +393,7 @@
       "source_kind": "compiled",
       "source_url": "https://arxiv.org/html/0805.1726#S5.E134.m1",
       "source_locator": "f(R) = R − (1−n) μ^2 (R/μ^2)^n",
-      "notes": "",
+      "notes": "Sec. V.1.2, the displayed chameleon example, eq. (134). Cited there to Carroll et al. (2004) and Amendola et al. (2007).",
       "name": "R − (1−n) μ^2 (R/μ^2)^n",
       "constant_names": [],
       "variable_names": [
@@ -394,6 +402,8 @@
         "n"
       ],
       "consideration": "in",
+      "branch": "",
+      "public": true,
       "tree": {
         "label": "Subtract",
         "arity": "binary",
@@ -529,6 +539,8 @@
         "mu"
       ],
       "consideration": "in",
+      "branch": "",
+      "public": true,
       "tree": {
         "label": "Add",
         "arity": "binary",
@@ -661,6 +673,8 @@
         "lambd"
       ],
       "consideration": "in",
+      "branch": "",
+      "public": true,
       "tree": {
         "label": "exp",
         "arity": "unary",
@@ -713,7 +727,7 @@
       "source_kind": "compiled",
       "source_url": "https://arxiv.org/html/0805.1726#S5.SS1.SSS2.p16.m11",
       "source_locator": "f(R) = R − μ^2 sin(μ^2/(R−λ))",
-      "notes": "",
+      "notes": "Sec. V.1.2, the essential-singularity example. Cited there to Jin, Liu and Li (2006).",
       "name": "R − μ^2 sin(μ^2/(R−λ))",
       "constant_names": [],
       "variable_names": [
@@ -722,6 +736,8 @@
         "mu"
       ],
       "consideration": "in",
+      "branch": "",
+      "public": true,
       "tree": {
         "label": "Subtract",
         "arity": "binary",
@@ -827,7 +843,7 @@
       "source_kind": "compiled",
       "source_url": "https://arxiv.org/html/0805.1726#S7.SS1.p2.m5",
       "source_locator": "f(R) = R − a(R−Λ_1)^{−m} + b(R−Λ_2)^n",
-      "notes": "",
+      "notes": "Sec. VII.1, listed among typical examples. Cited there to Nojiri and Odintsov (2003).",
       "name": "R − a(R−Λ_1)^{−m} + b(R−Λ_2)^n",
       "constant_names": [],
       "variable_names": [
@@ -840,6 +856,8 @@
         "n"
       ],
       "consideration": "in",
+      "branch": "",
+      "public": true,
       "tree": {
         "label": "Add",
         "arity": "binary",
@@ -983,7 +1001,7 @@
       "source_kind": "compiled",
       "source_url": "https://arxiv.org/html/0805.1726#S7.SS1.p2.m7",
       "source_locator": "f(R) = R + λ R_0 [(1+R^2/R_0^2)^{−n} − 1]",
-      "notes": "",
+      "notes": "Sec. VII.1, the model tailored to the known constraints. Cited there to Starobinsky (2007). R_0 is of order H_0^2.",
       "name": "R + λ R_0 [(1+R^2/R_0^2)^{−n} − 1]",
       "constant_names": [],
       "variable_names": [
@@ -993,6 +1011,8 @@
         "n"
       ],
       "consideration": "in",
+      "branch": "",
+      "public": true,
       "tree": {
         "label": "Add",
         "arity": "binary",
@@ -1112,6 +1132,4502 @@
         ]
       },
       "latex": "R + \\lambda R_{0} \\left(\\left(1 + \\frac{R^{2}}{R_{0}^{2}}\\right)^{-n} - 1\\right)",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.hu_sawicki",
+      "id": "fr.hu_sawicki",
+      "formula": "R - c1*R_HS*(R/R_HS)**p/(c2*(R/R_HS)**p + 1)",
+      "original_formula": "R - c1*R_HS*(R/R_HS)**p/(c2*(R/R_HS)**p + 1)",
+      "output": "f",
+      "n_variables": 10,
+      "n_numbers": 1,
+      "n_constants": 0,
+      "complexity": 21,
+      "original_n_variables": 10,
+      "original_n_numbers": 1,
+      "original_n_constants": 0,
+      "original_complexity": 21,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/0705.1158",
+      "source_locator": "f(R) = R − c1 R_HS (R/R_HS)^p / [c2 (R/R_HS)^p + 1]",
+      "notes": "Hu and Sawicki, Phys. Rev. D 76, 064004 (2007), eq. (4) of the arXiv version. Also written as eq. (2.18) of arXiv:1610.07518.",
+      "name": "Hu–Sawicki",
+      "constant_names": [],
+      "variable_names": [
+        "R",
+        "R_HS",
+        "c1",
+        "c2",
+        "p"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Div",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "c1",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "R_HS",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Pow",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "Div",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "R",
+                            "arity": "nullary",
+                            "kind": "variable",
+                            "children": []
+                          },
+                          {
+                            "label": "R_HS",
+                            "arity": "nullary",
+                            "kind": "variable",
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "label": "p",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "label": "Add",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "c2",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "Pow",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Div",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "R",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              },
+                              {
+                                "label": "R_HS",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "label": "p",
+                            "arity": "nullary",
+                            "kind": "variable",
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "label": "1",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\frac{c_{1} R_{\\text{HS}} \\left(\\frac{R}{R_{\\text{HS}}}\\right)^{p}}{c_{2} \\left(\\frac{R}{R_{\\text{HS}}}\\right)^{p} + 1}",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.tsujikawa",
+      "id": "fr.tsujikawa",
+      "formula": "R - mu*R_c*tanh(R/R_c)",
+      "original_formula": "R - mu*R_c*tanh(R/R_c)",
+      "output": "f",
+      "n_variables": 5,
+      "n_numbers": 0,
+      "n_constants": 0,
+      "complexity": 10,
+      "original_n_variables": 5,
+      "original_n_numbers": 0,
+      "original_n_constants": 0,
+      "original_complexity": 10,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1002.4928",
+      "source_locator": "f(R) = R − μ R_c tanh(R/R_c)",
+      "notes": "De Felice and Tsujikawa, Living Rev. Rel. 13, 3 (2010), eq. (4.89). Also eq. (2.22) of arXiv:1610.07518.",
+      "name": "Tsujikawa",
+      "constant_names": [],
+      "variable_names": [
+        "R",
+        "R_c",
+        "mu"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Mult",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "mu",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  },
+                  {
+                    "label": "R_c",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "tanh",
+                "arity": "unary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "Div",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "R",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "R_c",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\mu R_{c} \\tanh\\left(\\frac{R}{R_{c}}\\right)",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.exponential_gravity",
+      "id": "fr.exponential_gravity",
+      "formula": "R - beta*R_E*(1 - exp(-R/R_E))",
+      "original_formula": "R - beta*R_E*(1 - exp(-R/R_E))",
+      "output": "f",
+      "n_variables": 5,
+      "n_numbers": 1,
+      "n_constants": 0,
+      "complexity": 13,
+      "original_n_variables": 5,
+      "original_n_numbers": 1,
+      "original_n_constants": 0,
+      "original_complexity": 13,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1610.07518",
+      "source_locator": "f(R) = R − β R_E (1 − exp(−R/R_E))",
+      "notes": "Eq. (2.24) of arXiv:1610.07518. The same family as f(R) = R + c1 (1 − exp(−c2 R)) in arXiv:1005.4574.",
+      "name": "exponential gravity",
+      "constant_names": [],
+      "variable_names": [
+        "R",
+        "R_E",
+        "beta"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Mult",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "beta",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  },
+                  {
+                    "label": "R_E",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "Subtract",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "1",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "exp",
+                    "arity": "unary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "Div",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Neg",
+                            "arity": "unary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "R",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "label": "R_E",
+                            "arity": "nullary",
+                            "kind": "variable",
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\beta R_{E} \\left(1 - e^{\\frac{-R}{R_{E}}}\\right)",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.appleby_battye",
+      "id": "fr.appleby_battye",
+      "formula": "R/2 + (1/(2*a))*log(cosh(a*R) - tanh(b)*sinh(a*R))",
+      "original_formula": "R/2 + (1/(2*a))*log(cosh(a*R) - tanh(b)*sinh(a*R))",
+      "output": "f",
+      "n_variables": 7,
+      "n_numbers": 3,
+      "n_constants": 0,
+      "complexity": 23,
+      "original_n_variables": 7,
+      "original_n_numbers": 3,
+      "original_n_constants": 0,
+      "original_complexity": 23,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/0705.3199",
+      "source_locator": "F(R) = R/2 + (1/(2a)) log[cosh(aR) − tanh(b) sinh(aR)]",
+      "notes": "Appleby and Battye, Phys. Lett. B 654, 7 (2007), eq. (12).",
+      "name": "Appleby–Battye",
+      "constant_names": [],
+      "variable_names": [
+        "R",
+        "a",
+        "b"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Add",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "Div",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "R",
+                "arity": "nullary",
+                "kind": "variable",
+                "children": []
+              },
+              {
+                "label": "2",
+                "arity": "nullary",
+                "kind": "number",
+                "children": []
+              }
+            ]
+          },
+          {
+            "label": "Mult",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Div",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "1",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "2",
+                        "arity": "nullary",
+                        "kind": "number",
+                        "children": []
+                      },
+                      {
+                        "label": "a",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "label": "log",
+                "arity": "unary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "Subtract",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "cosh",
+                        "arity": "unary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Mult",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "a",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              },
+                              {
+                                "label": "R",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Mult",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "tanh",
+                            "arity": "unary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "b",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "label": "sinh",
+                            "arity": "unary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "Mult",
+                                "arity": "binary",
+                                "kind": "op",
+                                "children": [
+                                  {
+                                    "label": "a",
+                                    "arity": "nullary",
+                                    "kind": "variable",
+                                    "children": []
+                                  },
+                                  {
+                                    "label": "R",
+                                    "arity": "nullary",
+                                    "kind": "variable",
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "\\frac{R}{2} + \\frac{1}{2 a} \\log\\left(\\cosh\\left(a R\\right) - \\tanh\\left(b\\right) \\sinh\\left(a R\\right)\\right)",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.miranda_log",
+      "id": "fr.miranda_log",
+      "formula": "R - alpha*R_ast*log(1 + R/R_ast)",
+      "original_formula": "R - alpha*R_ast*log(1 + R/R_ast)",
+      "output": "f",
+      "n_variables": 5,
+      "n_numbers": 1,
+      "n_constants": 0,
+      "complexity": 12,
+      "original_n_variables": 5,
+      "original_n_numbers": 1,
+      "original_n_constants": 0,
+      "original_complexity": 12,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/0905.1941",
+      "source_locator": "f(R) = R − α R_* ln(1 + R/R_*)",
+      "notes": "Miranda, Jorás, Waga and Quartin, Phys. Rev. Lett. 102, 221101 (2009), eq. (3).",
+      "name": "Miranda–Jorás–Waga–Quartin",
+      "constant_names": [],
+      "variable_names": [
+        "R",
+        "R_ast",
+        "alpha"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Mult",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "alpha",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  },
+                  {
+                    "label": "R_ast",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "log",
+                "arity": "unary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "Add",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "1",
+                        "arity": "nullary",
+                        "kind": "number",
+                        "children": []
+                      },
+                      {
+                        "label": "Div",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "R",
+                            "arity": "nullary",
+                            "kind": "variable",
+                            "children": []
+                          },
+                          {
+                            "label": "R_ast",
+                            "arity": "nullary",
+                            "kind": "variable",
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\alpha R_{\\text{ast}} \\log\\left(1 + \\frac{R}{R_{\\text{ast}}}\\right)",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.rational_nojiri",
+      "id": "fr.rational_nojiri",
+      "formula": "R + (alpha*R**(2*n) - beta*R**n)/(1 + gamma*R**n)",
+      "original_formula": "R + (alpha*R**(2*n) - beta*R**n)/(1 + gamma*R**n)",
+      "output": "f",
+      "n_variables": 10,
+      "n_numbers": 2,
+      "n_constants": 0,
+      "complexity": 23,
+      "original_n_variables": 10,
+      "original_n_numbers": 2,
+      "original_n_constants": 0,
+      "original_complexity": 23,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1008.4275",
+      "source_locator": "F(R) = R + (α R^{2n} − β R^n)/(1 + γ R^n)",
+      "notes": "Nojiri and Odintsov, arXiv:1008.4275, eq. (50) (Prog. Theor. Phys. Suppl. 190, 155 (2011), eq. (6.5)). The paper writes the fraction as the correction f(R) in F(R) = R + f(R). The catalog stores F.",
+      "name": "rational Nojiri–Odintsov",
+      "constant_names": [],
+      "variable_names": [
+        "R",
+        "alpha",
+        "beta",
+        "gamma",
+        "n"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Add",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Div",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Subtract",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "alpha",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "Pow",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "R",
+                            "arity": "nullary",
+                            "kind": "variable",
+                            "children": []
+                          },
+                          {
+                            "label": "Mult",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "2",
+                                "arity": "nullary",
+                                "kind": "number",
+                                "children": []
+                              },
+                              {
+                                "label": "n",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "beta",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "Pow",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "R",
+                            "arity": "nullary",
+                            "kind": "variable",
+                            "children": []
+                          },
+                          {
+                            "label": "n",
+                            "arity": "nullary",
+                            "kind": "variable",
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "label": "Add",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "1",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "gamma",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "Pow",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "R",
+                            "arity": "nullary",
+                            "kind": "variable",
+                            "children": []
+                          },
+                          {
+                            "label": "n",
+                            "arity": "nullary",
+                            "kind": "variable",
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R + \\frac{\\alpha R^{\\left(2 n\\right)} - \\beta R^{n}}{1 + \\gamma R^{n}}",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.two_tanh",
+      "id": "fr.two_tanh",
+      "formula": "R - alpha0*(tanh(b0*(R - R0)/2) + tanh(b0*R0/2)) - alphaI*(tanh(bI*(R - RI)/2) + tanh(bI*RI/2))",
+      "original_formula": "R - alpha0*(tanh(b0*(R - R0)/2) + tanh(b0*R0/2)) - alphaI*(tanh(bI*(R - RI)/2) + tanh(bI*RI/2))",
+      "output": "f",
+      "n_variables": 13,
+      "n_numbers": 4,
+      "n_constants": 0,
+      "complexity": 37,
+      "original_n_variables": 13,
+      "original_n_numbers": 4,
+      "original_n_constants": 0,
+      "original_complexity": 37,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1008.4275",
+      "source_locator": "F(R) = R − α0 [tanh(b0(R−R0)/2) + tanh(b0 R0/2)] − αI [tanh(bI(R−RI)/2) + tanh(bI RI/2)]",
+      "notes": "Nojiri and Odintsov, arXiv:1008.4275, the display after eq. (53) (journal eq. (6.9)). The paper writes the tanh terms as the correction f(R) in F(R) = R + f(R). The catalog stores F.",
+      "name": "two hyperbolic steps",
+      "constant_names": [],
+      "variable_names": [
+        "R",
+        "R0",
+        "RI",
+        "alpha0",
+        "alphaI",
+        "b0",
+        "bI"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "Subtract",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "R",
+                "arity": "nullary",
+                "kind": "variable",
+                "children": []
+              },
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "alpha0",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  },
+                  {
+                    "label": "Add",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "tanh",
+                        "arity": "unary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Div",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "Mult",
+                                "arity": "binary",
+                                "kind": "op",
+                                "children": [
+                                  {
+                                    "label": "b0",
+                                    "arity": "nullary",
+                                    "kind": "variable",
+                                    "children": []
+                                  },
+                                  {
+                                    "label": "Subtract",
+                                    "arity": "binary",
+                                    "kind": "op",
+                                    "children": [
+                                      {
+                                        "label": "R",
+                                        "arity": "nullary",
+                                        "kind": "variable",
+                                        "children": []
+                                      },
+                                      {
+                                        "label": "R0",
+                                        "arity": "nullary",
+                                        "kind": "variable",
+                                        "children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "label": "2",
+                                "arity": "nullary",
+                                "kind": "number",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "label": "tanh",
+                        "arity": "unary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Div",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "Mult",
+                                "arity": "binary",
+                                "kind": "op",
+                                "children": [
+                                  {
+                                    "label": "b0",
+                                    "arity": "nullary",
+                                    "kind": "variable",
+                                    "children": []
+                                  },
+                                  {
+                                    "label": "R0",
+                                    "arity": "nullary",
+                                    "kind": "variable",
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "label": "2",
+                                "arity": "nullary",
+                                "kind": "number",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Mult",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "alphaI",
+                "arity": "nullary",
+                "kind": "variable",
+                "children": []
+              },
+              {
+                "label": "Add",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "tanh",
+                    "arity": "unary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "Div",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Mult",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "bI",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              },
+                              {
+                                "label": "Subtract",
+                                "arity": "binary",
+                                "kind": "op",
+                                "children": [
+                                  {
+                                    "label": "R",
+                                    "arity": "nullary",
+                                    "kind": "variable",
+                                    "children": []
+                                  },
+                                  {
+                                    "label": "RI",
+                                    "arity": "nullary",
+                                    "kind": "variable",
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "label": "2",
+                            "arity": "nullary",
+                            "kind": "number",
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "label": "tanh",
+                    "arity": "unary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "Div",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Mult",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "bI",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              },
+                              {
+                                "label": "RI",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "label": "2",
+                            "arity": "nullary",
+                            "kind": "number",
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\alpha_{0} \\left(\\tanh\\left(\\frac{b_{0} \\left(R - R_{0}\\right)}{2}\\right) + \\tanh\\left(\\frac{b_{0} R_{0}}{2}\\right)\\right) - alphaI \\left(\\tanh\\left(\\frac{bI \\left(R - RI\\right)}{2}\\right) + \\tanh\\left(\\frac{bI RI}{2}\\right)\\right)",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.odd_rational",
+      "id": "fr.odd_rational",
+      "formula": "R - ((R - R0)**(2*k + 1) + R0**(2*k + 1))/(f0 + f1*((R - R0)**(2*k + 1) + R0**(2*k + 1)))",
+      "original_formula": "R - ((R - R0)**(2*k + 1) + R0**(2*k + 1))/(f0 + f1*((R - R0)**(2*k + 1) + R0**(2*k + 1)))",
+      "output": "f",
+      "n_variables": 13,
+      "n_numbers": 8,
+      "n_constants": 0,
+      "complexity": 41,
+      "original_n_variables": 13,
+      "original_n_numbers": 8,
+      "original_n_constants": 0,
+      "original_complexity": 41,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1008.4275",
+      "source_locator": "F(R) = R − [(R−R0)^{2k+1} + R0^{2k+1}] / {f0 + f1[(R−R0)^{2k+1} + R0^{2k+1}]}",
+      "notes": "Nojiri and Odintsov, arXiv:1008.4275, eq. (66) (journal eq. (6.22)). The paper writes the fraction as the correction f(R) in F(R) = R + f(R). The catalog stores F.",
+      "name": "odd rational",
+      "constant_names": [],
+      "variable_names": [
+        "R",
+        "R0",
+        "f0",
+        "f1",
+        "k"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Div",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Add",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "Pow",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "Subtract",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "R",
+                            "arity": "nullary",
+                            "kind": "variable",
+                            "children": []
+                          },
+                          {
+                            "label": "R0",
+                            "arity": "nullary",
+                            "kind": "variable",
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Add",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Mult",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "2",
+                                "arity": "nullary",
+                                "kind": "number",
+                                "children": []
+                              },
+                              {
+                                "label": "k",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "label": "1",
+                            "arity": "nullary",
+                            "kind": "number",
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Pow",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "R0",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "Add",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Mult",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "2",
+                                "arity": "nullary",
+                                "kind": "number",
+                                "children": []
+                              },
+                              {
+                                "label": "k",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "label": "1",
+                            "arity": "nullary",
+                            "kind": "number",
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "label": "Add",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "f0",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  },
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "f1",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "Add",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Pow",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "Subtract",
+                                "arity": "binary",
+                                "kind": "op",
+                                "children": [
+                                  {
+                                    "label": "R",
+                                    "arity": "nullary",
+                                    "kind": "variable",
+                                    "children": []
+                                  },
+                                  {
+                                    "label": "R0",
+                                    "arity": "nullary",
+                                    "kind": "variable",
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "label": "Add",
+                                "arity": "binary",
+                                "kind": "op",
+                                "children": [
+                                  {
+                                    "label": "Mult",
+                                    "arity": "binary",
+                                    "kind": "op",
+                                    "children": [
+                                      {
+                                        "label": "2",
+                                        "arity": "nullary",
+                                        "kind": "number",
+                                        "children": []
+                                      },
+                                      {
+                                        "label": "k",
+                                        "arity": "nullary",
+                                        "kind": "variable",
+                                        "children": []
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "label": "1",
+                                    "arity": "nullary",
+                                    "kind": "number",
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "label": "Pow",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "R0",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              },
+                              {
+                                "label": "Add",
+                                "arity": "binary",
+                                "kind": "op",
+                                "children": [
+                                  {
+                                    "label": "Mult",
+                                    "arity": "binary",
+                                    "kind": "op",
+                                    "children": [
+                                      {
+                                        "label": "2",
+                                        "arity": "nullary",
+                                        "kind": "number",
+                                        "children": []
+                                      },
+                                      {
+                                        "label": "k",
+                                        "arity": "nullary",
+                                        "kind": "variable",
+                                        "children": []
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "label": "1",
+                                    "arity": "nullary",
+                                    "kind": "number",
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\frac{\\left(R - R_{0}\\right)^{\\left(2 k + 1\\right)} + R_{0}^{\\left(2 k + 1\\right)}}{f_{0} + f_{1} \\left(\\left(R - R_{0}\\right)^{\\left(2 k + 1\\right)} + R_{0}^{\\left(2 k + 1\\right)}\\right)}",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.kruglov_arctan",
+      "id": "fr.kruglov_arctan",
+      "formula": "R - (b/beta)*atan(beta*R)",
+      "original_formula": "R - (b/beta)*atan(beta*R)",
+      "output": "f",
+      "n_variables": 5,
+      "n_numbers": 0,
+      "n_constants": 0,
+      "complexity": 10,
+      "original_n_variables": 5,
+      "original_n_numbers": 0,
+      "original_n_constants": 0,
+      "original_complexity": 10,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1310.6915",
+      "source_locator": "F(R) = R − (b/β) arctan(β R)",
+      "notes": "Kruglov, Phys. Rev. D 89, 064004 (2014).",
+      "name": "Kruglov arctan",
+      "constant_names": [],
+      "variable_names": [
+        "R",
+        "b",
+        "beta"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Mult",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Div",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "b",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  },
+                  {
+                    "label": "beta",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "atan",
+                "arity": "unary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "beta",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "R",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\frac{b}{\\beta} \\operatorname{atan}\\left(\\beta R\\right)",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.kruglov_arctan_quadratic",
+      "id": "fr.kruglov_arctan_quadratic",
+      "formula": "(1/beta)*atan(beta*R - beta**2*R**2)",
+      "original_formula": "(1/beta)*atan(beta*R - beta**2*R**2)",
+      "output": "f",
+      "n_variables": 5,
+      "n_numbers": 1,
+      "n_constants": 0,
+      "complexity": 14,
+      "original_n_variables": 5,
+      "original_n_numbers": 1,
+      "original_n_constants": 0,
+      "original_complexity": 14,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://doi.org/10.3390/universe1010082",
+      "source_locator": "F(R) = (1/β) arctan(β R − β^2 R^2)",
+      "notes": "Kruglov, Universe 1, 82 (2015), eq. (1). No separate Einstein–Hilbert term.",
+      "name": "Kruglov arctan of a quadratic",
+      "constant_names": [],
+      "variable_names": [
+        "R",
+        "beta"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Mult",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "Div",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "1",
+                "arity": "nullary",
+                "kind": "number",
+                "children": []
+              },
+              {
+                "label": "beta",
+                "arity": "nullary",
+                "kind": "variable",
+                "children": []
+              }
+            ]
+          },
+          {
+            "label": "atan",
+            "arity": "unary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Subtract",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "beta",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "R",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "Pow2",
+                        "arity": "unary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "beta",
+                            "arity": "nullary",
+                            "kind": "variable",
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Pow2",
+                        "arity": "unary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "R",
+                            "arity": "nullary",
+                            "kind": "variable",
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "\\frac{1}{\\beta} \\operatorname{atan}\\left(\\beta R - \\beta^{2} R^{2}\\right)",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.pn_sqrt",
+      "id": "fr.pn_sqrt",
+      "formula": "R - 2*Lambda/(1 + b*sqrt(Lambda/R))",
+      "original_formula": "R - 2*Lambda/(1 + b*sqrt(Lambda/R))",
+      "output": "f",
+      "n_variables": 5,
+      "n_numbers": 2,
+      "n_constants": 0,
+      "complexity": 14,
+      "original_n_variables": 5,
+      "original_n_numbers": 2,
+      "original_n_constants": 0,
+      "original_complexity": 14,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1710.05634",
+      "source_locator": "f(R) = R − 2Λ / [1 + b (Λ/R)^{1/2}]",
+      "notes": "Pérez-Romero and Nesseris, Phys. Rev. D 97, 023525 (2018). y(Λ/R) = (Λ/R)^{1/2} in their eq. (24).",
+      "name": "Pérez-Romero y = (Λ/R)^{1/2}",
+      "constant_names": [],
+      "variable_names": [
+        "Lambda",
+        "R",
+        "b"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Div",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "2",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Lambda",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "Add",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "1",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "b",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "sqrt",
+                        "arity": "unary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Div",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "Lambda",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              },
+                              {
+                                "label": "R",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\frac{2 \\lambda}{1 + b \\sqrt{\\frac{\\lambda}{R}}}",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.pn_inverse",
+      "id": "fr.pn_inverse",
+      "formula": "R - 2*Lambda/(1 + b*(Lambda/R))",
+      "original_formula": "R - 2*Lambda/(1 + b*(Lambda/R))",
+      "output": "f",
+      "n_variables": 5,
+      "n_numbers": 2,
+      "n_constants": 0,
+      "complexity": 13,
+      "original_n_variables": 5,
+      "original_n_numbers": 2,
+      "original_n_constants": 0,
+      "original_complexity": 13,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1710.05634",
+      "source_locator": "f(R) = R − 2Λ / [1 + b (Λ/R)]",
+      "notes": "Pérez-Romero and Nesseris, eq. (24) with y = Λ/R. They identify the n = 1 power with Hu–Sawicki.",
+      "name": "Pérez-Romero y = Λ/R",
+      "constant_names": [],
+      "variable_names": [
+        "Lambda",
+        "R",
+        "b"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Div",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "2",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Lambda",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "Add",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "1",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "b",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "Div",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Lambda",
+                            "arity": "nullary",
+                            "kind": "variable",
+                            "children": []
+                          },
+                          {
+                            "label": "R",
+                            "arity": "nullary",
+                            "kind": "variable",
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\frac{2 \\lambda}{1 + b \\frac{\\lambda}{R}}",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.pn_three_halves",
+      "id": "fr.pn_three_halves",
+      "formula": "R - 2*Lambda/(1 + b*(Lambda/R)**(3/2))",
+      "original_formula": "R - 2*Lambda/(1 + b*(Lambda/R)**(3/2))",
+      "output": "f",
+      "n_variables": 5,
+      "n_numbers": 4,
+      "n_constants": 0,
+      "complexity": 17,
+      "original_n_variables": 5,
+      "original_n_numbers": 4,
+      "original_n_constants": 0,
+      "original_complexity": 17,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1710.05634",
+      "source_locator": "f(R) = R − 2Λ / [1 + b (Λ/R)^{3/2}]",
+      "notes": "Pérez-Romero and Nesseris, eq. (24) with y = (Λ/R)^{3/2}.",
+      "name": "Pérez-Romero y = (Λ/R)^{3/2}",
+      "constant_names": [],
+      "variable_names": [
+        "Lambda",
+        "R",
+        "b"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Div",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "2",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Lambda",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "Add",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "1",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "b",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "Pow",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Div",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "Lambda",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              },
+                              {
+                                "label": "R",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "label": "Div",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "3",
+                                "arity": "nullary",
+                                "kind": "number",
+                                "children": []
+                              },
+                              {
+                                "label": "2",
+                                "arity": "nullary",
+                                "kind": "number",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\frac{2 \\lambda}{1 + b \\left(\\frac{\\lambda}{R}\\right)^{\\frac{3}{2}}}",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.pn_arctanh",
+      "id": "fr.pn_arctanh",
+      "formula": "R - 2*Lambda/(1 + b*atanh(Lambda/R))",
+      "original_formula": "R - 2*Lambda/(1 + b*atanh(Lambda/R))",
+      "output": "f",
+      "n_variables": 5,
+      "n_numbers": 2,
+      "n_constants": 0,
+      "complexity": 14,
+      "original_n_variables": 5,
+      "original_n_numbers": 2,
+      "original_n_constants": 0,
+      "original_complexity": 14,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1710.05634",
+      "source_locator": "f(R) = R − 2Λ / [1 + b arctanh(Λ/R)]",
+      "notes": "Pérez-Romero and Nesseris, eq. (24) with y = arctanh(Λ/R).",
+      "name": "Pérez-Romero y = arctanh(Λ/R)",
+      "constant_names": [],
+      "variable_names": [
+        "Lambda",
+        "R",
+        "b"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Div",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "2",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Lambda",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "Add",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "1",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "b",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "atanh",
+                        "arity": "unary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Div",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "Lambda",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              },
+                              {
+                                "label": "R",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\frac{2 \\lambda}{1 + b \\operatorname{atanh}\\left(\\frac{\\lambda}{R}\\right)}",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.pn_sin",
+      "id": "fr.pn_sin",
+      "formula": "R - 2*Lambda/(1 + b*sin(Lambda/R))",
+      "original_formula": "R - 2*Lambda/(1 + b*sin(Lambda/R))",
+      "output": "f",
+      "n_variables": 5,
+      "n_numbers": 2,
+      "n_constants": 0,
+      "complexity": 14,
+      "original_n_variables": 5,
+      "original_n_numbers": 2,
+      "original_n_constants": 0,
+      "original_complexity": 14,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1710.05634",
+      "source_locator": "f(R) = R − 2Λ / [1 + b sin(Λ/R)]",
+      "notes": "Pérez-Romero and Nesseris, eq. (24) with y = sin(Λ/R).",
+      "name": "Pérez-Romero y = sin(Λ/R)",
+      "constant_names": [],
+      "variable_names": [
+        "Lambda",
+        "R",
+        "b"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Div",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "2",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Lambda",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "Add",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "1",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "b",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "sin",
+                        "arity": "unary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Div",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "Lambda",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              },
+                              {
+                                "label": "R",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\frac{2 \\lambda}{1 + b \\sin\\left(\\frac{\\lambda}{R}\\right)}",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.pn_sinh",
+      "id": "fr.pn_sinh",
+      "formula": "R - 2*Lambda/(1 + b*sinh(Lambda/R))",
+      "original_formula": "R - 2*Lambda/(1 + b*sinh(Lambda/R))",
+      "output": "f",
+      "n_variables": 5,
+      "n_numbers": 2,
+      "n_constants": 0,
+      "complexity": 14,
+      "original_n_variables": 5,
+      "original_n_numbers": 2,
+      "original_n_constants": 0,
+      "original_complexity": 14,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1710.05634",
+      "source_locator": "f(R) = R − 2Λ / [1 + b sinh(Λ/R)]",
+      "notes": "Pérez-Romero and Nesseris, eq. (24) with y = sinh(Λ/R).",
+      "name": "Pérez-Romero y = sinh(Λ/R)",
+      "constant_names": [],
+      "variable_names": [
+        "Lambda",
+        "R",
+        "b"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Div",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "2",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Lambda",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "Add",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "1",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "b",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "sinh",
+                        "arity": "unary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Div",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "Lambda",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              },
+                              {
+                                "label": "R",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\frac{2 \\lambda}{1 + b \\sinh\\left(\\frac{\\lambda}{R}\\right)}",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.pn_exp",
+      "id": "fr.pn_exp",
+      "formula": "R - 2*Lambda/(1 + b*exp(Lambda/R))",
+      "original_formula": "R - 2*Lambda/(1 + b*exp(Lambda/R))",
+      "output": "f",
+      "n_variables": 5,
+      "n_numbers": 2,
+      "n_constants": 0,
+      "complexity": 14,
+      "original_n_variables": 5,
+      "original_n_numbers": 2,
+      "original_n_constants": 0,
+      "original_complexity": 14,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1710.05634",
+      "source_locator": "f(R) = R − 2Λ / [1 + b exp(Λ/R)]",
+      "notes": "Pérez-Romero and Nesseris, eq. (24) with y = exp(Λ/R).",
+      "name": "Pérez-Romero y = exp(Λ/R)",
+      "constant_names": [],
+      "variable_names": [
+        "Lambda",
+        "R",
+        "b"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Div",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "2",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Lambda",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "Add",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "1",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "b",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "exp",
+                        "arity": "unary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Div",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "Lambda",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              },
+                              {
+                                "label": "R",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\frac{2 \\lambda}{1 + b e^{\\frac{\\lambda}{R}}}",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.pn_tanh",
+      "id": "fr.pn_tanh",
+      "formula": "R - 2*Lambda/(1 + b*tanh(Lambda/R))",
+      "original_formula": "R - 2*Lambda/(1 + b*tanh(Lambda/R))",
+      "output": "f",
+      "n_variables": 5,
+      "n_numbers": 2,
+      "n_constants": 0,
+      "complexity": 14,
+      "original_n_variables": 5,
+      "original_n_numbers": 2,
+      "original_n_constants": 0,
+      "original_complexity": 14,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1710.05634",
+      "source_locator": "f(R) = R − 2Λ / [1 + b tanh(Λ/R)]",
+      "notes": "Pérez-Romero and Nesseris, eq. (24) with y = tanh(Λ/R).",
+      "name": "Pérez-Romero y = tanh(Λ/R)",
+      "constant_names": [],
+      "variable_names": [
+        "Lambda",
+        "R",
+        "b"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Div",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "2",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Lambda",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "Add",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "1",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "b",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "tanh",
+                        "arity": "unary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Div",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "Lambda",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              },
+                              {
+                                "label": "R",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\frac{2 \\lambda}{1 + b \\tanh\\left(\\frac{\\lambda}{R}\\right)}",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.pn_asin",
+      "id": "fr.pn_asin",
+      "formula": "R - 2*Lambda/(1 + b*asin(Lambda/R))",
+      "original_formula": "R - 2*Lambda/(1 + b*asin(Lambda/R))",
+      "output": "f",
+      "n_variables": 5,
+      "n_numbers": 2,
+      "n_constants": 0,
+      "complexity": 14,
+      "original_n_variables": 5,
+      "original_n_numbers": 2,
+      "original_n_constants": 0,
+      "original_complexity": 14,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1710.05634",
+      "source_locator": "f(R) = R − 2Λ / [1 + b arcsin(Λ/R)]",
+      "notes": "Pérez-Romero and Nesseris, eq. (24) with y = arcsin(Λ/R).",
+      "name": "Pérez-Romero y = arcsin(Λ/R)",
+      "constant_names": [],
+      "variable_names": [
+        "Lambda",
+        "R",
+        "b"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Div",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "2",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Lambda",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "Add",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "1",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "b",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "asin",
+                        "arity": "unary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Div",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "Lambda",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              },
+                              {
+                                "label": "R",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\frac{2 \\lambda}{1 + b \\operatorname{asin}\\left(\\frac{\\lambda}{R}\\right)}",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.pn_log",
+      "id": "fr.pn_log",
+      "formula": "R - 2*Lambda/(1 + b*log(Lambda/R))",
+      "original_formula": "R - 2*Lambda/(1 + b*log(Lambda/R))",
+      "output": "f",
+      "n_variables": 5,
+      "n_numbers": 2,
+      "n_constants": 0,
+      "complexity": 14,
+      "original_n_variables": 5,
+      "original_n_numbers": 2,
+      "original_n_constants": 0,
+      "original_complexity": 14,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1710.05634",
+      "source_locator": "f(R) = R − 2Λ / [1 + b ln(Λ/R)]",
+      "notes": "Pérez-Romero and Nesseris, eq. (24) with y = ln(Λ/R).",
+      "name": "Pérez-Romero y = ln(Λ/R)",
+      "constant_names": [],
+      "variable_names": [
+        "Lambda",
+        "R",
+        "b"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Div",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "2",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Lambda",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "Add",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "1",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "b",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "log",
+                        "arity": "unary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Div",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "Lambda",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              },
+                              {
+                                "label": "R",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\frac{2 \\lambda}{1 + b \\log\\left(\\frac{\\lambda}{R}\\right)}",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.pn_tan",
+      "id": "fr.pn_tan",
+      "formula": "R - 2*Lambda/(1 + b*tan(Lambda/R))",
+      "original_formula": "R - 2*Lambda/(1 + b*tan(Lambda/R))",
+      "output": "f",
+      "n_variables": 5,
+      "n_numbers": 2,
+      "n_constants": 0,
+      "complexity": 14,
+      "original_n_variables": 5,
+      "original_n_numbers": 2,
+      "original_n_constants": 0,
+      "original_complexity": 14,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1710.05634",
+      "source_locator": "f(R) = R − 2Λ / [1 + b tan(Λ/R)]",
+      "notes": "Pérez-Romero and Nesseris, eq. (24) with y = tan(Λ/R).",
+      "name": "Pérez-Romero y = tan(Λ/R)",
+      "constant_names": [],
+      "variable_names": [
+        "Lambda",
+        "R",
+        "b"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Div",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "2",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Lambda",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "Add",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "1",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "b",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "tan",
+                        "arity": "unary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Div",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "Lambda",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              },
+                              {
+                                "label": "R",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\frac{2 \\lambda}{1 + b \\tan\\left(\\frac{\\lambda}{R}\\right)}",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.pn_arctan",
+      "id": "fr.pn_arctan",
+      "formula": "R - 2*Lambda/(1 + b*atan(Lambda/R))",
+      "original_formula": "R - 2*Lambda/(1 + b*atan(Lambda/R))",
+      "output": "f",
+      "n_variables": 5,
+      "n_numbers": 2,
+      "n_constants": 0,
+      "complexity": 14,
+      "original_n_variables": 5,
+      "original_n_numbers": 2,
+      "original_n_constants": 0,
+      "original_complexity": 14,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1710.05634",
+      "source_locator": "f(R) = R − 2Λ / [1 + b arctan(Λ/R)]",
+      "notes": "Pérez-Romero and Nesseris, eq. (24) with y = arctan(Λ/R).",
+      "name": "Pérez-Romero y = arctan(Λ/R)",
+      "constant_names": [],
+      "variable_names": [
+        "Lambda",
+        "R",
+        "b"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Div",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "2",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Lambda",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "Add",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "1",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "b",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "atan",
+                        "arity": "unary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Div",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "Lambda",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              },
+                              {
+                                "label": "R",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\frac{2 \\lambda}{1 + b \\operatorname{atan}\\left(\\frac{\\lambda}{R}\\right)}",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.pn_erf",
+      "id": "fr.pn_erf",
+      "formula": "R - 2*Lambda/(1 + b*erf(Lambda/R))",
+      "original_formula": "R - 2*Lambda/(1 + b*erf(Lambda/R))",
+      "output": "f",
+      "n_variables": 5,
+      "n_numbers": 2,
+      "n_constants": 0,
+      "complexity": 14,
+      "original_n_variables": 5,
+      "original_n_numbers": 2,
+      "original_n_constants": 0,
+      "original_complexity": 14,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1710.05634",
+      "source_locator": "f(R) = R − 2Λ / [1 + b erf(Λ/R)]",
+      "notes": "Pérez-Romero and Nesseris, eq. (24) with y = erf(Λ/R).",
+      "name": "Pérez-Romero y = erf(Λ/R)",
+      "constant_names": [],
+      "variable_names": [
+        "Lambda",
+        "R",
+        "b"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Div",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "2",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Lambda",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "Add",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "1",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "b",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "erf",
+                        "arity": "unary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Div",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "Lambda",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              },
+                              {
+                                "label": "R",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\frac{2 \\lambda}{1 + b \\operatorname{erf}\\left(\\frac{\\lambda}{R}\\right)}",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.pn_asinh",
+      "id": "fr.pn_asinh",
+      "formula": "R - 2*Lambda/(1 + b*asinh(Lambda/R))",
+      "original_formula": "R - 2*Lambda/(1 + b*asinh(Lambda/R))",
+      "output": "f",
+      "n_variables": 5,
+      "n_numbers": 2,
+      "n_constants": 0,
+      "complexity": 14,
+      "original_n_variables": 5,
+      "original_n_numbers": 2,
+      "original_n_constants": 0,
+      "original_complexity": 14,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1710.05634",
+      "source_locator": "f(R) = R − 2Λ / [1 + b arcsinh(Λ/R)]",
+      "notes": "Pérez-Romero and Nesseris, eq. (24) with y = arcsinh(Λ/R).",
+      "name": "Pérez-Romero y = arcsinh(Λ/R)",
+      "constant_names": [],
+      "variable_names": [
+        "Lambda",
+        "R",
+        "b"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Div",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "2",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Lambda",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "Add",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "1",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "b",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "asinh",
+                        "arity": "unary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Div",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "Lambda",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              },
+                              {
+                                "label": "R",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\frac{2 \\lambda}{1 + b \\operatorname{asinh}\\left(\\frac{\\lambda}{R}\\right)}",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.pn_polynomial",
+      "id": "fr.pn_polynomial",
+      "formula": "R - 2*Lambda/(1 + b*(b*(Lambda/R) + c*(Lambda/R)**2))",
+      "original_formula": "R - 2*Lambda/(1 + b*(b*(Lambda/R) + c*(Lambda/R)**2))",
+      "output": "f",
+      "n_variables": 9,
+      "n_numbers": 2,
+      "n_constants": 0,
+      "complexity": 22,
+      "original_n_variables": 9,
+      "original_n_numbers": 2,
+      "original_n_constants": 0,
+      "original_complexity": 22,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1710.05634",
+      "source_locator": "f(R) = R − 2Λ / {1 + b [b (Λ/R) + c (Λ/R)^2]}",
+      "notes": "Pérez-Romero and Nesseris, polynomial y(Λ/R) below eq. (24).",
+      "name": "Pérez-Romero polynomial",
+      "constant_names": [],
+      "variable_names": [
+        "Lambda",
+        "R",
+        "b",
+        "c"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Div",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "2",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Lambda",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "Add",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "1",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "b",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "Add",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Mult",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "b",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              },
+                              {
+                                "label": "Div",
+                                "arity": "binary",
+                                "kind": "op",
+                                "children": [
+                                  {
+                                    "label": "Lambda",
+                                    "arity": "nullary",
+                                    "kind": "variable",
+                                    "children": []
+                                  },
+                                  {
+                                    "label": "R",
+                                    "arity": "nullary",
+                                    "kind": "variable",
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "label": "Mult",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "c",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              },
+                              {
+                                "label": "Pow2",
+                                "arity": "unary",
+                                "kind": "op",
+                                "children": [
+                                  {
+                                    "label": "Div",
+                                    "arity": "binary",
+                                    "kind": "op",
+                                    "children": [
+                                      {
+                                        "label": "Lambda",
+                                        "arity": "nullary",
+                                        "kind": "variable",
+                                        "children": []
+                                      },
+                                      {
+                                        "label": "R",
+                                        "arity": "nullary",
+                                        "kind": "variable",
+                                        "children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\frac{2 \\lambda}{1 + b \\left(b \\frac{\\lambda}{R} + c \\left(\\frac{\\lambda}{R}\\right)^{2}\\right)}",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.pn_pade",
+      "id": "fr.pn_pade",
+      "formula": "R - 2*Lambda/(1 + b*((b*(Lambda/R) + c*(Lambda/R)**2)/(1 + p*(Lambda/R) + n*(Lambda/R)**2)))",
+      "original_formula": "R - 2*Lambda/(1 + b*((b*(Lambda/R) + c*(Lambda/R)**2)/(1 + p*(Lambda/R) + n*(Lambda/R)**2)))",
+      "output": "f",
+      "n_variables": 15,
+      "n_numbers": 3,
+      "n_constants": 0,
+      "complexity": 37,
+      "original_n_variables": 15,
+      "original_n_numbers": 3,
+      "original_n_constants": 0,
+      "original_complexity": 37,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1710.05634",
+      "source_locator": "f(R) = R − 2Λ / {1 + b [b Λ/R + c (Λ/R)^2] / [1 + p Λ/R + n (Λ/R)^2]}",
+      "notes": "Pérez-Romero and Nesseris, Padé y(Λ/R) below eq. (24).",
+      "name": "Pérez-Romero Padé",
+      "constant_names": [],
+      "variable_names": [
+        "Lambda",
+        "R",
+        "b",
+        "c",
+        "n",
+        "p"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Subtract",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "R",
+            "arity": "nullary",
+            "kind": "variable",
+            "children": []
+          },
+          {
+            "label": "Div",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "2",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Lambda",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "Add",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "1",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "b",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "Div",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Add",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "Mult",
+                                "arity": "binary",
+                                "kind": "op",
+                                "children": [
+                                  {
+                                    "label": "b",
+                                    "arity": "nullary",
+                                    "kind": "variable",
+                                    "children": []
+                                  },
+                                  {
+                                    "label": "Div",
+                                    "arity": "binary",
+                                    "kind": "op",
+                                    "children": [
+                                      {
+                                        "label": "Lambda",
+                                        "arity": "nullary",
+                                        "kind": "variable",
+                                        "children": []
+                                      },
+                                      {
+                                        "label": "R",
+                                        "arity": "nullary",
+                                        "kind": "variable",
+                                        "children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "label": "Mult",
+                                "arity": "binary",
+                                "kind": "op",
+                                "children": [
+                                  {
+                                    "label": "c",
+                                    "arity": "nullary",
+                                    "kind": "variable",
+                                    "children": []
+                                  },
+                                  {
+                                    "label": "Pow2",
+                                    "arity": "unary",
+                                    "kind": "op",
+                                    "children": [
+                                      {
+                                        "label": "Div",
+                                        "arity": "binary",
+                                        "kind": "op",
+                                        "children": [
+                                          {
+                                            "label": "Lambda",
+                                            "arity": "nullary",
+                                            "kind": "variable",
+                                            "children": []
+                                          },
+                                          {
+                                            "label": "R",
+                                            "arity": "nullary",
+                                            "kind": "variable",
+                                            "children": []
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "label": "Add",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "Add",
+                                "arity": "binary",
+                                "kind": "op",
+                                "children": [
+                                  {
+                                    "label": "1",
+                                    "arity": "nullary",
+                                    "kind": "number",
+                                    "children": []
+                                  },
+                                  {
+                                    "label": "Mult",
+                                    "arity": "binary",
+                                    "kind": "op",
+                                    "children": [
+                                      {
+                                        "label": "p",
+                                        "arity": "nullary",
+                                        "kind": "variable",
+                                        "children": []
+                                      },
+                                      {
+                                        "label": "Div",
+                                        "arity": "binary",
+                                        "kind": "op",
+                                        "children": [
+                                          {
+                                            "label": "Lambda",
+                                            "arity": "nullary",
+                                            "kind": "variable",
+                                            "children": []
+                                          },
+                                          {
+                                            "label": "R",
+                                            "arity": "nullary",
+                                            "kind": "variable",
+                                            "children": []
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "label": "Mult",
+                                "arity": "binary",
+                                "kind": "op",
+                                "children": [
+                                  {
+                                    "label": "n",
+                                    "arity": "nullary",
+                                    "kind": "variable",
+                                    "children": []
+                                  },
+                                  {
+                                    "label": "Pow2",
+                                    "arity": "unary",
+                                    "kind": "op",
+                                    "children": [
+                                      {
+                                        "label": "Div",
+                                        "arity": "binary",
+                                        "kind": "op",
+                                        "children": [
+                                          {
+                                            "label": "Lambda",
+                                            "arity": "nullary",
+                                            "kind": "variable",
+                                            "children": []
+                                          },
+                                          {
+                                            "label": "R",
+                                            "arity": "nullary",
+                                            "kind": "variable",
+                                            "children": []
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - \\frac{2 \\lambda}{1 + b \\frac{b \\frac{\\lambda}{R} + c \\left(\\frac{\\lambda}{R}\\right)^{2}}{1 + p \\frac{\\lambda}{R} + n \\left(\\frac{\\lambda}{R}\\right)^{2}}}",
+      "csv_disagreements": {}
+    },
+    {
+      "corpus": "fr",
+      "original_id": "fr.pn_hypergeometric",
+      "id": "fr.pn_hypergeometric",
+      "formula": "R - 2*Lambda + b*H0**2*(Lambda/(R - 3*Lambda))**((1/12)*(-7 + sqrt(73)))*hyp2f1((1/12)*(-7 + sqrt(73)), 3/2 + (1/12)*(-7 + sqrt(73)), 13/6 + 2*(1/12)*(-7 + sqrt(73)), Lambda/(R - 3*Lambda))",
+      "original_formula": "R - 2*Lambda + b*H0**2*(Lambda/(R - 3*Lambda))**((1/12)*(-7 + sqrt(73)))*hyp2f1((1/12)*(-7 + sqrt(73)), 3/2 + (1/12)*(-7 + sqrt(73)), 13/6 + 2*(1/12)*(-7 + sqrt(73)), Lambda/(R - 3*Lambda))",
+      "output": "f",
+      "n_variables": 10,
+      "n_numbers": 24,
+      "n_constants": 0,
+      "complexity": 74,
+      "original_n_variables": 10,
+      "original_n_numbers": 24,
+      "original_n_constants": 0,
+      "original_complexity": 74,
+      "status": "extension",
+      "family": null,
+      "family_role": null,
+      "representative": true,
+      "in_released": false,
+      "source_kind": "compiled",
+      "source_url": "https://arxiv.org/abs/1710.05634",
+      "source_locator": "f(R) = R − 2Λ + b H0^2 (Λ/(R−3Λ))^α 2F1(α, 3/2+α, 13/6+2α, Λ/(R−3Λ)), α=(−7+√73)/12",
+      "notes": "Pérez-Romero and Nesseris, eq. (23). Built so the expansion history matches ΛCDM.",
+      "name": "Pérez-Romero hypergeometric",
+      "constant_names": [],
+      "variable_names": [
+        "H0",
+        "Lambda",
+        "R",
+        "b"
+      ],
+      "consideration": "in",
+      "branch": "",
+      "public": true,
+      "tree": {
+        "label": "Add",
+        "arity": "binary",
+        "kind": "op",
+        "children": [
+          {
+            "label": "Subtract",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "R",
+                "arity": "nullary",
+                "kind": "variable",
+                "children": []
+              },
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "2",
+                    "arity": "nullary",
+                    "kind": "number",
+                    "children": []
+                  },
+                  {
+                    "label": "Lambda",
+                    "arity": "nullary",
+                    "kind": "variable",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Mult",
+            "arity": "binary",
+            "kind": "op",
+            "children": [
+              {
+                "label": "Mult",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "b",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "Pow2",
+                        "arity": "unary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "H0",
+                            "arity": "nullary",
+                            "kind": "variable",
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Pow",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "Div",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Lambda",
+                            "arity": "nullary",
+                            "kind": "variable",
+                            "children": []
+                          },
+                          {
+                            "label": "Subtract",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "R",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              },
+                              {
+                                "label": "Mult",
+                                "arity": "binary",
+                                "kind": "op",
+                                "children": [
+                                  {
+                                    "label": "3",
+                                    "arity": "nullary",
+                                    "kind": "number",
+                                    "children": []
+                                  },
+                                  {
+                                    "label": "Lambda",
+                                    "arity": "nullary",
+                                    "kind": "variable",
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Mult",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Div",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "1",
+                                "arity": "nullary",
+                                "kind": "number",
+                                "children": []
+                              },
+                              {
+                                "label": "12",
+                                "arity": "nullary",
+                                "kind": "number",
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "label": "Add",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "Neg",
+                                "arity": "unary",
+                                "kind": "op",
+                                "children": [
+                                  {
+                                    "label": "7",
+                                    "arity": "nullary",
+                                    "kind": "number",
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "label": "sqrt",
+                                "arity": "unary",
+                                "kind": "op",
+                                "children": [
+                                  {
+                                    "label": "73",
+                                    "arity": "nullary",
+                                    "kind": "number",
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "label": "hyp2f1",
+                "arity": "binary",
+                "kind": "op",
+                "children": [
+                  {
+                    "label": "Mult",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "Div",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "1",
+                            "arity": "nullary",
+                            "kind": "number",
+                            "children": []
+                          },
+                          {
+                            "label": "12",
+                            "arity": "nullary",
+                            "kind": "number",
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Add",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Neg",
+                            "arity": "unary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "7",
+                                "arity": "nullary",
+                                "kind": "number",
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "label": "sqrt",
+                            "arity": "unary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "73",
+                                "arity": "nullary",
+                                "kind": "number",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Add",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "Div",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "3",
+                            "arity": "nullary",
+                            "kind": "number",
+                            "children": []
+                          },
+                          {
+                            "label": "2",
+                            "arity": "nullary",
+                            "kind": "number",
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Mult",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Div",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "1",
+                                "arity": "nullary",
+                                "kind": "number",
+                                "children": []
+                              },
+                              {
+                                "label": "12",
+                                "arity": "nullary",
+                                "kind": "number",
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "label": "Add",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "Neg",
+                                "arity": "unary",
+                                "kind": "op",
+                                "children": [
+                                  {
+                                    "label": "7",
+                                    "arity": "nullary",
+                                    "kind": "number",
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "label": "sqrt",
+                                "arity": "unary",
+                                "kind": "op",
+                                "children": [
+                                  {
+                                    "label": "73",
+                                    "arity": "nullary",
+                                    "kind": "number",
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Add",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "Div",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "13",
+                            "arity": "nullary",
+                            "kind": "number",
+                            "children": []
+                          },
+                          {
+                            "label": "6",
+                            "arity": "nullary",
+                            "kind": "number",
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Mult",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "Mult",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "2",
+                                "arity": "nullary",
+                                "kind": "number",
+                                "children": []
+                              },
+                              {
+                                "label": "Div",
+                                "arity": "binary",
+                                "kind": "op",
+                                "children": [
+                                  {
+                                    "label": "1",
+                                    "arity": "nullary",
+                                    "kind": "number",
+                                    "children": []
+                                  },
+                                  {
+                                    "label": "12",
+                                    "arity": "nullary",
+                                    "kind": "number",
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "label": "Add",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "Neg",
+                                "arity": "unary",
+                                "kind": "op",
+                                "children": [
+                                  {
+                                    "label": "7",
+                                    "arity": "nullary",
+                                    "kind": "number",
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "label": "sqrt",
+                                "arity": "unary",
+                                "kind": "op",
+                                "children": [
+                                  {
+                                    "label": "73",
+                                    "arity": "nullary",
+                                    "kind": "number",
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Div",
+                    "arity": "binary",
+                    "kind": "op",
+                    "children": [
+                      {
+                        "label": "Lambda",
+                        "arity": "nullary",
+                        "kind": "variable",
+                        "children": []
+                      },
+                      {
+                        "label": "Subtract",
+                        "arity": "binary",
+                        "kind": "op",
+                        "children": [
+                          {
+                            "label": "R",
+                            "arity": "nullary",
+                            "kind": "variable",
+                            "children": []
+                          },
+                          {
+                            "label": "Mult",
+                            "arity": "binary",
+                            "kind": "op",
+                            "children": [
+                              {
+                                "label": "3",
+                                "arity": "nullary",
+                                "kind": "number",
+                                "children": []
+                              },
+                              {
+                                "label": "Lambda",
+                                "arity": "nullary",
+                                "kind": "variable",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "latex": "R - 2 \\lambda + b H_{0}^{2} \\left(\\frac{\\lambda}{R - 3 \\lambda}\\right)^{\\left(\\frac{1}{12} \\left(-7 + \\sqrt{73}\\right)\\right)} \\operatorname{hyp2f1}\\left(\\frac{1}{12} \\left(-7 + \\sqrt{73}\\right), \\frac{3}{2} + \\frac{1}{12} \\left(-7 + \\sqrt{73}\\right), \\frac{13}{6} + 2 \\frac{1}{12} \\left(-7 + \\sqrt{73}\\right), \\frac{\\lambda}{R - 3 \\lambda}\\right)",
       "csv_disagreements": {}
     }
   ]

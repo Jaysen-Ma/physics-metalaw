@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import csv
 import json
+import random
 import re
 from collections import Counter
 from dataclasses import asdict, dataclass, field
@@ -1327,11 +1328,227 @@ def scatter_records(corpus: str) -> list[FormulaRecord]:
     return select(recs, "released")
 
 
+# A Motzkin tree is a rooted plane tree whose nodes have 0, 1 or 2 children:
+# the shapes an expression can take under this counting convention. Labels are
+# drawn uniformly. Leaves are one variable, one number or pi. A unary node is
+# negation, a named function, or a collapsed square, cube or fourth power. A
+# binary node is addition, subtraction, multiplication, division or a general
+# power. Seed is fixed so the baseline card does not move between page loads.
+RANDOM_MODEL_SEED = 20261013
+# 5, not 2, 3 or 4: those integer exponents collapse into Pow2/3/4 and
+# would drop a node whenever a general power happened to have one as
+# its right-hand side.
+_MOTZKIN_LEAVES = ("x", "5", "pi")
+_MOTZKIN_UNARY = (
+    lambda c: f"-({c})",
+    lambda c: f"exp({c})",
+    lambda c: f"log({c})",
+    lambda c: f"sqrt({c})",
+    lambda c: f"sin({c})",
+    lambda c: f"cos({c})",
+    lambda c: f"tanh({c})",
+    lambda c: f"({c})**2",
+    lambda c: f"({c})**3",
+    lambda c: f"({c})**4",
+)
+_MOTZKIN_BINARY = (
+    lambda a, b: f"({a})+({b})",
+    lambda a, b: f"({a})-({b})",
+    lambda a, b: f"({a})*({b})",
+    lambda a, b: f"({a})/({b})",
+    lambda a, b: f"({a})**({b})",
+)
+
+
+def motzkin_counts(n_max: int) -> list[int]:
+    """Number of Motzkin trees with exactly n nodes, for n = 0..n_max.
+
+    Index 0 is unused. T_1 = 1, and a tree of size n is a unary root over
+    n−1 nodes or a binary root whose children partition the other n−1 nodes.
+    """
+    counts = [0] * (n_max + 1)
+    if n_max < 1:
+        return counts
+    counts[1] = 1
+    for n in range(2, n_max + 1):
+        total = counts[n - 1]
+        for left in range(1, n - 1):
+            total += counts[left] * counts[n - 1 - left]
+        counts[n] = total
+    return counts
+
+
+def motzkin_formula(rng: random.Random, n: int, counts: list[int]) -> str:
+    """One uniform Motzkin tree of n nodes, written so count_operators accepts it."""
+    if n < 1 or n >= len(counts) or counts[n] == 0:
+        raise ValueError(f"no Motzkin tree of size {n}")
+
+    def shape(size: int):
+        if size == 1:
+            return ("leaf",)
+        unary = counts[size - 1]
+        splits = []
+        binary = 0
+        for left in range(1, size - 1):
+            weight = counts[left] * counts[size - 1 - left]
+            splits.append((left, weight))
+            binary += weight
+        pick = rng.randrange(unary + binary)
+        if pick < unary:
+            return ("unary", shape(size - 1))
+        pick -= unary
+        acc = 0
+        for left, weight in splits:
+            acc += weight
+            if pick < acc:
+                return ("binary", shape(left), shape(size - 1 - left))
+        raise RuntimeError("Motzkin split fell off the end")
+
+    def emit(node) -> str:
+        kind = node[0]
+        if kind == "leaf":
+            return rng.choice(_MOTZKIN_LEAVES)
+        if kind == "unary":
+            return rng.choice(_MOTZKIN_UNARY)(emit(node[1]))
+        return rng.choice(_MOTZKIN_BINARY)(emit(node[1]), emit(node[2]))
+
+    return emit(shape(n))
+
+
+def _motzkin_entry(formula: str, name: str) -> M.EIEntry:
+    counts = M.count_operators(formula)
+    n_constants = counts.get("name:pi", 0)
+    n_variables = sum(
+        v for key, v in counts.items()
+        if key.startswith("name:") and key != "name:pi")
+    n_numbers = counts.get(M.NULLARY_NUMBER, 0)
+    operators = Counter({
+        key: value for key, value in counts.items()
+        if not key.startswith("name:") and key != M.NULLARY_NUMBER
+    })
+    complexity = n_variables + n_numbers + n_constants + sum(operators.values())
+    return M.EIEntry(
+        name=name, formula=formula,
+        n_variables=n_variables, n_numbers=n_numbers, n_constants=n_constants,
+        complexity_declared=complexity,
+        operator_counts=operators, repaired=False)
+
+
+def random_model_scatter(sizes: list[int]) -> dict:
+    """Complexity–β scatter for random expressions of the given sizes.
+
+    One Motzkin tree per size, in that order. The horizontal line is the
+    log-least-squares fit after these trees' counts are pooled.
+    """
+    from .beta import expression_beta
+
+    n_max = max(sizes) if sizes else 1
+    counts = motzkin_counts(n_max)
+    rng = random.Random(RANDOM_MODEL_SEED)
+    points, omitted, entries = [], [], []
+    for i, size in enumerate(sizes):
+        formula = motzkin_formula(rng, int(size), counts)
+        entry = _motzkin_entry(formula, f"motzkin-{i}")
+        entries.append(entry)
+        beta, n_ranks = expression_beta(entry)
+        row = {
+            "id": entry.name,
+            "name": "Random Motzkin tree",
+            "k": int(entry.complexity_declared),
+            "n_ranks": n_ranks,
+        }
+        if beta is None:
+            omitted.append(row)
+        else:
+            row["beta"] = round(float(beta), 4)
+            points.append(row)
+    fit = M.beta_with_errors(entries)
+    return {
+        "id": "random",
+        "label": "Random model",
+        "null": True,
+        "n": len(points) + len(omitted),
+        "n_fit": len(points),
+        "omitted": omitted,
+        "points": points,
+        "corpus_beta": round(float(fit["beta"]), 4),
+        "corpus_beta_estimator": "log least squares",
+        "corpus_beta_boot_sigma": round(fit["boot_sigma"], 4),
+        "corpus_beta_p16": round(fit["boot_p16"], 4),
+        "corpus_beta_p84": round(fit["boot_p84"], 4),
+        "corpus_beta_fit_sigma": round(fit["fit_sigma"], 4),
+        "note": (
+            "Each dot is one uniform random Motzkin tree, with the same "
+            "complexity as one Feynman expression in the branch plots. "
+            "Operator labels are drawn uniformly from the counting alphabet."
+        ),
+    }
+
+
+def branch_scatters() -> list[dict]:
+    """One complexity–β plot per Feynman branch.
+
+    Same points as the corpus plots: each dot is one expression's own
+    log-least-squares β. The horizontal line is that branch's pooled fit.
+    Expressions are the deduplicated benchmark plus the Lectures, in the
+    seven analysis branches.
+    """
+    import importlib.util
+
+    from .beta import expression_beta
+
+    path = Path(__file__).resolve().parents[1] / "scripts" / "branch_test.py"
+    spec = importlib.util.spec_from_file_location("branch_test_scatter", path)
+    bt = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(bt)
+    rows, _dedupe, _added = bt.feynman_corpus()
+    groups = bt.groups_of(rows)
+    plots = []
+    for key in bt.ORDER:
+        idx = groups.get(key)
+        if idx is None:
+            continue
+        points, omitted, entries = [], [], []
+        for i in idx:
+            record, _branch, meta = rows[int(i)]
+            entry = record_as_entry(record, "as_written")
+            entries.append(entry)
+            beta, n_ranks = expression_beta(entry)
+            row = {
+                "id": record.id,
+                "name": record.name,
+                "k": int(entry.complexity_declared),
+                "n_ranks": n_ranks,
+                "corpus": "feynman" if meta.get("source") == "benchmark" else "feynman_lectures",
+            }
+            if beta is None:
+                omitted.append(row)
+            else:
+                row["beta"] = round(float(beta), 4)
+                points.append(row)
+        fit = M.beta_with_errors(entries)
+        plots.append({
+            "id": "branch-" + key,
+            "label": bt.LONG[key],
+            "n": len(points) + len(omitted),
+            "n_fit": len(points),
+            "omitted": omitted,
+            "points": points,
+            "corpus_beta": round(float(fit["beta"]), 4),
+            "corpus_beta_estimator": "log least squares",
+            "corpus_beta_boot_sigma": round(fit["boot_sigma"], 4),
+            "corpus_beta_p16": round(fit["boot_p16"], 4),
+            "corpus_beta_p84": round(fit["boot_p84"], 4),
+            "corpus_beta_fit_sigma": round(fit["fit_sigma"], 4),
+        })
+    return plots
+
+
 def expression_scatter() -> dict:
     """One point per expression: complexity, and β fit on its own ranks.
 
-    Each corpus carries the multinomial-MLE β of its pooled ranks (with
-    bootstrap and Fisher errors), drawn as a horizontal line. That fit uses every formula in the corpus, including
+    Each corpus carries the log-least-squares β of its pooled ranks (with
+    bootstrap and residual standard errors), drawn as a horizontal line. That fit uses every formula in the corpus, including
     one that has too few ranks for a dot of its own.
     """
     from .beta import expression_beta
@@ -1369,20 +1586,24 @@ def expression_scatter() -> dict:
             "omitted": omitted,
             "points": points,
             "corpus_beta": round(float(corpus_beta), 4),
-            "corpus_beta_estimator": "multinomial MLE",
+            "corpus_beta_estimator": "log least squares",
             "corpus_beta_boot_sigma": round(fit["boot_sigma"], 4),
             "corpus_beta_p16": round(fit["boot_p16"], 4),
             "corpus_beta_p84": round(fit["boot_p84"], 4),
-            "corpus_beta_fisher_sigma": round(fit["fisher_sigma"], 4),
+            "corpus_beta_fit_sigma": round(fit["fit_sigma"], 4),
         })
+    branches = branch_scatters()
+    sizes = [row["k"] for branch in branches for row in branch["points"] + branch["omitted"]]
     return {
+        "branches": branches,
+        "random": random_model_scatter(sizes),
         "note": (
             "Each dot is one expression. The x-axis is its complexity. "
-            "β is the multinomial maximum-likelihood estimate: each operator "
-            "instance is a draw that lands on rank r with probability "
-            "p_r = exp(−β r) / sum_s exp(−β s), and β maximises "
-            "sum_r n_r log p_r, where n_r is the number of instances at rank r, "
-            "over the ranks that appear. The horizontal line is the same "
+            "β is the log-least-squares estimate: rank the operator types by "
+            "how often they occur, and β minimises the sum over ranks of "
+            "(log f_r − log p_r)^2, where f_r is the observed frequency and "
+            "p_r = exp(−β r) / sum_s exp(−β s). Each rank is one residual. "
+            "The horizontal line is the same "
             "fit after every expression's operator counts in that corpus "
             "are added together and ranked once. Feynman and Inflationaris "
             "are the released formulas. Wikipedia adds the algebraic "

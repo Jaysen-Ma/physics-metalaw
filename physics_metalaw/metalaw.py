@@ -679,31 +679,77 @@ def fit_beta(counts) -> tuple[float, float]:
     return mean, std
 
 
+def _log_residuals(beta: float, obs: np.ndarray) -> np.ndarray:
+    """log f_r − log p_r(β) on ranks that already have a positive count."""
+    rank = np.arange(1, obs.size + 1, dtype=float)
+    logp = -beta * rank
+    logp -= np.logaddexp.reduce(logp)
+    return np.log(obs / obs.sum()) - logp
+
+
+def _rss(beta: float, obs: np.ndarray) -> float:
+    resid = _log_residuals(beta, obs)
+    return float(resid @ resid)
+
+
+def _logls_beta_obs(obs: np.ndarray) -> float:
+    from scipy.optimize import minimize_scalar
+
+    res = minimize_scalar(lambda beta: _rss(beta, obs), bounds=MLE_BOUNDS,
+                          method="bounded", options={"xatol": 1e-12})
+    return float(res.x)
+
+
+def _logls_sigma(beta: float, obs: np.ndarray) -> float:
+    """Residual standard error of β. Ranks are treated as the observations."""
+    rank = np.arange(1, obs.size + 1, dtype=float)
+    logp = -beta * rank
+    logp -= np.logaddexp.reduce(logp)
+    mean_rank = float((np.exp(logp) * rank).sum())
+    jac = rank - mean_rank
+    resid = np.log(obs / obs.sum()) - logp
+    dof = max(int(obs.size) - 1, 1)
+    scale = float(np.dot(resid, resid) / dof)
+    gram = float(np.dot(jac, jac))
+    return float(np.sqrt(scale / gram)) if gram > 0 else float("nan")
+
+
 def fit_beta_logls(counts) -> tuple[float, float]:
     """β by least squares of log frequency to the normalised exponential.
 
     Each observed rank is one residual of log(f) − log(p), so a rare rank
     pulls as hard as the most common rank. Returns (β, residual standard error).
     """
-    from scipy.optimize import least_squares
-
     obs = _positive_rank_counts(counts)
-    rank = np.arange(1, obs.size + 1, dtype=float)
-    logf = np.log(obs / obs.sum())
+    beta = _logls_beta_obs(obs)
+    return beta, _logls_sigma(beta, obs)
 
-    def resid(theta):
-        logp = -theta[0] * rank
-        logp = logp - np.logaddexp.reduce(logp)
-        return logf - logp
 
-    sol = least_squares(resid, np.array([0.3]))
-    beta = float(sol.x[0])
-    jac = np.asarray(sol.jac, dtype=float)
-    dof = max(int(obs.size) - 1, 1)
-    scale = float(np.sum(sol.fun ** 2) / dof)
-    gram = float((jac.T @ jac)[0, 0])
-    sigma = float(np.sqrt(scale / gram)) if gram > 0 else float("nan")
-    return beta, sigma
+def logls_compare(obs_list) -> tuple:
+    """Shared versus separate log-least-squares fits.
+
+    Each group keeps its own ranks. The shared fit uses one β; the separate
+    fit uses one β per group. Residuals are the log-frequency residuals, and
+    both fits share one residual variance. Returns
+    (Λ, β_shared, β_separate, RSS_shared, RSS_separate, n_ranks, n_instances),
+    where Λ = n log(RSS_shared / RSS_separate) and n is the number of ranks.
+    """
+    from scipy.optimize import minimize_scalar
+
+    groups = [np.asarray(obs, dtype=float) for obs in obs_list]
+    res = minimize_scalar(lambda beta: sum(_rss(beta, obs) for obs in groups),
+                          bounds=MLE_BOUNDS, method="bounded", options={"xatol": 1e-12})
+    beta_shared = float(res.x)
+    rss_shared = float(res.fun)
+    betas = [_logls_beta_obs(obs) for obs in groups]
+    rss_sep = float(sum(_rss(beta, obs) for beta, obs in zip(betas, groups)))
+    n_ranks = int(sum(obs.size for obs in groups))
+    n_instances = float(sum(obs.sum() for obs in groups))
+    if rss_sep <= 0 or rss_shared <= rss_sep:
+        stat = 0.0
+    else:
+        stat = n_ranks * float(np.log(rss_shared / rss_sep))
+    return stat, beta_shared, betas, rss_shared, rss_sep, n_ranks, n_instances
 
 
 # Six Encyclopaedia Inflationaris entries in the authors' CSV have unbalanced
@@ -799,11 +845,11 @@ def rank_counts(entries: list[EIEntry]) -> Counter:
     return total
 
 
-# --- Default estimator: multinomial maximum likelihood --------------------
-# Each operator instance is one draw from p_r = exp(-beta r) / sum_s exp(-beta s)
-# over the R observed ranks (counts sorted descending). This is the likelihood
-# the shared-vs-separate tests use. curve_fit / log least squares stay available
-# (fit_beta_logls, scripts/make_plots.fit_exp_curvefit) but are not the default.
+# --- Estimators -------------------------------------------------------------
+# The default fit is log least squares (fit_beta_logls): one residual per rank,
+# log f_r − log p_r(β), with p the normalised exponential. Shared-versus-separate
+# tests use the same residuals (logls_compare). The multinomial MLE remains
+# available as fit_beta_mle but is not the reported estimator.
 MLE_BOUNDS = (0.0, 5.0)
 BOOTSTRAP_REPS = 2000
 BOOTSTRAP_SEED = 20261013
@@ -848,19 +894,19 @@ def _count_matrix(entries: list) -> np.ndarray:
 
 def beta_with_errors(entries: list, reps: int = BOOTSTRAP_REPS,
                      seed: int = BOOTSTRAP_SEED) -> dict:
-    """β (multinomial MLE) with a bootstrap over expressions and the Fisher error.
+    """β (log least squares) with a bootstrap over expressions.
 
     Each bootstrap replicate resamples the expressions with replacement, sums
-    their operator counts, re-ranks, and refits. Returns n, beta, boot_sigma,
-    boot_p16, boot_p84, fisher_sigma, n_instances, n_ranks.
+    their operator counts, re-ranks, and refits. fit_sigma is the residual
+    standard error of the original fit. Returns n, beta, boot_sigma, boot_p16,
+    boot_p84, fit_sigma, n_instances, n_ranks.
     """
     mat = _count_matrix(entries)
     tot = mat.sum(axis=0)
     obs = np.sort(tot[tot > 0])[::-1]
-    beta = _mle_from_sorted(obs)
+    beta = _logls_beta_obs(obs)
     out = {"n": len(entries), "beta": beta, "n_instances": int(obs.sum()),
-           "n_ranks": int(obs.size),
-           "fisher_sigma": fisher_sigma(beta, obs.size, obs.sum())}
+           "n_ranks": int(obs.size), "fit_sigma": _logls_sigma(beta, obs)}
     if reps and len(entries) > 1:
         rng = np.random.default_rng(seed)
         bs = np.empty(reps)
@@ -869,7 +915,7 @@ def beta_with_errors(entries: list, reps: int = BOOTSTRAP_REPS,
             w = np.bincount(rng.integers(0, n, n), minlength=n)
             t = w @ mat
             o = np.sort(t[t > 0])[::-1]
-            bs[i] = _mle_from_sorted(o) if o.size >= 2 else np.nan
+            bs[i] = _logls_beta_obs(o) if o.size >= 2 else np.nan
         bs = bs[np.isfinite(bs)]
         out.update(boot_sigma=float(bs.std(ddof=1)),
                    boot_p16=float(np.percentile(bs, 16)),

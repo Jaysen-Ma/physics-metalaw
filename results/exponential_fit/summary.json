@@ -1,0 +1,5969 @@
+{
+ "method": "exponential fitting with nonparametric bootstrap inference",
+ "seed": 20261013,
+ "seed_sequence": "numpy.random.SeedSequence spawn order recorded as spawn_index",
+ "n_boot": 10000,
+ "primary_threshold": null,
+ "thresholds": {
+  "none": null
+ },
+ "bounds": [
+  0.0,
+  5.0
+ ],
+ "bound_tol": 0.0001,
+ "quantile_method": "linear",
+ "centring": "original_estimate",
+ "resampling_unit": "equation",
+ "chapter_resampling_unit": "source chapter",
+ "overlap": {
+  "feynman_benchmark_inside_feynman_all": 1,
+  "formal_difference": "No difference interval is reported between the Feynman benchmark and the expanded Feynman corpus, because the benchmark equations are part of the expanded corpus. Equation resampling assumes independence between disjoint branches. Joint chapter resampling preserves shared-chapter dependence."
+ },
+ "provenance": {
+  "fit_module_sha256": "9fb29ed689605450598a98fcc7e9743f16d3abb7b6ecf2ce244dc37e106e13e1",
+  "code_sha256": {
+   "physics_metalaw/exponential_fit.py": "9fb29ed689605450598a98fcc7e9743f16d3abb7b6ecf2ce244dc37e106e13e1",
+   "physics_metalaw/metalaw.py": "9d1d6ae4e3ef81a82d5fd1eec9278af28cd1d5af0a868ecd7b3208b6008502bb",
+   "physics_metalaw/catalog.py": "7f7b358e87e40410b2de843d929a1993883dda09d51074cfc57f41d3fd7a5da8",
+   "scripts/exponential_bootstrap.py": "028847d5913de6e21b04e0975a3f85a7e2bd941bf35eb5812853b8bb4dbf0b08",
+   "scripts/branch_test.py": "ccde2d629ee90ebdb45d119cd5b33f18e4d8a68c4bb0a510786e72a15138d230",
+   "scripts/build_feynman_lectures_catalog.py": "a7d0ea53973175a3d48d5266fbc2256fed56ac783c0179946840e0d7d6a0074e",
+   "scripts/units_check.py": "4b2ecb625921e99a1f542fc3b4d07218348f2ad0b51e63aa9453be2aeb9f80e0"
+  },
+  "git_head": "2f4472b91500f7e23a7e1b093b962472071c3f39",
+  "versions": {
+   "python": "3.12.3",
+   "numpy": "2.5.2",
+   "scipy": "1.18.1"
+  },
+  "data_sha256": {
+   "data/catalog/feynman.json": "221cc4aa00694977382ae2eaae56675fe375002c35873e180d2448da73340448",
+   "data/catalog/feynman_lectures_v1.json": "88e523eca65827897566f8829c3a630eda2dd42f7e94ccf81e4ba3072e7525fb",
+   "data/catalog/feynman_lectures_v2.json": "9409c2662681194aef9a3b5f7feaa1226230b99e4b3d40936309ac5b08c517bd",
+   "data/catalog/feynman_lectures_v3.json": "ccdfdc7a9c52e946c9cbf2530bfabdcb1218c6228ee8887b8758240aa6de0949",
+   "data/catalog/wiki.json": "a728bd74725e0978426f7811fb4ecb4605f7e44c8fff9fc45fb7d61e6cb86557",
+   "data/catalog/inflation.json": "a875c58c386a2fd7041d366d3e97abd9bbef09354b34ce956f6e50c196a2cebb",
+   "data/catalog/leemis.json": "38334e9795e2879f409eb3dfcf23276685776da2e4bb2a572fd31fa965f894a0",
+   "data/catalog/fr.json": "0203cab1383723932924838e018dc16d991d4f5f1c2d9d9bfc5902f45746f13a"
+  },
+  "dedupe": {
+   "v1: one of the 100 benchmark expressions": 29,
+   "v1: same chapter, shape and constants as a benchmark expression": 2,
+   "v2: one of the 100 benchmark expressions": 25,
+   "v2: exact duplicate of an earlier expression": 13,
+   "v2: same chapter, shape and constants as a benchmark expression": 6,
+   "v3: one of the 100 benchmark expressions": 9,
+   "v3: same chapter, shape and constants as a benchmark expression": 1,
+   "v3: exact duplicate of an earlier expression": 11
+  },
+  "lectures_added": {
+   "v1": 278,
+   "v2": 443,
+   "v3": 195
+  }
+ },
+ "n_feynman": 1016,
+ "n_lectures_added": 916,
+ "n_labelled": 968,
+ "corpora": {
+  "none": {
+   "feynman": {
+    "beta": 0.34164349959707935,
+    "status": "ok",
+    "near_bound": 0,
+    "n_instances": 1167,
+    "n_ranks": 19,
+    "n_retained": 19,
+    "n_excluded": 0,
+    "excluded_mass": 0.0,
+    "retained_ranks": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19
+    ],
+    "threshold": null,
+    "n_boot": 10000,
+    "n_finite": 10000,
+    "n_ok": 10000,
+    "n_boundary": 0,
+    "n_degenerate": 0,
+    "n_failed": 0,
+    "interval_validity": "approximate_percentile",
+    "quantile_method": "linear",
+    "boot_se": 0.013403740849860039,
+    "boot_bias": 0.0027673232126467773,
+    "ci95": [
+     0.3188083228938497,
+     0.3714677451429666
+    ],
+    "n_equations": 100,
+    "spawn_index": 1
+   },
+   "feynman_all": {
+    "beta": 0.35371398932272924,
+    "status": "ok",
+    "near_bound": 0,
+    "n_instances": 10693,
+    "n_ranks": 22,
+    "n_retained": 22,
+    "n_excluded": 0,
+    "excluded_mass": 0.0,
+    "retained_ranks": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21,
+     22
+    ],
+    "threshold": null,
+    "n_boot": 10000,
+    "n_finite": 10000,
+    "n_ok": 10000,
+    "n_boundary": 0,
+    "n_degenerate": 0,
+    "n_failed": 0,
+    "interval_validity": "approximate_percentile",
+    "quantile_method": "linear",
+    "boot_se": 0.008492782835072512,
+    "boot_bias": -0.004106664078742217,
+    "ci95": [
+     0.3326428301046179,
+     0.36590558619826224
+    ],
+    "n_equations": 1016,
+    "spawn_index": 2
+   },
+   "wiki": {
+    "beta": 0.31496100460511656,
+    "status": "ok",
+    "near_bound": 0,
+    "n_instances": 1006,
+    "n_ranks": 17,
+    "n_retained": 17,
+    "n_excluded": 0,
+    "excluded_mass": 0.0,
+    "retained_ranks": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ],
+    "threshold": null,
+    "n_boot": 10000,
+    "n_finite": 10000,
+    "n_ok": 10000,
+    "n_boundary": 0,
+    "n_degenerate": 0,
+    "n_failed": 0,
+    "interval_validity": "approximate_percentile",
+    "quantile_method": "linear",
+    "boot_se": 0.01526299095429666,
+    "boot_bias": -0.0013548022828863693,
+    "ci95": [
+     0.2844910972500254,
+     0.3458923959907889
+    ],
+    "n_equations": 76,
+    "spawn_index": 3
+   },
+   "inflation": {
+    "beta": 0.2685081102360846,
+    "status": "ok",
+    "near_bound": 0,
+    "n_instances": 1376,
+    "n_ranks": 25,
+    "n_retained": 25,
+    "n_excluded": 0,
+    "excluded_mass": 0.0,
+    "retained_ranks": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21,
+     22,
+     23,
+     24,
+     25
+    ],
+    "threshold": null,
+    "n_boot": 10000,
+    "n_finite": 10000,
+    "n_ok": 10000,
+    "n_boundary": 0,
+    "n_degenerate": 0,
+    "n_failed": 0,
+    "interval_validity": "approximate_percentile",
+    "quantile_method": "linear",
+    "boot_se": 0.010296033848741771,
+    "boot_bias": 0.004524189646295751,
+    "ci95": [
+     0.2531154953934942,
+     0.2933925626113702
+    ],
+    "n_equations": 70,
+    "spawn_index": 4
+   },
+   "leemis": {
+    "beta": 0.2690787512919571,
+    "status": "ok",
+    "near_bound": 0,
+    "n_instances": 1044,
+    "n_ranks": 24,
+    "n_retained": 24,
+    "n_excluded": 0,
+    "excluded_mass": 0.0,
+    "retained_ranks": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21,
+     22,
+     23,
+     24
+    ],
+    "threshold": null,
+    "n_boot": 10000,
+    "n_finite": 10000,
+    "n_ok": 10000,
+    "n_boundary": 0,
+    "n_degenerate": 0,
+    "n_failed": 0,
+    "interval_validity": "approximate_percentile",
+    "quantile_method": "linear",
+    "boot_se": 0.013795968866252326,
+    "boot_bias": 0.006566514744668905,
+    "ci95": [
+     0.2497755060008706,
+     0.3035922608470047
+    ],
+    "n_equations": 61,
+    "spawn_index": 5
+   },
+   "fr": {
+    "beta": 0.2703986322351013,
+    "status": "ok",
+    "near_bound": 0,
+    "n_instances": 650,
+    "n_ranks": 24,
+    "n_retained": 24,
+    "n_excluded": 0,
+    "excluded_mass": 0.0,
+    "retained_ranks": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21,
+     22,
+     23,
+     24
+    ],
+    "threshold": null,
+    "n_boot": 10000,
+    "n_finite": 10000,
+    "n_ok": 10000,
+    "n_boundary": 0,
+    "n_degenerate": 0,
+    "n_failed": 0,
+    "interval_validity": "approximate_percentile",
+    "quantile_method": "linear",
+    "boot_se": 0.021297640487742547,
+    "boot_bias": 0.030584641202933083,
+    "ci95": [
+     0.26414822539068017,
+     0.34709686165246456
+    ],
+    "n_equations": 37,
+    "spawn_index": 6,
+    "draws": "results/exponential_fit/fr_expanded_draws.npz",
+    "note": "Refit after storing F(R)=R+f(R) for the three Nojiri\u2013Odintsov models. Seed 20261013, untrimmed, 10000 equation resamples. Corpus-difference intervals that include f(R) still use the earlier 10-form draws."
+   }
+  }
+ },
+ "corpus_differences": {
+  "critical_value": 2.3584442953526037,
+  "quantile_method": "linear",
+  "centring": "original_estimate",
+  "level": 0.95,
+  "interval_validity": "approximate_simultaneous",
+  "n_incomplete": 0,
+  "n_complete": 10000,
+  "n_excluding_zero": 1,
+  "any_excludes_zero": 1,
+  "pairs": [
+   {
+    "a": "feynman",
+    "b": "inflation",
+    "label": "feynman - inflation",
+    "delta": 0.07313538936099473,
+    "boot_se": 0.016872511900866166,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     0.033342509920128,
+     0.11292826880186146
+    ],
+    "excludes_zero": 1,
+    "individual_percentile_ci95": [
+     0.038678692689839915,
+     0.10395305939055145
+    ]
+   },
+   {
+    "a": "feynman",
+    "b": "fr",
+    "label": "feynman - fr",
+    "delta": 0.021164007120010653,
+    "boot_se": 0.026594767513641985,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.04155827060876703,
+     0.08388628484878834
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.03161257998463696,
+     0.0725209417704606
+    ]
+   },
+   {
+    "a": "inflation",
+    "b": "fr",
+    "label": "inflation - fr",
+    "delta": -0.051971382240984076,
+    "boot_se": 0.025205355246200774,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.11141680853372211,
+     0.007474044051753961
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.10004240282125927,
+     -0.0014288667732757243
+    ]
+   }
+  ]
+ },
+ "branches": {
+  "none": {
+   "SR": {
+    "beta": 0.38246924212872624,
+    "status": "ok",
+    "near_bound": 0,
+    "n_instances": 1073,
+    "n_ranks": 14,
+    "n_retained": 14,
+    "n_excluded": 0,
+    "excluded_mass": 0.0,
+    "retained_ranks": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14
+    ],
+    "threshold": null,
+    "n_boot": 10000,
+    "n_finite": 10000,
+    "n_ok": 10000,
+    "n_boundary": 0,
+    "n_degenerate": 0,
+    "n_failed": 0,
+    "interval_validity": "approximate_percentile",
+    "quantile_method": "linear",
+    "boot_se": 0.02750227447737339,
+    "boot_bias": -0.007388507602341665,
+    "ci95": [
+     0.3221758762375364,
+     0.4324634467103772
+    ],
+    "n_equations": 89,
+    "spawn_index": 7
+   },
+   "QM": {
+    "beta": 0.3273879530935622,
+    "status": "ok",
+    "near_bound": 0,
+    "n_instances": 2374,
+    "n_ranks": 17,
+    "n_retained": 17,
+    "n_excluded": 0,
+    "excluded_mass": 0.0,
+    "retained_ranks": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ],
+    "threshold": null,
+    "n_boot": 10000,
+    "n_finite": 10000,
+    "n_ok": 10000,
+    "n_boundary": 0,
+    "n_degenerate": 0,
+    "n_failed": 0,
+    "interval_validity": "approximate_percentile",
+    "quantile_method": "linear",
+    "boot_se": 0.01625638795779831,
+    "boot_bias": -0.00819964733216233,
+    "ci95": [
+     0.28629033180289104,
+     0.34860167993783464
+    ],
+    "n_equations": 221,
+    "spawn_index": 8
+   },
+   "EM": {
+    "beta": 0.3246077769280749,
+    "status": "ok",
+    "near_bound": 0,
+    "n_instances": 3285,
+    "n_ranks": 18,
+    "n_retained": 18,
+    "n_excluded": 0,
+    "excluded_mass": 0.0,
+    "retained_ranks": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18
+    ],
+    "threshold": null,
+    "n_boot": 10000,
+    "n_finite": 10000,
+    "n_ok": 10000,
+    "n_boundary": 0,
+    "n_degenerate": 0,
+    "n_failed": 0,
+    "interval_validity": "approximate_percentile",
+    "quantile_method": "linear",
+    "boot_se": 0.010046043353412124,
+    "boot_bias": 0.006292657657356204,
+    "ci95": [
+     0.31316475249330833,
+     0.35280369819287594
+    ],
+    "n_equations": 312,
+    "spawn_index": 9
+   },
+   "Waves+optics": {
+    "beta": 0.34566990229943567,
+    "status": "ok",
+    "near_bound": 0,
+    "n_instances": 1448,
+    "n_ranks": 15,
+    "n_retained": 15,
+    "n_excluded": 0,
+    "excluded_mass": 0.0,
+    "retained_ranks": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "threshold": null,
+    "n_boot": 10000,
+    "n_finite": 10000,
+    "n_ok": 10000,
+    "n_boundary": 0,
+    "n_degenerate": 0,
+    "n_failed": 0,
+    "interval_validity": "approximate_percentile",
+    "quantile_method": "linear",
+    "boot_se": 0.016555736428900285,
+    "boot_bias": -0.007625977789937066,
+    "ci95": [
+     0.3030907256137145,
+     0.3673756703755046
+    ],
+    "n_equations": 126,
+    "spawn_index": 10
+   },
+   "Classical": {
+    "beta": 0.3602232911652966,
+    "status": "ok",
+    "near_bound": 0,
+    "n_instances": 1014,
+    "n_ranks": 15,
+    "n_retained": 15,
+    "n_excluded": 0,
+    "excluded_mass": 0.0,
+    "retained_ranks": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "threshold": null,
+    "n_boot": 10000,
+    "n_finite": 10000,
+    "n_ok": 10000,
+    "n_boundary": 0,
+    "n_degenerate": 0,
+    "n_failed": 0,
+    "interval_validity": "approximate_percentile",
+    "quantile_method": "linear",
+    "boot_se": 0.02015369861967761,
+    "boot_bias": -0.01806542014873136,
+    "ci95": [
+     0.29715161584775385,
+     0.37716998776289073
+    ],
+    "n_equations": 105,
+    "spawn_index": 11
+   },
+   "Thermo": {
+    "beta": 0.4030362306989008,
+    "status": "ok",
+    "near_bound": 0,
+    "n_instances": 727,
+    "n_ranks": 16,
+    "n_retained": 16,
+    "n_excluded": 0,
+    "excluded_mass": 0.0,
+    "retained_ranks": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16
+    ],
+    "threshold": null,
+    "n_boot": 10000,
+    "n_finite": 10000,
+    "n_ok": 10000,
+    "n_boundary": 0,
+    "n_degenerate": 0,
+    "n_failed": 0,
+    "interval_validity": "approximate_percentile",
+    "quantile_method": "linear",
+    "boot_se": 0.020528253669585998,
+    "boot_bias": 0.00549935878874791,
+    "ci95": [
+     0.37138172922010215,
+     0.45171886371117387
+    ],
+    "n_equations": 73,
+    "spawn_index": 12
+   },
+   "Fluid+continuum": {
+    "beta": 0.42153647677680156,
+    "status": "ok",
+    "near_bound": 0,
+    "n_instances": 360,
+    "n_ranks": 13,
+    "n_retained": 13,
+    "n_excluded": 0,
+    "excluded_mass": 0.0,
+    "retained_ranks": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13
+    ],
+    "threshold": null,
+    "n_boot": 10000,
+    "n_finite": 10000,
+    "n_ok": 10000,
+    "n_boundary": 0,
+    "n_degenerate": 0,
+    "n_failed": 0,
+    "interval_validity": "approximate_percentile",
+    "quantile_method": "linear",
+    "boot_se": 0.026945910205516788,
+    "boot_bias": 0.007099441678991458,
+    "ci95": [
+     0.3772819501459914,
+     0.4832303025870185
+    ],
+    "n_equations": 42,
+    "spawn_index": 13
+   }
+  }
+ },
+ "differences": {
+  "none": {
+   "critical_value": 3.4539172929689985,
+   "quantile_method": "linear",
+   "centring": "original_estimate",
+   "level": 0.95,
+   "interval_validity": "approximate_simultaneous",
+   "n_incomplete": 0,
+   "n_complete": 10000,
+   "n_excluding_zero": 0,
+   "any_excludes_zero": 0,
+   "pairs": [
+    {
+     "a": "SR",
+     "b": "QM",
+     "label": "SR - QM",
+     "delta": 0.055081289035164016,
+     "boot_se": 0.03190575350275692,
+     "zero_se": 0,
+     "simultaneous_ci95": [
+      -0.055118544733214314,
+      0.16528112280354235
+     ],
+     "excludes_zero": 0,
+     "individual_percentile_ci95": [
+      -0.00643071448653258,
+      0.12093410418009011
+     ]
+    },
+    {
+     "a": "SR",
+     "b": "EM",
+     "label": "SR - EM",
+     "delta": 0.05786146520065133,
+     "boot_se": 0.02930260204416414,
+     "zero_se": 0,
+     "simultaneous_ci95": [
+      -0.04334729872867593,
+      0.1590702291299786
+     ],
+     "excludes_zero": 0,
+     "individual_percentile_ci95": [
+      -0.013501061534166638,
+      0.10521278159899902
+     ]
+    },
+    {
+     "a": "SR",
+     "b": "Waves+optics",
+     "label": "SR - Waves+optics",
+     "delta": 0.03679933982929057,
+     "boot_se": 0.03197564642401821,
+     "zero_se": 0,
+     "simultaneous_ci95": [
+      -0.07364189830848826,
+      0.1472405779670694
+     ],
+     "excludes_zero": 0,
+     "individual_percentile_ci95": [
+      -0.024455117161090268,
+      0.10219262858531104
+     ]
+    },
+    {
+     "a": "SR",
+     "b": "Classical",
+     "label": "SR - Classical",
+     "delta": 0.022245950963429628,
+     "boot_se": 0.034151450885702296,
+     "zero_se": 0,
+     "simultaneous_ci95": [
+      -0.09571033583067895,
+      0.1402022377575382
+     ],
+     "excludes_zero": 0,
+     "individual_percentile_ci95": [
+      -0.032128601844172336,
+      0.10355007308903141
+     ]
+    },
+    {
+     "a": "SR",
+     "b": "Thermo",
+     "label": "SR - Thermo",
+     "delta": -0.020566988570174582,
+     "boot_se": 0.03448257370420744,
+     "zero_se": 0,
+     "simultaneous_ci95": [
+      -0.1396669461932147,
+      0.09853296905286554
+     ],
+     "excludes_zero": 0,
+     "individual_percentile_ci95": [
+      -0.10025812493206847,
+      0.034269302214472226
+     ]
+    },
+    {
+     "a": "SR",
+     "b": "Fluid+continuum",
+     "label": "SR - Fluid+continuum",
+     "delta": -0.03906723464807532,
+     "boot_se": 0.03839045497174998,
+     "zero_se": 0,
+     "simultaneous_ci95": [
+      -0.17166469095995024,
+      0.0935302216637996
+     ],
+     "excludes_zero": 0,
+     "individual_percentile_ci95": [
+      -0.12879046692062654,
+      0.02224377376768977
+     ]
+    },
+    {
+     "a": "QM",
+     "b": "EM",
+     "label": "QM - EM",
+     "delta": 0.0027801761654873136,
+     "boot_se": 0.01927904636463271,
+     "zero_se": 0,
+     "simultaneous_ci95": [
+      -0.06380805546526871,
+      0.06936840779624334
+     ],
+     "excludes_zero": 0,
+     "individual_percentile_ci95": [
+      -0.051923752964067406,
+      0.023639768555847047
+     ]
+    },
+    {
+     "a": "QM",
+     "b": "Waves+optics",
+     "label": "QM - Waves+optics",
+     "delta": -0.01828194920587345,
+     "boot_se": 0.023096672868467432,
+     "zero_se": 0,
+     "simultaneous_ci95": [
+      -0.09805594703632099,
+      0.061492048624574094
+     ],
+     "excludes_zero": 0,
+     "individual_percentile_ci95": [
+      -0.06464032878888559,
+      0.026934949360989727
+     ]
+    },
+    {
+     "a": "QM",
+     "b": "Classical",
+     "label": "QM - Classical",
+     "delta": -0.03283533807173439,
+     "boot_se": 0.025841094741834023,
+     "zero_se": 0,
+     "simultaneous_ci95": [
+      -0.12208834206980518,
+      0.0564176659263364
+     ],
+     "excludes_zero": 0,
+     "individual_percentile_ci95": [
+      -0.0720900914576421,
+      0.030689567162001132
+     ]
+    },
+    {
+     "a": "QM",
+     "b": "Thermo",
+     "label": "QM - Thermo",
+     "delta": -0.0756482776053386,
+     "boot_se": 0.026129768871743744,
+     "zero_se": 0,
+     "simultaneous_ci95": [
+      -0.16589833817273736,
+      0.014601782962060161
+     ],
+     "excludes_zero": 0,
+     "individual_percentile_ci95": [
+      -0.14207116570693398,
+      -0.04052903931607918
+     ]
+    },
+    {
+     "a": "QM",
+     "b": "Fluid+continuum",
+     "label": "QM - Fluid+continuum",
+     "delta": -0.09414852368323934,
+     "boot_se": 0.03150209390857056,
+     "zero_se": 0,
+     "simultaneous_ci95": [
+      -0.20295415059878455,
+      0.014657103232305874
+     ],
+     "excludes_zero": 0,
+     "individual_percentile_ci95": [
+      -0.17296486545883746,
+      -0.049807537192418545
+     ]
+    },
+    {
+     "a": "EM",
+     "b": "Waves+optics",
+     "label": "EM - Waves+optics",
+     "delta": -0.021062125371360763,
+     "boot_se": 0.019284264840932593,
+     "zero_se": 0,
+     "simultaneous_ci95": [
+      -0.0876683811876519,
+      0.04554413044493037
+     ],
+     "excludes_zero": 0,
+     "individual_percentile_ci95": [
+      -0.04167488068649217,
+      0.032619742824421996
+     ]
+    },
+    {
+     "a": "EM",
+     "b": "Classical",
+     "label": "EM - Classical",
+     "delta": -0.0356155142372217,
+     "boot_se": 0.022577448563885567,
+     "zero_se": 0,
+     "simultaneous_ci95": [
+      -0.11359615426314414,
+      0.04236512578870073
+     ],
+     "excludes_zero": 0,
+     "individual_percentile_ci95": [
+      -0.051079917575941436,
+      0.038678219584612865
+     ]
+    },
+    {
+     "a": "EM",
+     "b": "Thermo",
+     "label": "EM - Thermo",
+     "delta": -0.07842845377082591,
+     "boot_se": 0.02296883515794213,
+     "zero_se": 0,
+     "simultaneous_ci95": [
+      -0.15776091072219656,
+      0.0009040031805447324
+     ],
+     "excludes_zero": 0,
+     "individual_percentile_ci95": [
+      -0.12467782247473473,
+      -0.03461786411965812
+     ]
+    },
+    {
+     "a": "EM",
+     "b": "Fluid+continuum",
+     "label": "EM - Fluid+continuum",
+     "delta": -0.09692869984872665,
+     "boot_se": 0.02892214414747643,
+     "zero_se": 0,
+     "simultaneous_ci95": [
+      -0.1968233936694376,
+      0.0029659939719842987
+     ],
+     "excludes_zero": 0,
+     "individual_percentile_ci95": [
+      -0.1553233226281379,
+      -0.04233935481616923
+     ]
+    },
+    {
+     "a": "Waves+optics",
+     "b": "Classical",
+     "label": "Waves+optics - Classical",
+     "delta": -0.014553388865860939,
+     "boot_se": 0.02618348756710731,
+     "zero_se": 0,
+     "simultaneous_ci95": [
+      -0.10498898936413165,
+      0.07588221163240977
+     ],
+     "excludes_zero": 0,
+     "individual_percentile_ci95": [
+      -0.053796560790995936,
+      0.050315509318303385
+     ]
+    },
+    {
+     "a": "Waves+optics",
+     "b": "Thermo",
+     "label": "Waves+optics - Thermo",
+     "delta": -0.05736632839946515,
+     "boot_se": 0.026221561182169055,
+     "zero_se": 0,
+     "simultaneous_ci95": [
+      -0.14793343201520348,
+      0.03320077521627317
+     ],
+     "excludes_zero": 0,
+     "individual_percentile_ci95": [
+      -0.12545940809305042,
+      -0.021966407255251213
+     ]
+    },
+    {
+     "a": "Waves+optics",
+     "b": "Fluid+continuum",
+     "label": "Waves+optics - Fluid+continuum",
+     "delta": -0.07586657447736589,
+     "boot_se": 0.03164733827821084,
+     "zero_se": 0,
+     "simultaneous_ci95": [
+      -0.18517386343291803,
+      0.033440714478186265
+     ],
+     "excludes_zero": 0,
+     "individual_percentile_ci95": [
+      -0.15453567869137272,
+      -0.030149437986337995
+     ]
+    },
+    {
+     "a": "Classical",
+     "b": "Thermo",
+     "label": "Classical - Thermo",
+     "delta": -0.04281293953360421,
+     "boot_se": 0.028741579831547428,
+     "zero_se": 0,
+     "simultaneous_ci95": [
+      -0.14208397914103488,
+      0.05645810007382644
+     ],
+     "excludes_zero": 0,
+     "individual_percentile_ci95": [
+      -0.12760852782769275,
+      -0.01417625906125875
+     ]
+    },
+    {
+     "a": "Classical",
+     "b": "Fluid+continuum",
+     "label": "Classical - Fluid+continuum",
+     "delta": -0.06131318561150495,
+     "boot_se": 0.03367346038214829,
+     "zero_se": 0,
+     "simultaneous_ci95": [
+      -0.1776185327395134,
+      0.05499216151650348
+     ],
+     "excludes_zero": 0,
+     "individual_percentile_ci95": [
+      -0.1557167309702225,
+      -0.02358947244582162
+     ]
+    },
+    {
+     "a": "Thermo",
+     "b": "Fluid+continuum",
+     "label": "Thermo - Fluid+continuum",
+     "delta": -0.01850024607790074,
+     "boot_se": 0.033667121630469754,
+     "zero_se": 0,
+     "simultaneous_ci95": [
+      -0.13478369968187084,
+      0.09778320752606937
+     ],
+     "excludes_zero": 0,
+     "individual_percentile_ci95": [
+      -0.08685455364279207,
+      0.0467286169073904
+     ]
+    }
+   ]
+  }
+ },
+ "pooled": {
+  "beta": 0.35371398932272924,
+  "status": "ok",
+  "near_bound": 0,
+  "n_instances": 10693,
+  "n_ranks": 22,
+  "n_retained": 22,
+  "n_excluded": 0,
+  "excluded_mass": 0.0,
+  "retained_ranks": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14,
+   15,
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22
+  ],
+  "threshold": null,
+  "n_boot": 10000,
+  "n_finite": 10000,
+  "n_ok": 10000,
+  "n_boundary": 0,
+  "n_degenerate": 0,
+  "n_failed": 0,
+  "interval_validity": "approximate_percentile",
+  "quantile_method": "linear",
+  "boot_se": 0.008433476348568995,
+  "boot_bias": -0.00419183086553554,
+  "ci95": [
+   0.3326383669000352,
+   0.3654369856144401
+  ],
+  "n_equations": 1016,
+  "spawn_index": 14
+ },
+ "chapter_info": {
+  "SR": {
+   "n_chapters": 9,
+   "n_missing_chapter": 0,
+   "missing_policy": "Every equation in this branch has a chapter identifier.",
+   "chapter_sizes": [
+    31,
+    15,
+    11,
+    11,
+    9,
+    7,
+    3,
+    1,
+    1
+   ],
+   "n_stratum_chapters": 7
+  },
+  "QM": {
+   "n_chapters": 23,
+   "n_missing_chapter": 0,
+   "missing_policy": "Every equation in this branch has a chapter identifier.",
+   "chapter_sizes": [
+    24,
+    21,
+    20,
+    16,
+    15,
+    15,
+    14,
+    14,
+    13,
+    11,
+    8,
+    8,
+    7,
+    6,
+    6,
+    5,
+    5,
+    4,
+    4,
+    2,
+    1,
+    1,
+    1
+   ],
+   "n_stratum_chapters": 21
+  },
+  "EM": {
+   "n_chapters": 28,
+   "n_missing_chapter": 0,
+   "missing_policy": "Every equation in this branch has a chapter identifier.",
+   "chapter_sizes": [
+    25,
+    21,
+    21,
+    20,
+    19,
+    19,
+    18,
+    16,
+    16,
+    15,
+    14,
+    13,
+    12,
+    12,
+    11,
+    10,
+    10,
+    10,
+    7,
+    5,
+    4,
+    3,
+    3,
+    3,
+    2,
+    1,
+    1,
+    1
+   ],
+   "n_stratum_chapters": 28
+  },
+  "Waves+optics": {
+   "n_chapters": 16,
+   "n_missing_chapter": 0,
+   "missing_policy": "Every equation in this branch has a chapter identifier.",
+   "chapter_sizes": [
+    32,
+    22,
+    12,
+    12,
+    12,
+    7,
+    7,
+    6,
+    4,
+    3,
+    2,
+    2,
+    2,
+    1,
+    1,
+    1
+   ],
+   "n_stratum_chapters": 15
+  },
+  "Classical": {
+   "n_chapters": 16,
+   "n_missing_chapter": 0,
+   "missing_policy": "Every equation in this branch has a chapter identifier.",
+   "chapter_sizes": [
+    17,
+    13,
+    12,
+    12,
+    10,
+    9,
+    6,
+    5,
+    5,
+    4,
+    4,
+    3,
+    2,
+    1,
+    1,
+    1
+   ],
+   "n_stratum_chapters": 14
+  },
+  "Thermo": {
+   "n_chapters": 13,
+   "n_missing_chapter": 0,
+   "missing_policy": "Every equation in this branch has a chapter identifier.",
+   "chapter_sizes": [
+    18,
+    13,
+    11,
+    10,
+    7,
+    3,
+    2,
+    2,
+    2,
+    2,
+    1,
+    1,
+    1
+   ],
+   "n_stratum_chapters": 9
+  },
+  "Fluid+continuum": {
+   "n_chapters": 4,
+   "n_missing_chapter": 0,
+   "missing_policy": "Every equation in this branch has a chapter identifier.",
+   "chapter_sizes": [
+    18,
+    14,
+    7,
+    3
+   ],
+   "n_stratum_chapters": 4
+  }
+ },
+ "chapter_design": {
+  "method": "joint stratified source-chapter bootstrap",
+  "strata": "Each chapter belongs to the branch containing most of its retained equations; ties use ORDER. Resample the observed number of chapters within each stratum.",
+  "shared_chapters": [
+   {
+    "chapter": [
+     "I",
+     10
+    ],
+    "branch_counts": {
+     "SR": 1,
+     "QM": 0,
+     "EM": 0,
+     "Waves+optics": 0,
+     "Classical": 2,
+     "Thermo": 0,
+     "Fluid+continuum": 0
+    }
+   },
+   {
+    "chapter": [
+     "I",
+     34
+    ],
+    "branch_counts": {
+     "SR": 15,
+     "QM": 1,
+     "EM": 0,
+     "Waves+optics": 0,
+     "Classical": 0,
+     "Thermo": 0,
+     "Fluid+continuum": 0
+    }
+   },
+   {
+    "chapter": [
+     "I",
+     48
+    ],
+    "branch_counts": {
+     "SR": 1,
+     "QM": 0,
+     "EM": 0,
+     "Waves+optics": 12,
+     "Classical": 0,
+     "Thermo": 0,
+     "Fluid+continuum": 0
+    }
+   },
+   {
+    "chapter": [
+     "II",
+     34
+    ],
+    "branch_counts": {
+     "SR": 0,
+     "QM": 2,
+     "EM": 10,
+     "Waves+optics": 0,
+     "Classical": 0,
+     "Thermo": 0,
+     "Fluid+continuum": 0
+    }
+   },
+   {
+    "chapter": [
+     "I",
+     37
+    ],
+    "branch_counts": {
+     "SR": 0,
+     "QM": 4,
+     "EM": 0,
+     "Waves+optics": 1,
+     "Classical": 0,
+     "Thermo": 0,
+     "Fluid+continuum": 0
+    }
+   },
+   {
+    "chapter": [
+     "III",
+     4
+    ],
+    "branch_counts": {
+     "SR": 0,
+     "QM": 13,
+     "EM": 0,
+     "Waves+optics": 0,
+     "Classical": 0,
+     "Thermo": 2,
+     "Fluid+continuum": 0
+    }
+   },
+   {
+    "chapter": [
+     "I",
+     12
+    ],
+    "branch_counts": {
+     "SR": 0,
+     "QM": 0,
+     "EM": 4,
+     "Waves+optics": 0,
+     "Classical": 3,
+     "Thermo": 0,
+     "Fluid+continuum": 0
+    }
+   },
+   {
+    "chapter": [
+     "I",
+     25
+    ],
+    "branch_counts": {
+     "SR": 0,
+     "QM": 0,
+     "EM": 1,
+     "Waves+optics": 0,
+     "Classical": 1,
+     "Thermo": 0,
+     "Fluid+continuum": 0
+    }
+   },
+   {
+    "chapter": [
+     "II",
+     11
+    ],
+    "branch_counts": {
+     "SR": 0,
+     "QM": 0,
+     "EM": 18,
+     "Waves+optics": 0,
+     "Classical": 0,
+     "Thermo": 2,
+     "Fluid+continuum": 0
+    }
+   },
+   {
+    "chapter": [
+     "II",
+     35
+    ],
+    "branch_counts": {
+     "SR": 0,
+     "QM": 0,
+     "EM": 12,
+     "Waves+optics": 0,
+     "Classical": 0,
+     "Thermo": 2,
+     "Fluid+continuum": 0
+    }
+   },
+   {
+    "chapter": [
+     "II",
+     36
+    ],
+    "branch_counts": {
+     "SR": 0,
+     "QM": 0,
+     "EM": 13,
+     "Waves+optics": 0,
+     "Classical": 0,
+     "Thermo": 1,
+     "Fluid+continuum": 0
+    }
+   }
+  ],
+  "stratum_chapter_counts": {
+   "SR": 7,
+   "QM": 21,
+   "EM": 28,
+   "Waves+optics": 15,
+   "Classical": 14,
+   "Thermo": 9,
+   "Fluid+continuum": 4
+  },
+  "dependence": "All equations in a selected chapter receive the same multiplicity across branches."
+ },
+ "chapter_bootstrap": {
+  "SR": {
+   "beta": 0.38246924212872624,
+   "status": "ok",
+   "near_bound": 0,
+   "n_instances": 1073,
+   "n_ranks": 14,
+   "n_retained": 14,
+   "n_excluded": 0,
+   "excluded_mass": 0.0,
+   "retained_ranks": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+   ],
+   "threshold": null,
+   "n_boot": 10000,
+   "n_finite": 10000,
+   "n_ok": 10000,
+   "n_boundary": 0,
+   "n_degenerate": 0,
+   "n_failed": 0,
+   "interval_validity": "approximate_percentile",
+   "quantile_method": "linear",
+   "boot_se": 0.04714118728242091,
+   "boot_bias": -0.01590090634423985,
+   "ci95": [
+    0.28805190610288417,
+    0.45508255046196927
+   ],
+   "n_equations": 89,
+   "chapters": {
+    "n_chapters": 9,
+    "n_missing_chapter": 0,
+    "missing_policy": "Every equation in this branch has a chapter identifier.",
+    "chapter_sizes": [
+     31,
+     15,
+     11,
+     11,
+     9,
+     7,
+     3,
+     1,
+     1
+    ],
+    "n_stratum_chapters": 7
+   },
+   "spawn_index": 15
+  },
+  "QM": {
+   "beta": 0.3273879530935622,
+   "status": "ok",
+   "near_bound": 0,
+   "n_instances": 2374,
+   "n_ranks": 17,
+   "n_retained": 17,
+   "n_excluded": 0,
+   "excluded_mass": 0.0,
+   "retained_ranks": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+   ],
+   "threshold": null,
+   "n_boot": 10000,
+   "n_finite": 10000,
+   "n_ok": 10000,
+   "n_boundary": 0,
+   "n_degenerate": 0,
+   "n_failed": 0,
+   "interval_validity": "approximate_percentile",
+   "quantile_method": "linear",
+   "boot_se": 0.02010806167724666,
+   "boot_bias": -0.008416271422752752,
+   "ci95": [
+    0.2785598484623324,
+    0.35624938466400363
+   ],
+   "n_equations": 221,
+   "chapters": {
+    "n_chapters": 23,
+    "n_missing_chapter": 0,
+    "missing_policy": "Every equation in this branch has a chapter identifier.",
+    "chapter_sizes": [
+     24,
+     21,
+     20,
+     16,
+     15,
+     15,
+     14,
+     14,
+     13,
+     11,
+     8,
+     8,
+     7,
+     6,
+     6,
+     5,
+     5,
+     4,
+     4,
+     2,
+     1,
+     1,
+     1
+    ],
+    "n_stratum_chapters": 21
+   },
+   "spawn_index": 15
+  },
+  "EM": {
+   "beta": 0.3246077769280749,
+   "status": "ok",
+   "near_bound": 0,
+   "n_instances": 3285,
+   "n_ranks": 18,
+   "n_retained": 18,
+   "n_excluded": 0,
+   "excluded_mass": 0.0,
+   "retained_ranks": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+   ],
+   "threshold": null,
+   "n_boot": 10000,
+   "n_finite": 10000,
+   "n_ok": 10000,
+   "n_boundary": 0,
+   "n_degenerate": 0,
+   "n_failed": 0,
+   "interval_validity": "approximate_percentile",
+   "quantile_method": "linear",
+   "boot_se": 0.015789550838878716,
+   "boot_bias": 0.01271992158879326,
+   "ci95": [
+    0.30984761110215314,
+    0.3716828319745339
+   ],
+   "n_equations": 312,
+   "chapters": {
+    "n_chapters": 28,
+    "n_missing_chapter": 0,
+    "missing_policy": "Every equation in this branch has a chapter identifier.",
+    "chapter_sizes": [
+     25,
+     21,
+     21,
+     20,
+     19,
+     19,
+     18,
+     16,
+     16,
+     15,
+     14,
+     13,
+     12,
+     12,
+     11,
+     10,
+     10,
+     10,
+     7,
+     5,
+     4,
+     3,
+     3,
+     3,
+     2,
+     1,
+     1,
+     1
+    ],
+    "n_stratum_chapters": 28
+   },
+   "spawn_index": 15
+  },
+  "Waves+optics": {
+   "beta": 0.34566990229943567,
+   "status": "ok",
+   "near_bound": 0,
+   "n_instances": 1448,
+   "n_ranks": 15,
+   "n_retained": 15,
+   "n_excluded": 0,
+   "excluded_mass": 0.0,
+   "retained_ranks": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "threshold": null,
+   "n_boot": 10000,
+   "n_finite": 10000,
+   "n_ok": 10000,
+   "n_boundary": 0,
+   "n_degenerate": 0,
+   "n_failed": 0,
+   "interval_validity": "approximate_percentile",
+   "quantile_method": "linear",
+   "boot_se": 0.021125830023601362,
+   "boot_bias": -0.003609379867436313,
+   "ci95": [
+    0.30214456439086834,
+    0.38496882734469257
+   ],
+   "n_equations": 126,
+   "chapters": {
+    "n_chapters": 16,
+    "n_missing_chapter": 0,
+    "missing_policy": "Every equation in this branch has a chapter identifier.",
+    "chapter_sizes": [
+     32,
+     22,
+     12,
+     12,
+     12,
+     7,
+     7,
+     6,
+     4,
+     3,
+     2,
+     2,
+     2,
+     1,
+     1,
+     1
+    ],
+    "n_stratum_chapters": 15
+   },
+   "spawn_index": 15
+  },
+  "Classical": {
+   "beta": 0.3602232911652966,
+   "status": "ok",
+   "near_bound": 0,
+   "n_instances": 1014,
+   "n_ranks": 15,
+   "n_retained": 15,
+   "n_excluded": 0,
+   "excluded_mass": 0.0,
+   "retained_ranks": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "threshold": null,
+   "n_boot": 10000,
+   "n_finite": 10000,
+   "n_ok": 10000,
+   "n_boundary": 0,
+   "n_degenerate": 0,
+   "n_failed": 0,
+   "interval_validity": "approximate_percentile",
+   "quantile_method": "linear",
+   "boot_se": 0.027802850015670844,
+   "boot_bias": -0.006065650890658969,
+   "ci95": [
+    0.29813865612977297,
+    0.4121849049298282
+   ],
+   "n_equations": 105,
+   "chapters": {
+    "n_chapters": 16,
+    "n_missing_chapter": 0,
+    "missing_policy": "Every equation in this branch has a chapter identifier.",
+    "chapter_sizes": [
+     17,
+     13,
+     12,
+     12,
+     10,
+     9,
+     6,
+     5,
+     5,
+     4,
+     4,
+     3,
+     2,
+     1,
+     1,
+     1
+    ],
+    "n_stratum_chapters": 14
+   },
+   "spawn_index": 15
+  },
+  "Thermo": {
+   "beta": 0.4030362306989008,
+   "status": "ok",
+   "near_bound": 0,
+   "n_instances": 727,
+   "n_ranks": 16,
+   "n_retained": 16,
+   "n_excluded": 0,
+   "excluded_mass": 0.0,
+   "retained_ranks": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16
+   ],
+   "threshold": null,
+   "n_boot": 10000,
+   "n_finite": 10000,
+   "n_ok": 10000,
+   "n_boundary": 0,
+   "n_degenerate": 0,
+   "n_failed": 0,
+   "interval_validity": "approximate_percentile",
+   "quantile_method": "linear",
+   "boot_se": 0.027918359594599727,
+   "boot_bias": 0.013233013670221339,
+   "ci95": [
+    0.36986653735755104,
+    0.47847141441468605
+   ],
+   "n_equations": 73,
+   "chapters": {
+    "n_chapters": 13,
+    "n_missing_chapter": 0,
+    "missing_policy": "Every equation in this branch has a chapter identifier.",
+    "chapter_sizes": [
+     18,
+     13,
+     11,
+     10,
+     7,
+     3,
+     2,
+     2,
+     2,
+     2,
+     1,
+     1,
+     1
+    ],
+    "n_stratum_chapters": 9
+   },
+   "spawn_index": 15
+  },
+  "Fluid+continuum": {
+   "beta": 0.42153647677680156,
+   "status": "ok",
+   "near_bound": 0,
+   "n_instances": 360,
+   "n_ranks": 13,
+   "n_retained": 13,
+   "n_excluded": 0,
+   "excluded_mass": 0.0,
+   "retained_ranks": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+   ],
+   "threshold": null,
+   "n_boot": 10000,
+   "n_finite": 10000,
+   "n_ok": 10000,
+   "n_boundary": 0,
+   "n_degenerate": 0,
+   "n_failed": 0,
+   "interval_validity": "approximate_percentile",
+   "quantile_method": "linear",
+   "boot_se": 0.04077628700796314,
+   "boot_bias": 0.009926152227878349,
+   "ci95": [
+    0.3747133253831441,
+    0.5232647525384218
+   ],
+   "n_equations": 42,
+   "chapters": {
+    "n_chapters": 4,
+    "n_missing_chapter": 0,
+    "missing_policy": "Every equation in this branch has a chapter identifier.",
+    "chapter_sizes": [
+     18,
+     14,
+     7,
+     3
+    ],
+    "n_stratum_chapters": 4
+   },
+   "spawn_index": 15
+  }
+ },
+ "chapter_differences": {
+  "critical_value": 3.555248671103016,
+  "quantile_method": "linear",
+  "centring": "original_estimate",
+  "level": 0.95,
+  "interval_validity": "approximate_simultaneous",
+  "n_incomplete": 0,
+  "n_complete": 10000,
+  "n_excluding_zero": 0,
+  "any_excludes_zero": 0,
+  "pairs": [
+   {
+    "a": "SR",
+    "b": "QM",
+    "label": "SR - QM",
+    "delta": 0.055081289035164016,
+    "boot_se": 0.050934130992729094,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.12600221249052304,
+     0.23616479056085107
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.04879511293199125,
+     0.14663114561465831
+    ]
+   },
+   {
+    "a": "SR",
+    "b": "EM",
+    "label": "SR - EM",
+    "delta": 0.05786146520065133,
+    "boot_se": 0.04972991173310972,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.11894073740255728,
+     0.23466366780385994
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.06645364539118635,
+     0.12608387908289098
+    ]
+   },
+   {
+    "a": "SR",
+    "b": "Waves+optics",
+    "label": "SR - Waves+optics",
+    "delta": 0.03679933982929057,
+    "boot_se": 0.051547049241629665,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.14646323848629503,
+     0.22006191814487616
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.07432015993662948,
+     0.1250377398752978
+    ]
+   },
+   {
+    "a": "SR",
+    "b": "Classical",
+    "label": "SR - Classical",
+    "delta": 0.022245950963429628,
+    "boot_se": 0.05445829366180093,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.17136682520822594,
+     0.2158587271350852
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.09748769638879447,
+     0.1192904092140563
+    ]
+   },
+   {
+    "a": "SR",
+    "b": "Thermo",
+    "label": "SR - Thermo",
+    "delta": -0.020566988570174582,
+    "boot_se": 0.0548483066176719,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.21556635778490335,
+     0.17443238064455419
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.1613094672235361,
+     0.05656337774195319
+    ]
+   },
+   {
+    "a": "SR",
+    "b": "Fluid+continuum",
+    "label": "SR - Fluid+continuum",
+    "delta": -0.03906723464807532,
+    "boot_se": 0.06262356292477025,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.26170957351610086,
+     0.1835751042199502
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.19904394304456238,
+     0.053421306269819474
+    ]
+   },
+   {
+    "a": "QM",
+    "b": "EM",
+    "label": "QM - EM",
+    "delta": 0.0027801761654873136,
+    "boot_se": 0.025563963195009122,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.08810607001169528,
+     0.0936664223426699
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.07088016644234382,
+     0.02879040822197967
+    ]
+   },
+   {
+    "a": "QM",
+    "b": "Waves+optics",
+    "label": "QM - Waves+optics",
+    "delta": -0.01828194920587345,
+    "boot_se": 0.02913281942099715,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.12185636673785771,
+     0.08529246832611082
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.08109024499260523,
+     0.032127561422182094
+    ]
+   },
+   {
+    "a": "QM",
+    "b": "Classical",
+    "label": "QM - Classical",
+    "delta": -0.03283533807173439,
+    "boot_se": 0.03456256927688403,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.1557138665632823,
+     0.0900431904198135
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.10691716298215564,
+     0.030844339860276963
+    ]
+   },
+   {
+    "a": "QM",
+    "b": "Thermo",
+    "label": "QM - Thermo",
+    "delta": -0.0756482776053386,
+    "boot_se": 0.03499172425394232,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.2000525587587702,
+     0.04875600354809301
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.17030710711386635,
+     -0.03340224837451755
+    ]
+   },
+   {
+    "a": "QM",
+    "b": "Fluid+continuum",
+    "label": "QM - Fluid+continuum",
+    "delta": -0.09414852368323934,
+    "boot_se": 0.045412732595193864,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.2556020808934589,
+     0.06730503352698028
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.21728684592032332,
+     -0.03782921628247854
+    ]
+   },
+   {
+    "a": "EM",
+    "b": "Waves+optics",
+    "label": "EM - Waves+optics",
+    "delta": -0.021062125371360763,
+    "boot_se": 0.026478153988724096,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.11519854715303313,
+     0.0730742964103116
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.05636283292033071,
+     0.04666923169798544
+    ]
+   },
+   {
+    "a": "EM",
+    "b": "Classical",
+    "label": "EM - Classical",
+    "delta": -0.0356155142372217,
+    "boot_se": 0.03188542578019821,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.14897613186982522,
+     0.07774510339538182
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.08146112768533983,
+     0.045210444677834874
+    ]
+   },
+   {
+    "a": "EM",
+    "b": "Thermo",
+    "label": "EM - Thermo",
+    "delta": -0.07842845377082591,
+    "boot_se": 0.03280839432403548,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.19507045409237678,
+     0.03821354655072495
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.15035973709010447,
+     -0.01909796564830411
+    ]
+   },
+   {
+    "a": "EM",
+    "b": "Fluid+continuum",
+    "label": "EM - Fluid+continuum",
+    "delta": -0.09692869984872665,
+    "boot_se": 0.04354101469356013,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.25172783447648317,
+     0.057870434779029895
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.19633056681705516,
+     -0.02465298852822662
+    ]
+   },
+   {
+    "a": "Waves+optics",
+    "b": "Classical",
+    "label": "Waves+optics - Classical",
+    "delta": -0.014553388865860939,
+    "boot_se": 0.03485656727307929,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.13847715334268898,
+     0.1093703756109671
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.0822752173805392,
+     0.056037281132074346
+    ]
+   },
+   {
+    "a": "Waves+optics",
+    "b": "Thermo",
+    "label": "Waves+optics - Thermo",
+    "delta": -0.05736632839946515,
+    "boot_se": 0.03481648603167214,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.18114759409604425,
+     0.06641493729711394
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.1473197481462321,
+     -0.010043152373243599
+    ]
+   },
+   {
+    "a": "Waves+optics",
+    "b": "Fluid+continuum",
+    "label": "Waves+optics - Fluid+continuum",
+    "delta": -0.07586657447736589,
+    "boot_se": 0.046161956378698445,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.23998380854824894,
+     0.08825065959351716
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.18936301850030815,
+     -0.011962472825858826
+    ]
+   },
+   {
+    "a": "Classical",
+    "b": "Thermo",
+    "label": "Classical - Thermo",
+    "delta": -0.04281293953360421,
+    "boot_se": 0.03942867360803535,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.18299167898192645,
+     0.09736579991471803
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.14197729221261862,
+     0.013362841749419988
+    ]
+   },
+   {
+    "a": "Classical",
+    "b": "Fluid+continuum",
+    "label": "Classical - Fluid+continuum",
+    "delta": -0.06131318561150495,
+    "boot_se": 0.049454010441341414,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.2371344905137987,
+     0.1145081192907888
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.1832333761509506,
+     0.011070679055256697
+    ]
+   },
+   {
+    "a": "Thermo",
+    "b": "Fluid+continuum",
+    "label": "Thermo - Fluid+continuum",
+    "delta": -0.01850024607790074,
+    "boot_se": 0.04966982514868549,
+    "zero_se": 0,
+    "simultaneous_ci95": [
+     -0.19508882593168397,
+     0.1580883337758825
+    ],
+    "excludes_zero": 0,
+    "individual_percentile_ci95": [
+     -0.11948181389390738,
+     0.0753996911776693
+    ]
+   }
+  ]
+ },
+ "ablations": {
+  "ambiguous_dropped": {
+   "n": {
+    "SR": 32,
+    "QM": 151,
+    "EM": 198,
+    "Waves+optics": 48,
+    "Classical": 75,
+    "Thermo": 61,
+    "Fluid+continuum": 42
+   },
+   "branches": {
+    "SR": {
+     "beta": 0.23132612404227884,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 376,
+     "n_ranks": 9,
+     "n_retained": 9,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.021523912874974373,
+     "boot_bias": 0.006719753118002436,
+     "ci95": [
+      0.2039431812619782,
+      0.28861626531108975
+     ],
+     "n_equations": 32,
+     "spawn_index": 16
+    },
+    "QM": {
+     "beta": 0.3203506086566415,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 1635,
+     "n_ranks": 17,
+     "n_retained": 17,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.016979215292930283,
+     "boot_bias": -0.003423955234961862,
+     "ci95": [
+      0.2839368724374876,
+      0.349977179063228
+     ],
+     "n_equations": 151,
+     "spawn_index": 17
+    },
+    "EM": {
+     "beta": 0.3149026834452399,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 2080,
+     "n_ranks": 17,
+     "n_retained": 17,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.012283603381586386,
+     "boot_bias": 0.008452197705623221,
+     "ci95": [
+      0.3019033832283632,
+      0.35069876261513905
+     ],
+     "n_equations": 198,
+     "spawn_index": 18
+    },
+    "Waves+optics": {
+     "beta": 0.29102164774888734,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 610,
+     "n_ranks": 14,
+     "n_retained": 14,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.019677306537337107,
+     "boot_bias": 0.008826711504935969,
+     "ci95": [
+      0.26479588051485436,
+      0.3406527262580933
+     ],
+     "n_equations": 48,
+     "spawn_index": 19
+    },
+    "Classical": {
+     "beta": 0.35404080127876836,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 628,
+     "n_ranks": 13,
+     "n_retained": 13,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.023669937605025185,
+     "boot_bias": -0.00905352203876203,
+     "ci95": [
+      0.2981619322371612,
+      0.3895540121413346
+     ],
+     "n_equations": 75,
+     "spawn_index": 20
+    },
+    "Thermo": {
+     "beta": 0.40485984984955203,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 592,
+     "n_ranks": 15,
+     "n_retained": 15,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.023801150099938967,
+     "boot_bias": 0.005173856317783443,
+     "ci95": [
+      0.36802895628629445,
+      0.4605905713554427
+     ],
+     "n_equations": 61,
+     "spawn_index": 21
+    },
+    "Fluid+continuum": {
+     "beta": 0.42153647677680156,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 360,
+     "n_ranks": 13,
+     "n_retained": 13,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.027001719656311592,
+     "boot_bias": 0.006064658264500089,
+     "ci95": [
+      0.37736413964249393,
+      0.48331662225009486
+     ],
+     "n_equations": 42,
+     "spawn_index": 22
+    }
+   },
+   "differences": {
+    "critical_value": 3.1992897352447702,
+    "quantile_method": "linear",
+    "centring": "original_estimate",
+    "level": 0.95,
+    "interval_validity": "approximate_simultaneous",
+    "n_incomplete": 0,
+    "n_complete": 10000,
+    "n_excluding_zero": 9,
+    "any_excludes_zero": 1,
+    "pairs": [
+     {
+      "a": "SR",
+      "b": "QM",
+      "label": "SR - QM",
+      "delta": -0.08902448461436266,
+      "boot_se": 0.02747114049111645,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.1769126224030585,
+       -0.001136346825666823
+      ],
+      "excludes_zero": 1,
+      "individual_percentile_ci95": [
+       -0.12720925556846954,
+       -0.019002323666667785
+      ]
+     },
+     {
+      "a": "SR",
+      "b": "EM",
+      "label": "SR - EM",
+      "delta": -0.08357655940296108,
+      "boot_se": 0.02474066646387326,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.16272911966394532,
+       -0.004423999141976831
+      ],
+      "excludes_zero": 1,
+      "individual_percentile_ci95": [
+       -0.12910297658425357,
+       -0.030939816074221783
+      ]
+     },
+     {
+      "a": "SR",
+      "b": "Waves+optics",
+      "label": "SR - Waves+optics",
+      "delta": -0.059695523706608494,
+      "boot_se": 0.029439302558820258,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.15388038219580724,
+       0.03448933478259025
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.11659069320945818,
+       -0.00011544963779386968
+      ]
+     },
+     {
+      "a": "SR",
+      "b": "Classical",
+      "label": "SR - Classical",
+      "delta": -0.12271467723648952,
+      "boot_se": 0.0319564744382871,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.2249526978815133,
+       -0.02047665659146572
+      ],
+      "excludes_zero": 1,
+      "individual_percentile_ci95": [
+       -0.1652196104593687,
+       -0.040354436135559335
+      ]
+     },
+     {
+      "a": "SR",
+      "b": "Thermo",
+      "label": "SR - Thermo",
+      "delta": -0.1735337258072732,
+      "boot_se": 0.032223902490838854,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.2766273262757423,
+       -0.07044012533880406
+      ],
+      "excludes_zero": 1,
+      "individual_percentile_ci95": [
+       -0.23450986871143728,
+       -0.10620628930925244
+      ]
+     },
+     {
+      "a": "SR",
+      "b": "Fluid+continuum",
+      "label": "SR - Fluid+continuum",
+      "delta": -0.19021035273452272,
+      "boot_se": 0.03436639148756222,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.30015839625808377,
+       -0.08026230921096165
+      ],
+      "excludes_zero": 1,
+      "individual_percentile_ci95": [
+       -0.2567891082904831,
+       -0.12123011775595781
+      ]
+     },
+     {
+      "a": "QM",
+      "b": "EM",
+      "label": "QM - EM",
+      "delta": 0.005447925211401583,
+      "boot_se": 0.021043177851261814,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.06187529768507044,
+       0.0727711481078736
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.04844645492723101,
+       0.03321338493972021
+      ]
+     },
+     {
+      "a": "QM",
+      "b": "Waves+optics",
+      "label": "QM - Waves+optics",
+      "delta": 0.029328960907754165,
+      "boot_se": 0.026135559511231903,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.05428626636140889,
+       0.11294418817691722
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.035461238366675085,
+       0.06692129226853664
+      ]
+     },
+     {
+      "a": "QM",
+      "b": "Classical",
+      "label": "QM - Classical",
+      "delta": -0.03369019262212686,
+      "boot_se": 0.029122058438968854,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.12686009525511827,
+       0.05947971001086454
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.08399672147806195,
+       0.029057700550337393
+      ]
+     },
+     {
+      "a": "QM",
+      "b": "Thermo",
+      "label": "QM - Thermo",
+      "delta": -0.08450924119291053,
+      "boot_se": 0.02937657256698484,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.17849340826313825,
+       0.009474925877317172
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.15416180692895062,
+       -0.03872215482163517
+      ]
+     },
+     {
+      "a": "QM",
+      "b": "Fluid+continuum",
+      "label": "QM - Fluid+continuum",
+      "delta": -0.10118586812016006,
+      "boot_se": 0.031784005119223004,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.20287210944305745,
+       0.0005003732027373253
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.1742481065645919,
+       -0.050651641669758406
+      ]
+     },
+     {
+      "a": "EM",
+      "b": "Waves+optics",
+      "label": "EM - Waves+optics",
+      "delta": 0.02388103569635258,
+      "boot_se": 0.023090088911761862,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.04999084874493623,
+       0.09775292013764139
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.023351084285983644,
+       0.06670995416343199
+      ]
+     },
+     {
+      "a": "EM",
+      "b": "Classical",
+      "label": "EM - Classical",
+      "delta": -0.03913811783352844,
+      "boot_se": 0.02671242887141928,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.12459891732531618,
+       0.0463226816582593
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.07306746867183533,
+       0.03057959922128889
+      ]
+     },
+     {
+      "a": "EM",
+      "b": "Thermo",
+      "label": "EM - Thermo",
+      "delta": -0.08995716640431212,
+      "boot_se": 0.02680569806856126,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.1757163610811307,
+       -0.0041979717274935185
+      ],
+      "excludes_zero": 1,
+      "individual_percentile_ci95": [
+       -0.1417879137355818,
+       -0.03703828934104522
+      ]
+     },
+     {
+      "a": "EM",
+      "b": "Fluid+continuum",
+      "label": "EM - Fluid+continuum",
+      "delta": -0.10663379333156164,
+      "boot_se": 0.029741565581041858,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.201785678805098,
+       -0.011481907858025261
+      ],
+      "excludes_zero": 1,
+      "individual_percentile_ci95": [
+       -0.16376356717057083,
+       -0.046835294408770066
+      ]
+     },
+     {
+      "a": "Waves+optics",
+      "b": "Classical",
+      "label": "Waves+optics - Classical",
+      "delta": -0.06301915352988102,
+      "boot_se": 0.03075964861246328,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.16142818159547084,
+       0.035389874535708785
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.10300531111017626,
+       0.016492499392793097
+      ]
+     },
+     {
+      "a": "Waves+optics",
+      "b": "Thermo",
+      "label": "Waves+optics - Thermo",
+      "delta": -0.1138382021006647,
+      "boot_se": 0.031148962965238846,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.21349275957887284,
+       -0.014183644622456554
+      ],
+      "excludes_zero": 1,
+      "individual_percentile_ci95": [
+       -0.17173009344432877,
+       -0.05077168209755806
+      ]
+     },
+     {
+      "a": "Waves+optics",
+      "b": "Fluid+continuum",
+      "label": "Waves+optics - Fluid+continuum",
+      "delta": -0.13051482902791423,
+      "boot_se": 0.03357046851873565,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.2379164843672629,
+       -0.023113173688565553
+      ],
+      "excludes_zero": 1,
+      "individual_percentile_ci95": [
+       -0.1947995796971478,
+       -0.06299048151782169
+      ]
+     },
+     {
+      "a": "Classical",
+      "b": "Thermo",
+      "label": "Classical - Thermo",
+      "delta": -0.050819048570783676,
+      "boot_se": 0.03380451003038339,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.15896947051596816,
+       0.05733137337440079
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.13344441146518052,
+       -0.0017803347117396641
+      ]
+     },
+     {
+      "a": "Classical",
+      "b": "Fluid+continuum",
+      "label": "Classical - Fluid+continuum",
+      "delta": -0.0674956754980332,
+      "boot_se": 0.035688569990605365,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.18167375113454148,
+       0.04668240013847509
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.15401534877860656,
+       -0.015338538715584887
+      ]
+     },
+     {
+      "a": "Thermo",
+      "b": "Fluid+continuum",
+      "label": "Thermo - Fluid+continuum",
+      "delta": -0.016676626927249527,
+      "boot_se": 0.03576017508158102,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.1310837879963075,
+       0.09773053414180843
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.08780138182436002,
+       0.05260698947560565
+      ]
+     }
+    ]
+   }
+  },
+  "ambiguous_reassigned": {
+   "n": {
+    "SR": 32,
+    "QM": 182,
+    "EM": 343,
+    "Waves+optics": 63,
+    "Classical": 75,
+    "Thermo": 89,
+    "Fluid+continuum": 44
+   },
+   "branches": {
+    "SR": {
+     "beta": 0.23132612404227884,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 376,
+     "n_ranks": 9,
+     "n_retained": 9,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.021810917425515813,
+     "boot_bias": 0.00648957777529946,
+     "ci95": [
+      0.20382727252775454,
+      0.28893935773058654
+     ],
+     "n_equations": 32,
+     "spawn_index": 23
+    },
+    "QM": {
+     "beta": 0.3347606581675725,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 1991,
+     "n_ranks": 17,
+     "n_retained": 17,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.016667735426365557,
+     "boot_bias": -0.00310828669374541,
+     "ci95": [
+      0.29916386589932986,
+      0.36372381054822756
+     ],
+     "n_equations": 182,
+     "spawn_index": 24
+    },
+    "EM": {
+     "beta": 0.3363110863111238,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 3757,
+     "n_ranks": 18,
+     "n_retained": 18,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.011063717410560185,
+     "boot_bias": -0.0005516700764732763,
+     "ci95": [
+      0.31538075693132583,
+      0.3590499925320986
+     ],
+     "n_equations": 343,
+     "spawn_index": 25
+    },
+    "Waves+optics": {
+     "beta": 0.30320543012706413,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 760,
+     "n_ranks": 17,
+     "n_retained": 17,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.01601974556315464,
+     "boot_bias": 0.010024551445324603,
+     "ci95": [
+      0.2827334889785515,
+      0.34480570637986274
+     ],
+     "n_equations": 63,
+     "spawn_index": 26
+    },
+    "Classical": {
+     "beta": 0.35404080127876836,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 628,
+     "n_ranks": 13,
+     "n_retained": 13,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.023461014051235275,
+     "boot_bias": -0.009399987737380988,
+     "ci95": [
+      0.2976268627798139,
+      0.38771209581844557
+     ],
+     "n_equations": 75,
+     "spawn_index": 27
+    },
+    "Thermo": {
+     "beta": 0.3526945372192703,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 802,
+     "n_ranks": 17,
+     "n_retained": 17,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.01717817898752912,
+     "boot_bias": 0.0006489920076784839,
+     "ci95": [
+      0.3208157517672333,
+      0.38837103344141155
+     ],
+     "n_equations": 89,
+     "spawn_index": 28
+    },
+    "Fluid+continuum": {
+     "beta": 0.4188519230432679,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 373,
+     "n_ranks": 13,
+     "n_retained": 13,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.026552032076586015,
+     "boot_bias": 0.004881910359662289,
+     "ci95": [
+      0.37391135797147984,
+      0.4781485657068061
+     ],
+     "n_equations": 44,
+     "spawn_index": 29
+    }
+   },
+   "differences": {
+    "critical_value": 3.196519487273406,
+    "quantile_method": "linear",
+    "centring": "original_estimate",
+    "level": 0.95,
+    "interval_validity": "approximate_simultaneous",
+    "n_incomplete": 0,
+    "n_complete": 10000,
+    "n_excluding_zero": 6,
+    "any_excludes_zero": 1,
+    "pairs": [
+     {
+      "a": "SR",
+      "b": "QM",
+      "label": "SR - QM",
+      "delta": -0.10343453412529366,
+      "boot_se": 0.027558541273341706,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.1915259483463589,
+       -0.01534311990422843
+      ],
+      "excludes_zero": 1,
+      "individual_percentile_ci95": [
+       -0.1423058671813806,
+       -0.033979384177774644
+      ]
+     },
+     {
+      "a": "SR",
+      "b": "EM",
+      "label": "SR - EM",
+      "delta": -0.10498496226884493,
+      "boot_se": 0.0243187214824201,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.1827202293929752,
+       -0.027249695144714675
+      ],
+      "excludes_zero": 1,
+      "individual_percentile_ci95": [
+       -0.13934983759459585,
+       -0.044063169814685194
+      ]
+     },
+     {
+      "a": "SR",
+      "b": "Waves+optics",
+      "label": "SR - Waves+optics",
+      "delta": -0.0718793060847853,
+      "boot_se": 0.027062752878602762,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.15838592304050347,
+       0.0146273108709329
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.12332635782308532,
+       -0.01710678278399924
+      ]
+     },
+     {
+      "a": "SR",
+      "b": "Classical",
+      "label": "SR - Classical",
+      "delta": -0.12271467723648952,
+      "boot_se": 0.03206425642577713,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.22520869774641764,
+       -0.020220656726561398
+      ],
+      "excludes_zero": 1,
+      "individual_percentile_ci95": [
+       -0.1644659847334769,
+       -0.038616264650050726
+      ]
+     },
+     {
+      "a": "SR",
+      "b": "Thermo",
+      "label": "SR - Thermo",
+      "delta": -0.12136841317699146,
+      "boot_se": 0.027799114904626384,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.21022882569858228,
+       -0.03250800065540063
+      ],
+      "excludes_zero": 1,
+      "individual_percentile_ci95": [
+       -0.1652332382483693,
+       -0.05616736493129481
+      ]
+     },
+     {
+      "a": "SR",
+      "b": "Fluid+continuum",
+      "label": "SR - Fluid+continuum",
+      "delta": -0.18752579900098906,
+      "boot_se": 0.03437410355733019,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.29740329087954914,
+       -0.077648307122429
+      ],
+      "excludes_zero": 1,
+      "individual_percentile_ci95": [
+       -0.25126336484752754,
+       -0.11585916721892833
+      ]
+     },
+     {
+      "a": "QM",
+      "b": "EM",
+      "label": "QM - EM",
+      "delta": -0.0015504281435512746,
+      "boot_se": 0.019843033845941643,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.06497907251872949,
+       0.06187821623162694
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.04279728226375664,
+       0.03496736369964989
+      ]
+     },
+     {
+      "a": "QM",
+      "b": "Waves+optics",
+      "label": "QM - Waves+optics",
+      "delta": 0.031555228040508365,
+      "boot_se": 0.023038989059577585,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.04208934945551018,
+       0.10519980553652691
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.026749854954084974,
+       0.062716082712317
+      ]
+     },
+     {
+      "a": "QM",
+      "b": "Classical",
+      "label": "QM - Classical",
+      "delta": -0.019280143111195858,
+      "boot_se": 0.02891963886012882,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.1117223322925069,
+       0.07316204607011519
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.06862955385470475,
+       0.04323494143091594
+      ]
+     },
+     {
+      "a": "QM",
+      "b": "Thermo",
+      "label": "QM - Thermo",
+      "delta": -0.0179338790516978,
+      "boot_se": 0.02361875775377925,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.09343169847684303,
+       0.057563940373447434
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.06918259803565731,
+       0.023263844069705643
+      ]
+     },
+     {
+      "a": "QM",
+      "b": "Fluid+continuum",
+      "label": "QM - Fluid+continuum",
+      "delta": -0.0840912648756954,
+      "boot_se": 0.031288582464309975,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.18410582845202322,
+       0.0159232987006324
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.1548969992374215,
+       -0.03198577940642881
+      ]
+     },
+     {
+      "a": "EM",
+      "b": "Waves+optics",
+      "label": "EM - Waves+optics",
+      "delta": 0.03310565618405964,
+      "boot_se": 0.019438816399039913,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.029030899245001303,
+       0.09524221161312058
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.015228268976421034,
+       0.06105719440663758
+      ]
+     },
+     {
+      "a": "EM",
+      "b": "Classical",
+      "label": "EM - Classical",
+      "delta": -0.017729714967644583,
+      "boot_se": 0.025784408111693777,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.10015007796448423,
+       0.06469064802919507
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.0573723618647521,
+       0.04272985677878067
+      ]
+     },
+     {
+      "a": "EM",
+      "b": "Thermo",
+      "label": "EM - Thermo",
+      "delta": -0.016383450908146524,
+      "boot_se": 0.020462379945223576,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.08179184715904621,
+       0.04902494534275316
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.058294623009837114,
+       0.022281560624544606
+      ]
+     },
+     {
+      "a": "EM",
+      "b": "Fluid+continuum",
+      "label": "EM - Fluid+continuum",
+      "delta": -0.08254083673214413,
+      "boot_se": 0.02875932305642607,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.17447057332280141,
+       0.00938889985851317
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.14665498066686736,
+       -0.03327085690399221
+      ]
+     },
+     {
+      "a": "Waves+optics",
+      "b": "Classical",
+      "label": "Waves+optics - Classical",
+      "delta": -0.05083537115170422,
+      "boot_se": 0.028220860402139676,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.1410439013747661,
+       0.03937315907135766
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.08513416658488668,
+       0.02402277268982574
+      ]
+     },
+     {
+      "a": "Waves+optics",
+      "b": "Thermo",
+      "label": "Waves+optics - Thermo",
+      "delta": -0.049489107092206164,
+      "boot_se": 0.02332215490963124,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.12403882974605156,
+       0.02506061556163923
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.08611574981703904,
+       0.005647264629317187
+      ]
+     },
+     {
+      "a": "Waves+optics",
+      "b": "Fluid+continuum",
+      "label": "Waves+optics - Fluid+continuum",
+      "delta": -0.11564649291620377,
+      "boot_se": 0.030978254480398846,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.21466908704451337,
+       -0.016623898787894165
+      ],
+      "excludes_zero": 1,
+      "individual_percentile_ci95": [
+       -0.17168676700035587,
+       -0.0515605762211825
+      ]
+     },
+     {
+      "a": "Classical",
+      "b": "Thermo",
+      "label": "Classical - Thermo",
+      "delta": 0.001346264059498059,
+      "boot_se": 0.029001665330539342,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.09135812433295247,
+       0.09405065245194859
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.06678347469656823,
+       0.04619492324804893
+      ]
+     },
+     {
+      "a": "Classical",
+      "b": "Fluid+continuum",
+      "label": "Classical - Fluid+continuum",
+      "delta": -0.06481112176449955,
+      "boot_se": 0.03570772717026314,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.17895156751048774,
+       0.04932932398148865
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.15159985055649527,
+       -0.012609374720221537
+      ]
+     },
+     {
+      "a": "Thermo",
+      "b": "Fluid+continuum",
+      "label": "Thermo - Fluid+continuum",
+      "delta": -0.0661573858239976,
+      "boot_se": 0.0314821093534404,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.16679056187274222,
+       0.034475790224747005
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.13335852259672165,
+       -0.010114096641498212
+      ]
+     }
+    ]
+   }
+  },
+  "notation_dropped": {
+   "n": {
+    "SR": 88,
+    "QM": 164,
+    "EM": 273,
+    "Waves+optics": 99,
+    "Classical": 97,
+    "Thermo": 69,
+    "Fluid+continuum": 39
+   },
+   "branches": {
+    "SR": {
+     "beta": 0.3946391470357904,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 1061,
+     "n_ranks": 14,
+     "n_retained": 14,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.029485741435601603,
+     "boot_bias": -0.019041294271514853,
+     "ci95": [
+      0.3143495052701844,
+      0.43706405685631555
+     ],
+     "n_equations": 88,
+     "spawn_index": 30
+    },
+    "QM": {
+     "beta": 0.3173080946101521,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 1526,
+     "n_ranks": 17,
+     "n_retained": 17,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.014889526374092507,
+     "boot_bias": -0.004292788252300173,
+     "ci95": [
+      0.28372587377101416,
+      0.3412498354052978
+     ],
+     "n_equations": 164,
+     "spawn_index": 31
+    },
+    "EM": {
+     "beta": 0.3298248042750086,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 2766,
+     "n_ranks": 18,
+     "n_retained": 18,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.010924424444000214,
+     "boot_bias": 0.007724354063960381,
+     "ci95": [
+      0.31812531008946876,
+      0.3608669925589813
+     ],
+     "n_equations": 273,
+     "spawn_index": 32
+    },
+    "Waves+optics": {
+     "beta": 0.36158629278125887,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 959,
+     "n_ranks": 14,
+     "n_retained": 14,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.01893658617620266,
+     "boot_bias": -0.004471200441761969,
+     "ci95": [
+      0.3197664752674656,
+      0.39262482385909653
+     ],
+     "n_equations": 99,
+     "spawn_index": 33
+    },
+    "Classical": {
+     "beta": 0.36477914664859434,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 917,
+     "n_ranks": 15,
+     "n_retained": 15,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.019569659873996132,
+     "boot_bias": -0.014862740823078147,
+     "ci95": [
+      0.30883976439100647,
+      0.3858498836633265
+     ],
+     "n_equations": 97,
+     "spawn_index": 34
+    },
+    "Thermo": {
+     "beta": 0.3997900804152068,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 704,
+     "n_ranks": 16,
+     "n_retained": 16,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.020683516320320127,
+     "boot_bias": 0.005422502654289507,
+     "ci95": [
+      0.3675741311716203,
+      0.4487516017730817
+     ],
+     "n_equations": 69,
+     "spawn_index": 35
+    },
+    "Fluid+continuum": {
+     "beta": 0.4215260408195356,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 324,
+     "n_ranks": 13,
+     "n_retained": 13,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.030548223478182028,
+     "boot_bias": 0.013976470944286667,
+     "ci95": [
+      0.380246761472947,
+      0.49977871033557303
+     ],
+     "n_equations": 39,
+     "spawn_index": 36
+    }
+   },
+   "differences": {
+    "critical_value": 3.3942240933147816,
+    "quantile_method": "linear",
+    "centring": "original_estimate",
+    "level": 0.95,
+    "interval_validity": "approximate_simultaneous",
+    "n_incomplete": 0,
+    "n_complete": 10000,
+    "n_excluding_zero": 0,
+    "any_excludes_zero": 0,
+    "pairs": [
+     {
+      "a": "SR",
+      "b": "QM",
+      "label": "SR - QM",
+      "delta": 0.07733105242563831,
+      "boot_se": 0.032912726288836666,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.03438211612060589,
+       0.1890442209718825
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.003384439985231613,
+       0.12859025106041586
+      ]
+     },
+     {
+      "a": "SR",
+      "b": "EM",
+      "label": "SR - EM",
+      "delta": 0.0648143427607818,
+      "boot_se": 0.031299100835329684,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.041421819393583026,
+       0.17105050491514662
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.02563313511225149,
+       0.1015622840512195
+      ]
+     },
+     {
+      "a": "SR",
+      "b": "Waves+optics",
+      "label": "SR - Waves+optics",
+      "delta": 0.03305285425453153,
+      "boot_se": 0.035052616146172236,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.085923580002521,
+       0.15202928851158404
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.05302556210858332,
+       0.08867261027175136
+      ]
+     },
+     {
+      "a": "SR",
+      "b": "Classical",
+      "label": "SR - Classical",
+      "delta": 0.02986000038719605,
+      "boot_se": 0.035337193793682775,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.0900823541774556,
+       0.14980235495184768
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.04556364957790046,
+       0.0950927635028983
+      ]
+     },
+     {
+      "a": "SR",
+      "b": "Thermo",
+      "label": "SR - Thermo",
+      "delta": -0.005150933379416411,
+      "boot_se": 0.035888317075436105,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.1269639238653819,
+       0.11666205710654909
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.10239197581883601,
+       0.04114521847413091
+      ]
+     },
+     {
+      "a": "SR",
+      "b": "Fluid+continuum",
+      "label": "SR - Fluid+continuum",
+      "delta": -0.026886893783745203,
+      "boot_se": 0.04237583847827118,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.17071998572110883,
+       0.11694619815361842
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.1464619204838688,
+       0.02200424616991562
+      ]
+     },
+     {
+      "a": "QM",
+      "b": "EM",
+      "label": "QM - EM",
+      "delta": -0.012516709664856518,
+      "boot_se": 0.018551296521369737,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.07548396727991638,
+       0.050450547950203345
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.061334063228992194,
+       0.01035052223598994
+      ]
+     },
+     {
+      "a": "QM",
+      "b": "Waves+optics",
+      "label": "QM - Waves+optics",
+      "delta": -0.044278198171106786,
+      "boot_se": 0.0239536400200517,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.12558222024975543,
+       0.03702582390754186
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.09083152335361958,
+       0.002660900792130658
+      ]
+     },
+     {
+      "a": "QM",
+      "b": "Classical",
+      "label": "QM - Classical",
+      "delta": -0.04747105203844226,
+      "boot_se": 0.024936696348078588,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.13211178759076533,
+       0.03716968351388081
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.08414712132930598,
+       0.013416816730593854
+      ]
+     },
+     {
+      "a": "QM",
+      "b": "Thermo",
+      "label": "QM - Thermo",
+      "delta": -0.08248198580505472,
+      "boot_se": 0.02534737229290693,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.16851664754385898,
+       0.0035526759337495134
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.14388270120070912,
+       -0.044982083254605086
+      ]
+     },
+     {
+      "a": "QM",
+      "b": "Fluid+continuum",
+      "label": "QM - Fluid+continuum",
+      "delta": -0.10421794620938352,
+      "boot_se": 0.03407546955079597,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.2198777259497094,
+       0.011441833530942372
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.19426061271035713,
+       -0.06080286746948323
+      ]
+     },
+     {
+      "a": "EM",
+      "b": "Waves+optics",
+      "label": "EM - Waves+optics",
+      "delta": -0.03176148850625027,
+      "boot_se": 0.02197553445167211,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.10635137700558478,
+       0.04282839999308424
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.061359921028140925,
+       0.023813079501035138
+      ]
+     },
+     {
+      "a": "EM",
+      "b": "Classical",
+      "label": "EM - Classical",
+      "delta": -0.034954342373585745,
+      "boot_se": 0.022383812745640497,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.1109300188950852,
+       0.041021334147913716
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.05404253440622683,
+       0.0334295272634609
+      ]
+     },
+     {
+      "a": "EM",
+      "b": "Thermo",
+      "label": "EM - Thermo",
+      "delta": -0.06996527614019821,
+      "boot_se": 0.02333997996632957,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.14918639847939835,
+       0.009255846199001938
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.11431055742706289,
+       -0.023536202187696417
+      ]
+     },
+     {
+      "a": "EM",
+      "b": "Fluid+continuum",
+      "label": "EM - Fluid+continuum",
+      "delta": -0.091701236544527,
+      "boot_se": 0.032381802734523804,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.20161233157101416,
+       0.018209858481960176
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.1641479432791194,
+       -0.037483151476754316
+      ]
+     },
+     {
+      "a": "Waves+optics",
+      "b": "Classical",
+      "label": "Waves+optics - Classical",
+      "delta": -0.0031928538673354767,
+      "boot_se": 0.027047635059884632,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.09499858845478149,
+       0.08861288072011053
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.04461481482473622,
+       0.060515086772552136
+      ]
+     },
+     {
+      "a": "Waves+optics",
+      "b": "Thermo",
+      "label": "Waves+optics - Thermo",
+      "delta": -0.03820378763394794,
+      "boot_se": 0.02811365734649114,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.1336278407506043,
+       0.05722026548270841
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.10539618546294169,
+       0.005050880371811666
+      ]
+     },
+     {
+      "a": "Waves+optics",
+      "b": "Fluid+continuum",
+      "label": "Waves+optics - Fluid+continuum",
+      "delta": -0.05993974803827673,
+      "boot_se": 0.03611080909346256,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.18250792629239787,
+       0.0626284302158444
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.15192320153895159,
+       -0.010291133040294675
+      ]
+     },
+     {
+      "a": "Classical",
+      "b": "Thermo",
+      "label": "Classical - Thermo",
+      "delta": -0.03501093376661246,
+      "boot_se": 0.02865731179261792,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.13228027190275002,
+       0.062258404369525094
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.11424352356241,
+       -0.0024419822763286857
+      ]
+     },
+     {
+      "a": "Classical",
+      "b": "Fluid+continuum",
+      "label": "Classical - Fluid+continuum",
+      "delta": -0.05674689417094125,
+      "boot_se": 0.03666279935541036,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.18118865107144072,
+       0.06769486272955823
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.16166479455613425,
+       -0.017338153369940264
+      ]
+     },
+     {
+      "a": "Thermo",
+      "b": "Fluid+continuum",
+      "label": "Thermo - Fluid+continuum",
+      "delta": -0.02173596040432879,
+      "boot_se": 0.036812556295720174,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.14668602591976895,
+       0.10321410511111137
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.10571772960903233,
+       0.039600758815114795
+      ]
+     }
+    ]
+   }
+  },
+  "volume_iii_dropped": {
+   "n": {
+    "SR": 89,
+    "QM": 26,
+    "EM": 312,
+    "Waves+optics": 126,
+    "Classical": 105,
+    "Thermo": 73,
+    "Fluid+continuum": 42
+   },
+   "branches": {
+    "SR": {
+     "beta": 0.38246924212872624,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 1073,
+     "n_ranks": 14,
+     "n_retained": 14,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.027486207265270166,
+     "boot_bias": -0.008107421435933404,
+     "ci95": [
+      0.3207766990202825,
+      0.43127714647358234
+     ],
+     "n_equations": 89,
+     "spawn_index": 37
+    },
+    "QM": {
+     "beta": 0.34934640581663023,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 262,
+     "n_ranks": 15,
+     "n_retained": 15,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.0272553313067855,
+     "boot_bias": 0.018295929461173366,
+     "ci95": [
+      0.3190966544687439,
+      0.4260630999041994
+     ],
+     "n_equations": 26,
+     "spawn_index": 38
+    },
+    "EM": {
+     "beta": 0.3246077769280749,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 3285,
+     "n_ranks": 18,
+     "n_retained": 18,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.010072192703639885,
+     "boot_bias": 0.0062159406894602975,
+     "ci95": [
+      0.31291425723100363,
+      0.35257497059367215
+     ],
+     "n_equations": 312,
+     "spawn_index": 39
+    },
+    "Waves+optics": {
+     "beta": 0.34566990229943567,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 1448,
+     "n_ranks": 15,
+     "n_retained": 15,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.016566497318954744,
+     "boot_bias": -0.007227590087021618,
+     "ci95": [
+      0.3034697533760893,
+      0.3683088256613755
+     ],
+     "n_equations": 126,
+     "spawn_index": 40
+    },
+    "Classical": {
+     "beta": 0.3602232911652966,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 1014,
+     "n_ranks": 15,
+     "n_retained": 15,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.02032036303551403,
+     "boot_bias": -0.018290737871455076,
+     "ci95": [
+      0.29595460937066226,
+      0.3773771853996313
+     ],
+     "n_equations": 105,
+     "spawn_index": 41
+    },
+    "Thermo": {
+     "beta": 0.4030362306989008,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 727,
+     "n_ranks": 16,
+     "n_retained": 16,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.020541079553781517,
+     "boot_bias": 0.005238557330873694,
+     "ci95": [
+      0.3696914916671548,
+      0.451466171231405
+     ],
+     "n_equations": 73,
+     "spawn_index": 42
+    },
+    "Fluid+continuum": {
+     "beta": 0.42153647677680156,
+     "status": "ok",
+     "near_bound": 0,
+     "n_instances": 360,
+     "n_ranks": 13,
+     "n_retained": 13,
+     "n_excluded": 0,
+     "excluded_mass": 0.0,
+     "retained_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+     ],
+     "threshold": null,
+     "n_boot": 10000,
+     "n_finite": 10000,
+     "n_ok": 10000,
+     "n_boundary": 0,
+     "n_degenerate": 0,
+     "n_failed": 0,
+     "interval_validity": "approximate_percentile",
+     "quantile_method": "linear",
+     "boot_se": 0.02679235186014266,
+     "boot_bias": 0.006654239079816493,
+     "ci95": [
+      0.3777790268014036,
+      0.4814527497003727
+     ],
+     "n_equations": 42,
+     "spawn_index": 43
+    }
+   },
+   "differences": {
+    "critical_value": 3.4896988242529403,
+    "quantile_method": "linear",
+    "centring": "original_estimate",
+    "level": 0.95,
+    "interval_validity": "approximate_simultaneous",
+    "n_incomplete": 0,
+    "n_complete": 10000,
+    "n_excluding_zero": 0,
+    "any_excludes_zero": 0,
+    "pairs": [
+     {
+      "a": "SR",
+      "b": "QM",
+      "label": "SR - QM",
+      "delta": 0.033122836312096005,
+      "boot_se": 0.038293574727990595,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.10051020639261488,
+       0.16675587901680688
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.07014905053252912,
+       0.0812151544360484
+      ]
+     },
+     {
+      "a": "SR",
+      "b": "EM",
+      "label": "SR - EM",
+      "delta": 0.05786146520065133,
+      "boot_se": 0.02923295173443434,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.04415273209644714,
+       0.15987566249774982
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.013248288660395357,
+       0.10297061905091293
+      ]
+     },
+     {
+      "a": "SR",
+      "b": "Waves+optics",
+      "label": "SR - Waves+optics",
+      "delta": 0.03679933982929057,
+      "boot_se": 0.03215841691853114,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.07542384988114342,
+       0.14902252953972456
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.027098251371915773,
+       0.10088625792708922
+      ]
+     },
+     {
+      "a": "SR",
+      "b": "Classical",
+      "label": "SR - Classical",
+      "delta": 0.022245950963429628,
+      "boot_se": 0.034303726731869294,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.0974637238802688,
+       0.14195562580712806
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.03359245787571131,
+       0.10162670748464993
+      ]
+     },
+     {
+      "a": "SR",
+      "b": "Thermo",
+      "label": "SR - Thermo",
+      "delta": -0.020566988570174582,
+      "boot_se": 0.03450841512678709,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.14099096426495586,
+       0.0998569871246067
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.1019966971107627,
+       0.03453970047509052
+      ]
+     },
+     {
+      "a": "SR",
+      "b": "Fluid+continuum",
+      "label": "SR - Fluid+continuum",
+      "delta": -0.03906723464807532,
+      "boot_se": 0.038600915119493776,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.1737728027556603,
+       0.09563833345950964
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.12915671447331706,
+       0.024093842305624717
+      ]
+     },
+     {
+      "a": "QM",
+      "b": "EM",
+      "label": "QM - EM",
+      "delta": 0.024738628888555325,
+      "boot_se": 0.029109902390739656,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.07684616325852671,
+       0.12632342103563737
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.015579444411208176,
+       0.09868497415594166
+      ]
+     },
+     {
+      "a": "QM",
+      "b": "Waves+optics",
+      "label": "QM - Waves+optics",
+      "delta": 0.0036765035171945626,
+      "boot_se": 0.03199891758572043,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.10799008155906077,
+       0.1153430885934499
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.029047596070355407,
+       0.0968095531867425
+      ]
+     },
+     {
+      "a": "QM",
+      "b": "Classical",
+      "label": "QM - Classical",
+      "delta": -0.010876885348666376,
+      "boot_se": 0.03432099349138055,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.1306468159827299,
+       0.10889304528539714
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.0363041928038165,
+       0.09901826217612276
+      ]
+     },
+     {
+      "a": "QM",
+      "b": "Thermo",
+      "label": "QM - Thermo",
+      "delta": -0.05368982488227059,
+      "boot_se": 0.03432136950250782,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.17346106768192282,
+       0.06608141791738166
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.10662597500313033,
+       0.02899107179547036
+      ]
+     },
+     {
+      "a": "QM",
+      "b": "Fluid+continuum",
+      "label": "QM - Fluid+continuum",
+      "delta": -0.07219007096017133,
+      "boot_se": 0.038125525678342334,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.20523667309390786,
+       0.06085653117356521
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.13429865826242482,
+       0.01597536384817463
+      ]
+     },
+     {
+      "a": "EM",
+      "b": "Waves+optics",
+      "label": "EM - Waves+optics",
+      "delta": -0.021062125371360763,
+      "boot_se": 0.019311586670664852,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.08845374667043865,
+       0.046329495927717124
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.04308522121896524,
+       0.031808548936232715
+      ]
+     },
+     {
+      "a": "EM",
+      "b": "Classical",
+      "label": "EM - Classical",
+      "delta": -0.0356155142372217,
+      "boot_se": 0.022721268312779413,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.1149058975538636,
+       0.0436748690794202
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.05087312521708715,
+       0.03774090453711906
+      ]
+     },
+     {
+      "a": "EM",
+      "b": "Thermo",
+      "label": "EM - Thermo",
+      "delta": -0.07842845377082591,
+      "boot_se": 0.022957751938536462,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.15854409371822725,
+       0.001687186176575442
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.12452277897918265,
+       -0.0337787806139325
+      ]
+     },
+     {
+      "a": "EM",
+      "b": "Fluid+continuum",
+      "label": "EM - Fluid+continuum",
+      "delta": -0.09692869984872665,
+      "boot_se": 0.028611390615789115,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.19677383604088755,
+       0.002916436343434234
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.153694492379069,
+       -0.041909958598190425
+      ]
+     },
+     {
+      "a": "Waves+optics",
+      "b": "Classical",
+      "label": "Waves+optics - Classical",
+      "delta": -0.014553388865860939,
+      "boot_se": 0.026404284688301784,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.10669639009786759,
+       0.07758961236614571
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.053953277976067665,
+       0.05059689161796078
+      ]
+     },
+     {
+      "a": "Waves+optics",
+      "b": "Thermo",
+      "label": "Waves+optics - Thermo",
+      "delta": -0.05736632839946515,
+      "boot_se": 0.026602543134149687,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.15020119189684544,
+       0.035468535097915144
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.1244369898049442,
+       -0.019975568300819122
+      ]
+     },
+     {
+      "a": "Waves+optics",
+      "b": "Fluid+continuum",
+      "label": "Waves+optics - Fluid+continuum",
+      "delta": -0.07586657447736589,
+      "boot_se": 0.03131700229035661,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.18515348054914998,
+       0.03342033159441821
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.15221533074814367,
+       -0.029894367128937886
+      ]
+     },
+     {
+      "a": "Classical",
+      "b": "Thermo",
+      "label": "Classical - Thermo",
+      "delta": -0.04281293953360421,
+      "boot_se": 0.028973497435419375,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.14392171946848278,
+       0.05829584040127436
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.12613194776295777,
+       -0.01358029657805596
+      ]
+     },
+     {
+      "a": "Classical",
+      "b": "Fluid+continuum",
+      "label": "Classical - Fluid+continuum",
+      "delta": -0.06131318561150495,
+      "boot_se": 0.0336779672454136,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.17883914831105385,
+       0.05621277708804394
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.15384950313914073,
+       -0.02310820552987762
+      ]
+     },
+     {
+      "a": "Thermo",
+      "b": "Fluid+continuum",
+      "label": "Thermo - Fluid+continuum",
+      "delta": -0.01850024607790074,
+      "boot_se": 0.03371040615725514,
+      "zero_se": 0,
+      "simultaneous_ci95": [
+       -0.13613941080996306,
+       0.09913891865416159
+      ],
+      "excludes_zero": 0,
+      "individual_percentile_ci95": [
+       -0.0855669688467713,
+       0.04655328342140234
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "units": {
+  "feynman": {
+   "as_written": {
+    "beta": 0.34164349959707935,
+    "status": "ok",
+    "near_bound": 0,
+    "n_instances": 1167,
+    "n_ranks": 19,
+    "n_retained": 19,
+    "n_excluded": 0,
+    "excluded_mass": 0.0,
+    "retained_ranks": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19
+    ],
+    "threshold": null,
+    "n_boot": 10000,
+    "n_finite": 10000,
+    "n_ok": 10000,
+    "n_boundary": 0,
+    "n_degenerate": 0,
+    "n_failed": 0,
+    "interval_validity": "approximate_percentile",
+    "quantile_method": "linear",
+    "boot_se": 0.013403740849860039,
+    "boot_bias": 0.0027673232126467773,
+    "ci95": [
+     0.3188083228938497,
+     0.3714677451429666
+    ],
+    "n_equations": 100,
+    "spawn_index": 1
+   },
+   "c1_hbar1": {
+    "beta": 0.3315164019137507,
+    "status": "ok",
+    "near_bound": 0,
+    "n_instances": 1012,
+    "n_ranks": 19,
+    "n_retained": 19,
+    "n_excluded": 0,
+    "excluded_mass": 0.0,
+    "retained_ranks": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19
+    ],
+    "threshold": null,
+    "n_boot": 10000,
+    "n_finite": 10000,
+    "n_ok": 10000,
+    "n_boundary": 0,
+    "n_degenerate": 0,
+    "n_failed": 0,
+    "interval_validity": "approximate_percentile",
+    "quantile_method": "linear",
+    "boot_se": 0.013791344942235,
+    "boot_bias": 0.0026870870455601437,
+    "ci95": [
+     0.3075723447122039,
+     0.36139206489993114
+    ],
+    "n_equations": 100,
+    "spawn_index": 44
+   },
+   "n_changed": 32
+  },
+  "wiki": {
+   "as_written": {
+    "beta": 0.31496100460511656,
+    "status": "ok",
+    "near_bound": 0,
+    "n_instances": 1006,
+    "n_ranks": 17,
+    "n_retained": 17,
+    "n_excluded": 0,
+    "excluded_mass": 0.0,
+    "retained_ranks": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ],
+    "threshold": null,
+    "n_boot": 10000,
+    "n_finite": 10000,
+    "n_ok": 10000,
+    "n_boundary": 0,
+    "n_degenerate": 0,
+    "n_failed": 0,
+    "interval_validity": "approximate_percentile",
+    "quantile_method": "linear",
+    "boot_se": 0.01526299095429666,
+    "boot_bias": -0.0013548022828863693,
+    "ci95": [
+     0.2844910972500254,
+     0.3458923959907889
+    ],
+    "n_equations": 76,
+    "spawn_index": 3
+   },
+   "c1_hbar1": {
+    "beta": 0.31506070076196296,
+    "status": "ok",
+    "near_bound": 0,
+    "n_instances": 1006,
+    "n_ranks": 17,
+    "n_retained": 17,
+    "n_excluded": 0,
+    "excluded_mass": 0.0,
+    "retained_ranks": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ],
+    "threshold": null,
+    "n_boot": 10000,
+    "n_finite": 10000,
+    "n_ok": 10000,
+    "n_boundary": 0,
+    "n_degenerate": 0,
+    "n_failed": 0,
+    "interval_validity": "approximate_percentile",
+    "quantile_method": "linear",
+    "boot_se": 0.01532153679661398,
+    "boot_bias": -0.001256335369906103,
+    "ci95": [
+     0.2847965740527412,
+     0.3449809710687027
+    ],
+    "n_equations": 76,
+    "spawn_index": 45
+   },
+   "n_changed": 2
+  },
+  "inflation": {
+   "as_written": {
+    "beta": 0.2685081102360846,
+    "status": "ok",
+    "near_bound": 0,
+    "n_instances": 1376,
+    "n_ranks": 25,
+    "n_retained": 25,
+    "n_excluded": 0,
+    "excluded_mass": 0.0,
+    "retained_ranks": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21,
+     22,
+     23,
+     24,
+     25
+    ],
+    "threshold": null,
+    "n_boot": 10000,
+    "n_finite": 10000,
+    "n_ok": 10000,
+    "n_boundary": 0,
+    "n_degenerate": 0,
+    "n_failed": 0,
+    "interval_validity": "approximate_percentile",
+    "quantile_method": "linear",
+    "boot_se": 0.010296033848741771,
+    "boot_bias": 0.004524189646295751,
+    "ci95": [
+     0.2531154953934942,
+     0.2933925626113702
+    ],
+    "n_equations": 70,
+    "spawn_index": 4
+   },
+   "M1": {
+    "beta": 0.261014665774492,
+    "status": "ok",
+    "near_bound": 0,
+    "n_instances": 1169,
+    "n_ranks": 25,
+    "n_retained": 25,
+    "n_excluded": 0,
+    "excluded_mass": 0.0,
+    "retained_ranks": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21,
+     22,
+     23,
+     24,
+     25
+    ],
+    "threshold": null,
+    "n_boot": 10000,
+    "n_finite": 10000,
+    "n_ok": 10000,
+    "n_boundary": 0,
+    "n_degenerate": 0,
+    "n_failed": 0,
+    "interval_validity": "approximate_percentile",
+    "quantile_method": "linear",
+    "boot_se": 0.011295522425603104,
+    "boot_bias": 0.005252223555532898,
+    "ci95": [
+     0.24464034804151977,
+     0.2890187024723949
+    ],
+    "n_equations": 70,
+    "spawn_index": 46
+   },
+   "n_changed": 70
+  }
+ },
+ "ei_sample10": {
+  "seed": 20260930,
+  "n_draws": 2000,
+  "sample_size": 10,
+  "n_finite": 2000,
+  "n_degenerate_or_failed": 0,
+  "median": 0.2445225948114619,
+  "p16": 0.23013827407531862,
+  "p84": 0.2594347895048298,
+  "max": 0.3045709597703396
+ },
+ "rank_curves": {
+  "SR": {
+   "rank": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+   ],
+   "frequency": [
+    0.31593662628145386,
+    0.14259086672879775,
+    0.11463187325256291,
+    0.09972041006523766,
+    0.09599254426840634,
+    0.06710158434296365,
+    0.06523765144454799,
+    0.045666356011183594,
+    0.02702702702702703,
+    0.008387698042870456,
+    0.008387698042870456,
+    0.0065237651444548,
+    0.001863932898415657,
+    0.0009319664492078285
+   ],
+   "retained": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "model": [
+    0.31933446282385664,
+    0.21784194658967698,
+    0.14860630222725346,
+    0.10137548533411929,
+    0.06915580882304936,
+    0.04717635509420867,
+    0.03218252404030998,
+    0.021954109246822107,
+    0.014976541685098902,
+    0.010216620420524344,
+    0.006969521736845867,
+    0.004754432605011483,
+    0.003243354458038641,
+    0.0022125349151844212
+   ],
+   "beta": 0.38246924212872624
+  },
+  "QM": {
+   "rank": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+   ],
+   "frequency": [
+    0.2973883740522325,
+    0.21440606571187867,
+    0.08340353833192923,
+    0.08003369839932603,
+    0.07834877843302443,
+    0.05433866891322662,
+    0.040438079191238416,
+    0.03664700926705981,
+    0.03159224936815501,
+    0.02990732940185341,
+    0.016006739679865205,
+    0.013058129738837404,
+    0.010951979780960405,
+    0.010530749789385004,
+    0.0012636899747262005,
+    0.0012636899747262005,
+    0.00042122999157540015
+   ],
+   "retained": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "model": [
+    0.2802686219996312,
+    0.2020187579976349,
+    0.14561593906491851,
+    0.10496055871210881,
+    0.0756559958745077,
+    0.05453314827966129,
+    0.03930771417277147,
+    0.028333159596152627,
+    0.020422656203629732,
+    0.014720733315895065,
+    0.010610764202121205,
+    0.007648281817010225,
+    0.0055129125139464705,
+    0.003973729670739062,
+    0.002864280442717959,
+    0.002064584945208598,
+    0.0014881611913452263
+   ],
+   "beta": 0.3273879530935622
+  },
+  "EM": {
+   "rank": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+   ],
+   "frequency": [
+    0.3035007610350076,
+    0.2328767123287671,
+    0.1095890410958904,
+    0.10441400304414003,
+    0.076103500761035,
+    0.0700152207001522,
+    0.022526636225266364,
+    0.021917808219178082,
+    0.014916286149162862,
+    0.010958904109589041,
+    0.007914764079147641,
+    0.007001522070015221,
+    0.005479452054794521,
+    0.0033485540334855404,
+    0.0030441400304414,
+    0.0027397260273972603,
+    0.00213089802130898,
+    0.0015220700152207
+   ],
+   "retained": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "model": [
+    0.2779954700362662,
+    0.20093812840574396,
+    0.14524024956930393,
+    0.10498122114663168,
+    0.07588156055996793,
+    0.05484801157888631,
+    0.03964473518939078,
+    0.028655642802590586,
+    0.02071260813086239,
+    0.01497129687643519,
+    0.01082141508912068,
+    0.007821835709862172,
+    0.005653707335705433,
+    0.0040865607286416274,
+    0.002953810234111147,
+    0.0021350459416860142,
+    0.0015432342675465163,
+    0.001115466397247237
+   ],
+   "beta": 0.3246077769280749
+  },
+  "Waves+optics": {
+   "rank": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "frequency": [
+    0.3446132596685083,
+    0.2272099447513812,
+    0.0835635359116022,
+    0.07941988950276244,
+    0.06284530386740332,
+    0.04765193370165746,
+    0.04696132596685083,
+    0.03383977900552486,
+    0.020027624309392266,
+    0.018646408839779006,
+    0.013812154696132596,
+    0.012430939226519336,
+    0.006215469613259668,
+    0.0013812154696132596,
+    0.0013812154696132596
+   ],
+   "retained": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "model": [
+    0.2938996657194881,
+    0.20800633453429165,
+    0.14721566661354218,
+    0.10419131006270728,
+    0.0737409906316628,
+    0.05218989660525711,
+    0.03693719441975999,
+    0.026142154331566858,
+    0.018502007091525618,
+    0.013094722878347674,
+    0.00926773870599479,
+    0.006559205683124151,
+    0.004642252070151576,
+    0.0032855356767165843,
+    0.002325324975863504
+   ],
+   "beta": 0.34566990229943567
+  },
+  "Classical": {
+   "rank": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "frequency": [
+    0.38461538461538464,
+    0.20808678500986194,
+    0.07297830374753451,
+    0.06903353057199212,
+    0.06903353057199212,
+    0.05621301775147929,
+    0.04043392504930966,
+    0.02564102564102564,
+    0.02465483234714004,
+    0.015779092702169626,
+    0.01282051282051282,
+    0.011834319526627219,
+    0.006903353057199211,
+    0.0009861932938856016,
+    0.0009861932938856016
+   ],
+   "retained": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "model": [
+    0.3038472031677171,
+    0.21193967085299623,
+    0.14783227758223727,
+    0.10311605282387218,
+    0.07192556675628999,
+    0.05016956149446279,
+    0.034994300553447766,
+    0.02440924406644841,
+    0.017025949553855137,
+    0.011875949841841975,
+    0.008283719166430377,
+    0.005778064419447133,
+    0.004030318720916712,
+    0.002811230165157273,
+    0.001960890834879832
+   ],
+   "beta": 0.3602232911652966
+  },
+  "Thermo": {
+   "rank": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16
+   ],
+   "frequency": [
+    0.3452544704264099,
+    0.24759284731774414,
+    0.11279229711141678,
+    0.09628610729023383,
+    0.059147180192572216,
+    0.039889958734525444,
+    0.02888583218707015,
+    0.02888583218707015,
+    0.016506189821182942,
+    0.011004126547455296,
+    0.005502063273727648,
+    0.002751031636863824,
+    0.001375515818431912,
+    0.001375515818431912,
+    0.001375515818431912,
+    0.001375515818431912
+   ],
+   "retained": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "model": [
+    0.3322379694758209,
+    0.22203061038546362,
+    0.14838036731900167,
+    0.09916080205111794,
+    0.06626796281128894,
+    0.0442860767997274,
+    0.029595848659123833,
+    0.01977854714507367,
+    0.013217763466610553,
+    0.008833271209345635,
+    0.005903168146030006,
+    0.0039450157630657404,
+    0.002636406245907748,
+    0.001761878357631689,
+    0.0011774419636235212,
+    0.0007868702011671038
+   ],
+   "beta": 0.4030362306989008
+  },
+  "Fluid+continuum": {
+   "rank": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+   ],
+   "frequency": [
+    0.3888888888888889,
+    0.21388888888888888,
+    0.1111111111111111,
+    0.10833333333333334,
+    0.05,
+    0.044444444444444446,
+    0.03333333333333333,
+    0.022222222222222223,
+    0.011111111111111112,
+    0.005555555555555556,
+    0.005555555555555556,
+    0.002777777777777778,
+    0.002777777777777778
+   ],
+   "retained": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "model": [
+    0.3454020744812287,
+    0.22659690610389457,
+    0.14865619418463472,
+    0.09752412091331736,
+    0.06397953487294647,
+    0.04197300979720602,
+    0.027535891827517745,
+    0.01806459299440638,
+    0.01185106050305738,
+    0.007774746715335117,
+    0.0051005297350410015,
+    0.003346141621144256,
+    0.0021951962502702485
+   ],
+   "beta": 0.42153647677680156
+  }
+ },
+ "runtime_s": 50.686583518981934
+}

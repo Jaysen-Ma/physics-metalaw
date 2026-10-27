@@ -129,6 +129,7 @@
     .plot .tick { fill: var(--mute); font: 10px ui-monospace, monospace; }
     .plot .alabel { fill: var(--mute); font: 10px ui-monospace, monospace; }
     .plot-col { min-width: 0; }
+    #plot-branches { margin: 8px 0 4px; }
     #plot-population { margin-top: 16px; }
     .plot.null { margin-top: 8px; }
     .plot .dot {
@@ -390,7 +391,12 @@
     </header>
     <section class="plots" id="plots" hidden>
       <h2>β of each expression</h2>
-      <p class="cap" id="plot-cap">Each dot is one expression; the x-axis is its complexity. β is the decay rate of the exponential law <span id="beta-p"></span>: rank the operator types by how often they occur, and each step down the ranking multiplies the expected frequency by e<sup>−β</sup>. β is the maximum-likelihood estimate under a multinomial model: every operator instance is treated as an independent draw that lands on rank <span id="beta-r"></span> with probability p<sub>r</sub>, and β maximises <span id="beta-loss"></span>, where <span id="beta-f"></span> is the number of instances at rank r. This picks the β at which the model's mean rank equals the observed mean rank. A dot uses one expression's own ranks; the horizontal line uses every expression of the corpus, counts added together and ranked once. The ± after the corpus β is a bootstrap 1σ: the expressions are resampled with replacement 2,000 times, re-ranked and refitted. Feynman is the released 100. Wikipedia adds the algebraic extension after Doppler. f(R) is included.</p>
+      <p class="cap" id="plot-cap">Each dot is one expression; the x-axis is its complexity. β is the decay rate of the exponential law <span id="beta-p"></span>: rank the operator types by how often they occur, and each step down the ranking multiplies the expected frequency by e<sup>−β</sup>. β is the log-least-squares estimate: each rank contributes one residual, and β minimises <span id="beta-loss"></span>, where <span id="beta-f"></span> is the observed frequency at rank <span id="beta-r"></span>. A rare rank pulls as hard as a common one. A dot uses one expression's own ranks; the horizontal line uses every expression of the corpus, counts added together and ranked once. The ± after the corpus β is a bootstrap 1σ: the expressions are resampled with replacement 2,000 times, re-ranked and refitted. Feynman is the released 100. Wikipedia adds the algebraic extension after Doppler. f(R) is included.</p>
+      <div id="plot-branches" hidden>
+        <h2>β by branch</h2>
+        <p class="cap">Each dot is one Feynman expression in that branch. The x-axis is its complexity and the y-axis is its own β. The line is the branch fit after the expressions' counts are added together. Benchmark dots open the benchmark; lecture dots open the Lectures. The random-model card uses one Motzkin tree per expression, of the same complexity, with operator labels drawn uniformly. It is not clickable.</p>
+        <div class="plot-row" id="branch-row"></div>
+      </div>
       <div class="plot-row" id="plot-row"></div>
       <div id="plot-population"></div>
     </section>
@@ -884,11 +890,29 @@
         row.appendChild(col);
       }
       document.getElementById("plot-population").replaceChildren();
+      const brow = document.getElementById("branch-row");
+      const host = document.getElementById("plot-branches");
+      const branches = data.branches || [];
+      brow.replaceChildren();
+      host.hidden = branches.length === 0;
+      if (!branches.length) return;
+      const cards = branches.slice();
+      if (data.random && data.random.points) cards.push(data.random);
+      const ball = cards.flatMap(c => c.points);
+      const bxMax = Math.max(80, ...ball.map(p => p.k));
+      const byMax = Math.max(0.8, ...ball.map(p => p.beta),
+        ...cards.map(c => c.corpus_beta || 0));
+      for (const branch of cards) {
+        const col = document.createElement("div");
+        col.className = "plot-col";
+        col.appendChild(plotCard(branch, bxMax, byMax));
+        brow.appendChild(col);
+      }
     }
 
     function plotCard(corpus, xMax, yMax) {
       const card = document.createElement("div");
-      const isNull = false;
+      const isNull = corpus.null === true;
       const wide = false;
       card.className = "plot" + (isNull ? " null" : "");
       const sub = corpus.n_fit + " expressions"
@@ -982,7 +1006,7 @@
           c.addEventListener("mouseenter", ev => showTip(ev, tip));
           c.addEventListener("mousemove", ev => showTip(ev, tip));
           c.addEventListener("mouseleave", hideTip);
-          if (!isNull) c.addEventListener("click", () => openPoint(corpus.id, p.id));
+          if (!isNull) c.addEventListener("click", () => openPoint(p.corpus || corpus.id, p.id));
           svg.appendChild(c);
         });
       }
@@ -1042,7 +1066,8 @@
       if (fromUrl && CORPUS_BOARD[fromUrl]) markCorpus(fromUrl);
       const branchUrl = params.get("branch");
       if (branchUrl) showBranch(branchUrl);
-      fetch("./expression-beta.json?t=" + Date.now()).then(r => {
+      const stamp = Date.now();
+      fetch("./expression-beta.json?t=" + stamp).then(r => {
         if (!r.ok) throw new Error("expression-beta HTTP " + r.status);
         return r.json();
       }).then(drawPlots).catch(err => {
@@ -1053,9 +1078,9 @@
       showPage(pageName());
       if (window.katex) {
         const opt = {throwOnError: false};
-        katex.render("\\ell(\\beta)=\\sum_r n_r\\log p_r(\\beta)",
+        katex.render("\\sum_r\\bigl(\\log f_r-\\log p_r(\\beta)\\bigr)^2",
           document.getElementById("beta-loss"), opt);
-        katex.render("n_r", document.getElementById("beta-f"), opt);
+        katex.render("f_r", document.getElementById("beta-f"), opt);
         katex.render("r", document.getElementById("beta-r"), opt);
         katex.render("p_r=\\dfrac{e^{-\\beta r}}{\\sum_s e^{-\\beta s}}",
           document.getElementById("beta-p"), opt);

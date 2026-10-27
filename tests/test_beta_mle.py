@@ -29,6 +29,17 @@ class MultinomialMLETest(unittest.TestCase):
             bs.append(M.fit_beta_mle(c))
         self.assertAlmostEqual(np.std(bs) / M.fisher_sigma(0.3, 15, 2000), 1.0, delta=0.2)
 
+    def test_log_least_squares_recovers_exact_frequencies(self):
+        r = np.arange(1, 21)
+        p = np.exp(-0.33 * r)
+        p /= p.sum()
+        beta, sigma = M.fit_beta_logls(p)
+        self.assertAlmostEqual(beta, 0.33, places=5)
+        self.assertLess(sigma, 1e-6)
+
+    def test_log_least_squares_two_ranks(self):
+        self.assertAlmostEqual(M.fit_beta_logls([2, 1])[0], np.log(2), places=6)
+
     def test_bootstrap_deterministic_and_bracketing(self):
         from physics_metalaw.catalog import record_as_entry, scatter_records
         e = [record_as_entry(r) for r in scatter_records("feynman")]

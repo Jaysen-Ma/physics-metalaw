@@ -2,45 +2,45 @@
  "feynman": {
   "as_written": {
    "n": 100,
-   "beta": 0.3376,
-   "boot_sigma": 0.0098,
-   "fisher_sigma": 0.0103
+   "beta": 0.3416,
+   "boot_sigma": 0.0134,
+   "fit_sigma": 0.0065
   },
   "c1_hbar1": {
    "n": 100,
-   "beta": 0.3479,
-   "boot_sigma": 0.011,
-   "fisher_sigma": 0.0113
+   "beta": 0.3315,
+   "boot_sigma": 0.0135,
+   "fit_sigma": 0.0062
   },
   "n_changed": 32
  },
  "wiki": {
   "as_written": {
    "n": 76,
-   "beta": 0.3354,
-   "boot_sigma": 0.011,
-   "fisher_sigma": 0.0113
+   "beta": 0.315,
+   "boot_sigma": 0.0153,
+   "fit_sigma": 0.0098
   },
   "c1_hbar1": {
    "n": 76,
-   "beta": 0.3359,
-   "boot_sigma": 0.011,
-   "fisher_sigma": 0.0113
+   "beta": 0.3151,
+   "boot_sigma": 0.0153,
+   "fit_sigma": 0.0098
   },
   "n_changed": 2
  },
  "inflation": {
   "as_written": {
    "n": 70,
-   "beta": 0.2603,
-   "boot_sigma": 0.0057,
-   "fisher_sigma": 0.0073
+   "beta": 0.2685,
+   "boot_sigma": 0.0106,
+   "fit_sigma": 0.0063
   },
   "M1": {
    "n": 70,
-   "beta": 0.2573,
-   "boot_sigma": 0.0055,
-   "fisher_sigma": 0.0078
+   "beta": 0.261,
+   "boot_sigma": 0.0115,
+   "fit_sigma": 0.0056
   },
   "n_changed": 70
  }

@@ -5,12 +5,14 @@ Corpus: the 100 AI Feynman benchmark expressions (data/catalog/feynman.json) plu
 Feynman Lectures Vol. I-III catalogs (data/catalog/feynman_lectures_v{1,2,3}.json),
 deduplicated against the benchmark and across volumes.
 
-Model: every operator instance in a group of expressions is one draw from
-p_r = exp(-β r) / Σ_{s=1..R} exp(-β s) over the R ranks observed in the group
-(operator types ranked by their total count). β is the multinomial MLE.
-Errors: bootstrap over expressions (2000 replicates, re-ranked each time) and Fisher.
-Tests: likelihood ratio (shared β vs one β per group), χ² and permutation p-values
-(expressions shuffled between groups), ΔAIC/ΔBIC, Bonferroni for families of tests.
+Model: p_r = exp(-β r) / Σ_{s=1..R} exp(-β s) over the R ranks observed in the group
+(operator types ranked by their total count). β minimises the sum of squared
+log-frequency residuals, one residual per rank.
+Errors: bootstrap over expressions (2000 replicates, re-ranked each time) and the
+least-squares residual standard error.
+Tests: profile likelihood ratio of those residuals (shared β vs one β per group),
+χ² and permutation p-values (expressions shuffled between groups), ΔAIC/ΔBIC,
+Bonferroni for families of tests.
 
 Run from the repository root (about 80 s on one CPU core):
 
@@ -62,11 +64,10 @@ LONG = {"SR": "Special relativity", "QM": "Quantum mechanics", "EM": "Electromag
         "Thermo": "Thermodynamics and kinetic theory", "Fluid+continuum": "Fluid and continuum mechanics"}
 COARSE = {"Classical": "Classical+SR", "SR": "Classical+SR", "EM": "EM+waves", "Waves+optics": "EM+waves",
           "QM": "QM", "Thermo": "Thermo", "Fluid+continuum": "Fluid+continuum"}
-# Branches whose bootstrap σ is not quoted: without the relativistic-EM chapters SR has 32
-# expressions over 9 ranks, and a few long expressions carry most of its operator instances, so
-# resampling expressions gives a lopsided, too-narrow distribution (bootstrap σ about half the
-# Fisher σ). The Fisher σ is quoted for SR in every scenario (in the main mapping the two agree).
-QUOTE_FISHER = {"SR"}
+# The quoted uncertainty is the bootstrap. The least-squares residual standard
+# error treats ranks as independent and is smaller than the bootstrap for the
+# smaller branches, so it is reported but not quoted.
+QUOTE_FIT = set()
 
 # Sensitivity check: the alternative branch for each chapter flagged ambiguous in the
 # chapter-to-branch table (None = no single alternative; the chapter is dropped).
@@ -137,7 +138,7 @@ def feynman_corpus():
     return rows, dict(dedupe), dict(added)
 
 
-# ---------------------------------------------------------------- likelihood
+# ---------------------------------------------------------------- log least squares
 class Counts:
     """Per-expression operator counts on one common set of operator types."""
 
@@ -151,31 +152,14 @@ class Counts:
         return np.sort(t[t > 0])[::-1]
 
 
-def loglik(beta, obs):
-    r = np.arange(1, obs.size + 1)
-    lp = -beta * r
-    lp = lp - np.logaddexp.reduce(lp)
-    return float((obs * lp).sum())
-
-
-def mle(obs_list):
-    from scipy.optimize import minimize_scalar
-    res = minimize_scalar(lambda b: -sum(loglik(b, o) for o in obs_list), bounds=M.MLE_BOUNDS,
-                          method="bounded", options={"xatol": 1e-10})
-    return float(res.x), -float(res.fun)
-
-
-def lrt(C, groups):
-    obs = [C.obs(g) for g in groups]
-    b0, l0 = mle(obs)
-    sep = [mle([o]) for o in obs]
-    l1 = sum(l for _, l in sep)
-    return 2 * (l1 - l0), b0, [b for b, _ in sep], l0, l1, float(sum(o.sum() for o in obs))
+def compare(C, groups):
+    """Log-least-squares comparison. Λ is the first element."""
+    return M.logls_compare([C.obs(g) for g in groups])
 
 
 def test(C, name, groups, labels, reps, rng, bonf=1, family=None):
     G = len(groups)
-    stat, b0, bs, l0, l1, N = lrt(C, groups)
+    stat, b0, bs, _rss0, _rss1, n_ranks, N = compare(C, groups)
     pool = np.concatenate(groups)
     sizes = [len(g) for g in groups]
     cnt = 0
@@ -185,12 +169,15 @@ def test(C, name, groups, labels, reps, rng, bonf=1, family=None):
         for n in sizes:
             parts.append(perm[s:s + n])
             s += n
-        cnt += lrt(C, parts)[0] >= stat - 1e-9
+        cnt += compare(C, parts)[0] >= stat - 1e-9
     p_perm = (cnt + 1) / (reps + 1)
     p_chi2 = float(chi2.sf(stat, G - 1))
-    daic = (2 * G - 2 * l1) - (2 - 2 * l0)
-    dbic = (G * np.log(N) - 2 * l1) - (np.log(N) - 2 * l0)
-    row = dict(name=name, family=family, labels=list(labels), n=sizes, beta_sep=bs, beta_shared=b0, N=int(N),
+    # Gaussian profile likelihood on the log-frequency residuals. n is the
+    # number of ranks, the observations in the least-squares fit.
+    daic = -stat + 2 * (G - 1)
+    dbic = -stat + (G - 1) * np.log(n_ranks)
+    row = dict(name=name, family=family, labels=list(labels), n=sizes, beta_sep=bs, beta_shared=b0,
+               N=int(N), n_ranks=n_ranks,
                LR=stat, df=G - 1, p_chi2=p_chi2, p_perm=p_perm, perm_reps=reps, p_perm_floor=1 / (reps + 1),
                bonf=bonf, p_perm_bonf=min(1.0, p_perm * bonf), p_chi2_bonf=min(1.0, p_chi2 * bonf),
                dAIC=daic, dBIC=dbic)
@@ -229,11 +216,11 @@ def analyse(rows, C, groups, reps, rng, label, full=True):
         if k not in groups:
             continue
         d = fit([recs[i] for i in groups[k]])
-        d.update(branch=k, quoted_sigma=d["fisher_sigma"] if k in QUOTE_FISHER else d["boot_sigma"],
-                 quoted_sigma_kind="Fisher" if k in QUOTE_FISHER else "bootstrap")
+        d.update(branch=k, quoted_sigma=d["fit_sigma"] if k in QUOTE_FIT else d["boot_sigma"],
+                 quoted_sigma_kind="least squares" if k in QUOTE_FIT else "bootstrap")
         table.append(d)
         print(f"  {k:16s} n={d['n']:4d} N_ops={d['n_instances']:5d} R={d['n_ranks']:2d} β={d['beta']:.3f} "
-              f"boot={d['boot_sigma']:.3f} [{d['boot_p16']:.3f},{d['boot_p84']:.3f}] fisher={d['fisher_sigma']:.3f}",
+              f"boot={d['boot_sigma']:.3f} [{d['boot_p16']:.3f},{d['boot_p84']:.3f}] fit={d['fit_sigma']:.3f}",
               flush=True)
     keys = [k for k in ORDER if k in groups]
     tests = [test(C, "all branches", [groups[k] for k in keys], keys, reps, rng, family="global")]
@@ -261,8 +248,8 @@ def power(rows, C, groups, table, rng):
         dk = next(d for d in table if d["branch"] == k)
         rest = np.concatenate([groups[u] for u in keys if u != k])
         orest = C.obs(rest)
-        brest = mle([orest])[0]
-        infl = max(1.0, dk["boot_sigma"] / dk["fisher_sigma"])
+        brest = M.fit_beta_logls(orest)[0]
+        infl = max(1.0, dk["boot_sigma"] / dk["fit_sigma"])
         for delta in (0.02, 0.04, 0.06, 0.08):
             hits = 0
             for _ in range(1000):
@@ -272,10 +259,10 @@ def power(rows, C, groups, table, rng):
                     p = np.exp(-b * rr)
                     p /= p.sum()
                     o = np.sort(rng.multinomial(int(round(n / infl ** 2)), p))[::-1].astype(float)
-                    oa.append(o[o > 0])
-                l0 = mle(oa)[1]
-                l1 = mle([oa[0]])[1] + mle([oa[1]])[1]
-                hits += chi2.sf(2 * (l1 - l0), 1) < 0.05
+                    o = o[o > 0]
+                    if o.size >= 2:
+                        oa.append(o)
+                hits += len(oa) == 2 and chi2.sf(M.logls_compare(oa)[0], 1) < 0.05
             sims.append(dict(group=k, delta=delta, power=hits / 1000, overdispersion=infl))
             print(f"  {k:16s} vs rest Δβ=+{delta:.2f} power={hits / 1000:.2f}", flush=True)
     return mdd, sims
@@ -300,7 +287,7 @@ def corpora(rows):
     d.update(key="feynman_all", label="Feynman (benchmark + Lectures I-III)")
     out.insert(1, d)
     for d in out:
-        print(f"  {d['label']:40s} n={d['n']:4d} β={d['beta']:.3f} boot={d['boot_sigma']:.3f} fisher={d['fisher_sigma']:.3f}")
+        print(f"  {d['label']:40s} n={d['n']:4d} β={d['beta']:.3f} boot={d['boot_sigma']:.3f} fit={d['fit_sigma']:.3f}")
     return out
 
 
@@ -347,6 +334,7 @@ def write_numbers_tex(res):
     pooled = res["pooled_all"]
     m("betaPooled", fmt(pooled["beta"]))
     m("sigPooled", fmt(pooled["boot_sigma"]))
+    m("lsigPooled", fmt(pooled["fit_sigma"]))
     m("nPooled", pooled["n"])
     m("nLabelled", res["pooled_labelled"]["n"])
     for k, v in res["counts"].items():
@@ -357,8 +345,8 @@ def write_numbers_tex(res):
     for d in main["table"]:
         evr = next(t for t in main["tests"] if t["name"] == f"{d['branch']} vs rest")
         rows.append(f"{LONG[d['branch']]} & {d['n']} & {d['n_instances']} & {d['n_ranks']} & "
-                    f"{fmt(d['beta'])} & {fmt(d['boot_sigma'])} & {fmt(d['fisher_sigma'])} & "
-                    f"{fmt(d['quoted_sigma'])}{'$^{a}$' if d['quoted_sigma_kind'] == 'Fisher' else ''} & "
+                    f"{fmt(d['beta'])} & {fmt(d['boot_sigma'])} & {fmt(d['fit_sigma'])} & "
+                    f"{fmt(d['quoted_sigma'])}{'$^{a}$' if d['quoted_sigma_kind'] == 'least squares' else ''} & "
                     f"{tex_p(evr['p_perm_bonf'], evr['p_perm_floor'] * evr['bonf'])} \\\\")
     (GENERATED / "branch_table.tex").write_text("\n".join(rows) + "\n")
 
@@ -385,7 +373,7 @@ def write_numbers_tex(res):
     rows = []
     for c in res["corpora"]:
         rows.append(f"{c['label']} & {c['n']} & {c['n_instances']} & {fmt(c['beta'])} & {fmt(c['boot_sigma'])} & "
-                    f"{fmt(c['fisher_sigma'])} \\\\")
+                    f"{fmt(c['fit_sigma'])} \\\\")
     (GENERATED / "corpus_table.tex").write_text("\n".join(rows) + "\n")
 
 
@@ -463,11 +451,11 @@ def main() -> int:
     if not args.quick:
         with open(RESULTS / "branch_beta.csv", "w", newline="") as f:
             w = csv.writer(f)
-            w.writerow(["branch", "n_expr", "n_ops", "n_ranks", "beta_mle", "boot_sigma", "boot_p16", "boot_p84",
-                        "fisher_sigma", "quoted_sigma", "quoted_sigma_kind"])
+            w.writerow(["branch", "n_expr", "n_ops", "n_ranks", "beta_logls", "boot_sigma", "boot_p16", "boot_p84",
+                        "fit_sigma", "quoted_sigma", "quoted_sigma_kind"])
             for d in table:
                 w.writerow([d["branch"], d["n"], d["n_instances"], d["n_ranks"], *(f"{d[k]:.4f}" for k in (
-                    "beta", "boot_sigma", "boot_p16", "boot_p84", "fisher_sigma", "quoted_sigma")), d["quoted_sigma_kind"]])
+                    "beta", "boot_sigma", "boot_p16", "boot_p84", "fit_sigma", "quoted_sigma")), d["quoted_sigma_kind"]])
         with open(RESULTS / "branch_tests.csv", "w", newline="") as f:
             w = csv.writer(f)
             w.writerow(["family", "test", "n", "beta_sep", "beta_shared", "N_ops", "LR", "df", "p_chi2", "p_perm",

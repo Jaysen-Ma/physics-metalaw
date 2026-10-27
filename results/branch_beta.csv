@@ -1,8 +1,8 @@
-branch,n_expr,n_ops,n_ranks,beta_mle,boot_sigma,boot_p16,boot_p84,fisher_sigma,quoted_sigma,quoted_sigma_kind
-SR,89,1073,14,0.3078,0.0121,0.2941,0.3176,0.0110,0.0110,Fisher
-QM,221,2374,17,0.2906,0.0065,0.2837,0.2967,0.0066,0.0065,bootstrap
-EM,312,3285,18,0.3524,0.0067,0.3464,0.3602,0.0064,0.0067,bootstrap
-Waves+optics,126,1448,15,0.3431,0.0081,0.3351,0.3508,0.0099,0.0081,bootstrap
-Classical,105,1014,15,0.3588,0.0117,0.3474,0.3716,0.0122,0.0117,bootstrap
-Thermo,73,727,16,0.4075,0.0192,0.3899,0.4274,0.0157,0.0192,bootstrap
-Fluid+continuum,42,360,13,0.4333,0.0201,0.4152,0.4555,0.0245,0.0201,bootstrap
+branch,n_expr,n_ops,n_ranks,beta_logls,boot_sigma,boot_p16,boot_p84,fit_sigma,quoted_sigma,quoted_sigma_kind
+SR,89,1073,14,0.3825,0.0273,0.3492,0.4000,0.0218,0.0273,bootstrap
+QM,221,2374,17,0.3274,0.0160,0.3032,0.3352,0.0194,0.0160,bootstrap
+EM,312,3285,18,0.3246,0.0102,0.3211,0.3410,0.0079,0.0102,bootstrap
+Waves+optics,126,1448,15,0.3457,0.0170,0.3213,0.3553,0.0168,0.0170,bootstrap
+Classical,105,1014,15,0.3602,0.0207,0.3223,0.3618,0.0202,0.0207,bootstrap
+Thermo,73,727,16,0.4030,0.0205,0.3880,0.4279,0.0103,0.0205,bootstrap
+Fluid+continuum,42,360,13,0.4215,0.0268,0.4007,0.4539,0.0098,0.0268,bootstrap

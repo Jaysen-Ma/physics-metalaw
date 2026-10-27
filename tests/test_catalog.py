@@ -827,6 +827,23 @@ class InflationCatalogTests(unittest.TestCase):
                 self.assertIn("CSV", rec.notes, rec.id)
 
 
+class MotzkinBaselineTests(unittest.TestCase):
+    def test_tree_size_matches_the_requested_complexity(self):
+        counts = C.motzkin_counts(40)
+        rng = __import__("random").Random(0)
+        for size in (1, 2, 3, 4, 9, 21, 40):
+            formula = C.motzkin_formula(rng, size, counts)
+            self.assertEqual(M.tree_size(M.expression_tree(formula)), size)
+            entry = C._motzkin_entry(formula, f"t{size}")
+            self.assertEqual(entry.complexity_declared, size)
+
+    def test_same_seed_repeats_the_formula(self):
+        counts = C.motzkin_counts(15)
+        one = C.motzkin_formula(__import__("random").Random(C.RANDOM_MODEL_SEED), 15, counts)
+        two = C.motzkin_formula(__import__("random").Random(C.RANDOM_MODEL_SEED), 15, counts)
+        self.assertEqual(one, two)
+
+
 class ExpressionScatterTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -837,16 +854,16 @@ class ExpressionScatterTests(unittest.TestCase):
         expected = ["feynman", "wiki", "inflation", "leemis", "fr"]
         self.assertEqual(list(by), expected)
         for c in by.values():
-            self.assertEqual(c["corpus_beta_estimator"], "multinomial MLE")
-            self.assertLess(c["corpus_beta_p16"], c["corpus_beta"])
+            self.assertEqual(c["corpus_beta_estimator"], "log least squares")
+            self.assertLess(c["corpus_beta_p16"], c["corpus_beta_p84"])
         self.assertEqual(by["feynman"]["n_fit"], 100)
         self.assertEqual(by["wiki"]["n"], 41 + len(C._WIKI_EXTENSION))
         self.assertEqual(by["wiki"]["n_fit"], by["wiki"]["n"])
         self.assertEqual(by["inflation"]["n_fit"], 70)
         self.assertEqual(by["leemis"]["n"], 61)
         self.assertEqual(by["leemis"]["n_fit"], 60)
-        self.assertEqual(by["fr"]["n"], 10)
-        self.assertEqual(by["fr"]["n_fit"], 10)
+        self.assertEqual(by["fr"]["n"], 37)
+        self.assertEqual(by["fr"]["n_fit"], 37)
         self.assertEqual(
             [row["id"] for row in by["leemis"]["omitted"]],
             ["leemis.standard_uniform"],
@@ -860,6 +877,16 @@ class ExpressionScatterTests(unittest.TestCase):
                 self.assertGreaterEqual(point["beta"], 0)
                 self.assertLess(point["beta"], 2)
         self.assertNotIn("population", self.payload)
+        rnd = self.payload["random"]
+        self.assertTrue(rnd["null"])
+        self.assertEqual(rnd["label"], "Random model")
+        self.assertEqual(
+            rnd["n"],
+            sum(branch["n"] for branch in self.payload["branches"]),
+        )
+        self.assertGreater(rnd["n_fit"], 100)
+        self.assertEqual(rnd["corpus_beta_estimator"], "log least squares")
+        self.assertLess(rnd["corpus_beta_p16"], rnd["corpus_beta_p84"])
 
 
 def _add_nodes_with_one(node):

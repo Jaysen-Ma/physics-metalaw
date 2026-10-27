@@ -8,7 +8,7 @@ Every number drawn here is read from results/branch_test.json (written by
 scripts/branch_test.py), except the Encyclopaedia Inflationaris subsample histogram,
 which is recomputed with seed physics_metalaw.sampling.SAMPLE_SEED.
 
-Outputs (PNG for the README, PDF for LaTeX), in writeup/figures/:
+Outputs (PNG for the README, PDF for LaTeX), in results/legacy_figures/:
   beta_by_branch          β by branch, Feynman corpus (main figure)
   rank_frequency_branches rank-frequency of operator counts per branch, with the fitted exponential
   beta_by_corpus          β by corpus
@@ -35,7 +35,7 @@ from physics_metalaw.catalog import CATALOG_DIR, expression_scatter, record_as_e
 from physics_metalaw.sampling import N_DRAWS, SAMPLE_SEED, SAMPLE_SIZE, inflation_sample_betas  # noqa: E402
 
 RESULTS = ROOT / "results" / "branch_test.json"
-FIG = ROOT / "writeup" / "figures"
+FIG = ROOT / "results" / "legacy_figures"
 LONG = {"SR": "Special relativity", "QM": "Quantum mechanics", "EM": "Electromagnetism",
         "Waves+optics": "Waves and optics", "Classical": "Classical mechanics",
         "Thermo": "Thermodynamics", "Fluid+continuum": "Fluid + continuum"}
@@ -49,7 +49,7 @@ def save(fig, name):
     fig.savefig(FIG / f"{name}.pdf", bbox_inches="tight")
     fig.savefig(FIG / f"{name}.png", dpi=200, bbox_inches="tight")
     plt.close(fig)
-    print(f"writeup/figures/{name}.{{pdf,png}}")
+    print(f"{FIG}/{name}.{{pdf,png}}")
 
 
 def beta_by_branch(res):
@@ -59,8 +59,7 @@ def beta_by_branch(res):
     y = np.arange(len(table))[::-1]
     for yy, d in zip(y, table):
         ax.errorbar(d["beta"], yy, xerr=d["quoted_sigma"], fmt="o", color=COLORS[d["branch"]], capsize=3, ms=6)
-        mark = "$^{\\dagger}$" if d["quoted_sigma_kind"] == "Fisher" else ""
-        ax.annotate(f"{d['beta']:.3f} ± {d['quoted_sigma']:.3f}{mark}", (d["beta"] + d["quoted_sigma"] + 0.004, yy),
+        ax.annotate(f"{d['beta']:.3f} ± {d['quoted_sigma']:.3f}", (d["beta"] + d["quoted_sigma"] + 0.004, yy),
                     va="center", fontsize=8)
     ax.axvspan(pooled["beta"] - pooled["boot_sigma"], pooled["beta"] + pooled["boot_sigma"], color="0.85", zorder=0)
     ax.axvline(pooled["beta"], color="0.4", lw=1, ls="--", zorder=0)
@@ -68,13 +67,14 @@ def beta_by_branch(res):
             ha="left", fontsize=7.5, color="0.3")
     ax.set_yticks(y)
     ax.set_yticklabels([f"{LONG[d['branch']]} (n={d['n']})" for d in table])
-    ax.set_xlabel(r"$\beta$ (multinomial MLE, $\pm1\sigma$)")
-    ax.set_xlim(0.19, 0.50)
+    ax.set_xlabel(r"$\beta$ (log least squares, $\pm1\sigma$)")
+    right = max(d["beta"] + d["quoted_sigma"] for d in table)
+    ax.set_xlim(min(d["beta"] - d["quoted_sigma"] for d in table) - 0.02, right + 0.09)
     ax.set_ylim(-0.7, len(table) - 0.4)
     g = res["main"]["tests"][0]
     ax.set_title(f"Feynman corpus by branch: shared vs separate β, LR = {g['LR']:.1f} (df {g['df']}), "
                  f"ΔAIC = {g['dAIC']:.0f}", fontsize=9)
-    fig.text(0.01, -0.07, "Bars: bootstrap σ (2000 resamples of expressions); † Fisher σ.", fontsize=7, color="0.3")
+    fig.text(0.01, -0.07, "Bars: bootstrap σ (2000 resamples of expressions).", fontsize=7, color="0.3")
     save(fig, "beta_by_branch")
 
 
@@ -115,8 +115,9 @@ def beta_by_corpus(res):
                     va="center", fontsize=8)
     ax.set_yticks(y)
     ax.set_yticklabels([f"{d['label']} (n={d['n']})" for d in corp])
-    ax.set_xlabel(r"$\beta$ (multinomial MLE, bootstrap $\pm1\sigma$)")
-    ax.set_xlim(0.22, 0.42)
+    ax.set_xlabel(r"$\beta$ (log least squares, bootstrap $\pm1\sigma$)")
+    right = max(d["beta"] + d["boot_sigma"] for d in corp)
+    ax.set_xlim(min(d["beta"] - d["boot_sigma"] for d in corp) - 0.02, right + 0.08)
     save(fig, "beta_by_corpus")
 
 
