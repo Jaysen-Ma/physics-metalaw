@@ -17,9 +17,7 @@ Symbolic regression searches over mathematical expressions that fit observed dat
 
 Previous work found that, after mathematical operator types are ranked from most to least frequent, their frequencies in several physics collections decline approximately exponentially:
 
-$$
-p_r(\beta)=\frac{e^{-\beta r}}{\sum_s e^{-\beta s}}.
-$$
+$$p_r(\beta)=\frac{e^{-\beta r}}{\sum_s e^{-\beta s}}.$$
 
 The decay rate $\beta$ describes how concentrated the distribution is among the most frequent operator types. That work reported a lower rate for Encyclopaedia Inflationaris than for three broader physics collections. This project uses that difference as a starting point for asking whether operator statistics vary across physical domains.
 
@@ -83,13 +81,7 @@ The write-up presents descriptive comparisons and does not report a formal test 
 
 The [formula ledger](https://jaysen-ma.github.io/physics-metalaw/data/catalog/index.html?page=beta) also fits each expression on its own and plots its decay rate $\hat\beta_g$ against its expression-tree complexity $k_g$. The apparent concentration of expressions in parts of this plane suggests a possible expression-level statistic for symbolic regression:
 
-$$
-\mathcal{L}(g)
-=
-\mathcal{L}_{\mathrm{data}}(g)
-+
-\lambda\,\mathcal{R}_{d}(\hat\beta_g,k_g).
-$$
+$$\mathcal{L}(g)=\mathcal{L}_{\mathrm{data}}(g)+\lambda\,\mathcal{R}_{d}(\hat\beta_g,k_g).$$
 
 Here, $\mathcal{R}_{d}$ would penalise combinations of decay rate and complexity that are unusual in domain $d$. Conditioning on complexity avoids requiring a short candidate and a long candidate to have the same preferred rate.
 
