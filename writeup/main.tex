@@ -55,7 +55,7 @@ The proposed dependence on energy scale also motivates a comparison across branc
 
 This project makes three contributions. First, it provides a reproducible reassessment of the fitted decay rates with individual bootstrap uncertainty estimates. Second, it assembles an expanded Feynman collection with source references and branch labels, together with a catalogue of \nfR{} modified-gravity expressions. Third, it examines how the fitted rates vary with constant conventions, the scope of the collections and the assignment of equations to physics branches.
 
-Section~\ref{sec:data} describes the collections, operator counting, fitting procedure and uncertainty estimates. Section~\ref{sec:ei} revisits the inflationary difference through changes to constant conventions and the modified-gravity comparison. Section~\ref{sec:results} examines variation across physics branches and sensitivity to their classification. Section~\ref{sec:discussion} discusses the interpretation and limitations of these comparisons, including their possible relevance to symbolic regression. Section~\ref{sec:conclusion} summarises what the comparisons establish and which explanations remain unresolved. The appendices document catalogue sources, sensitivity checks, bootstrap calibration and the exponential limit of the Zipf--Mandelbrot distribution.
+Section~\ref{sec:data} describes the collections, operator counting, fitting procedure and uncertainty estimates. Section~\ref{sec:ei} revisits the inflationary difference through changes to constant conventions and the modified-gravity comparison. Section~\ref{sec:results} examines variation across physics branches and sensitivity to their classification. Section~\ref{sec:discussion} closes with a discussion of what the comparisons establish, their limitations and unresolved explanations, and how domain-specific expression statistics might guide symbolic regression. The appendices document catalogue sources, sensitivity checks, bootstrap calibration and the exponential limit of the Zipf--Mandelbrot distribution.
 
 \section{Data and methods}\label{sec:data}
 
@@ -178,24 +178,45 @@ Additional checks examine the effects of branch classification and relationships
 
 \section{Discussion}\label{sec:discussion}
 
-\subsection{What the fitted rate describes}
-The fitted $\beta$ is a one-parameter summary of a ranked operator distribution under the stated criterion. Ranking discards operator identities: two collections can have similar fitted rates while using different operators. Conversely, variation in $\beta$ describes a difference in the concentration of the ranked frequencies, without identifying which physical or representational choices produced it.
+\subsection{Interpretation of the comparisons}
+This study reproduces the lower fitted decay rate of Encyclopaedia Inflationaris relative to the Feynman benchmark. Setting $c=\hbar=1$ in the textbook expressions and removing the inflationary amplitude prefactor leave most of the difference intact. These particular conventions therefore account for little of the observed gap.
 
-The observed operator sets also differ between branches. Because each fit uses the types present in its own group, the comparisons reflect both the observed vocabulary and its relative frequencies.
+The modified-gravity collection gives a rate close to the inflationary value. Both collections contain proposed models centred on one physical concept. Their similar rates are consistent with explanations involving these features, although the comparison cannot distinguish their effects or establish either as the cause.
 
-\subsection{Corpus construction and uncertainty}
-The collections consist of selected expressions. Inclusion criteria, algebraic representation, branch labels and the number of variants retained from a model family can all affect the resulting counts. The branch-assignment checks demonstrate one such effect. A single source reduces some differences in notation and editorial choices, but cannot make the selected expressions representative of every equation in a branch.
+Within the expanded Feynman collection, the estimates suggest a broad grouping. Quantum mechanics, electromagnetism, waves and optics, and classical mechanics have lower fitted rates than thermodynamics and fluid mechanics. This pattern motivates further investigation of how mathematical structure varies across physical domains. It does not directly establish an energy-scale explanation, because the branches also differ in their subject matter, quantities of interest and equation forms.
 
-Equation resampling measures variation when drawing comparable equations from the observed collection. It preserves dependence within equations, but does not capture systematic selection or transcription errors. Chapter resampling examines one source of dependence between equations. In the synthetic calibration checks, the individual intervals contained the population rate in 74.5\% to 94.5\% of datasets across the tested branches and scenarios, below the nominal 95\% level. We therefore treat the reported intervals as approximate uncertainty estimates (Appendix~\ref{app:calibration}).
+\subsection{Limitations of the analysis}
+The fitted rates describe the selected expressions under the stated counting conventions. Inclusion criteria, algebraic representation, branch assignments and the number of variants retained from a model family can all affect the results. The change in the special-relativity estimate under alternative classifications illustrates this sensitivity.
 
-\subsection{Physical interpretation and symbolic regression}
-The lower inflationary estimate persists after the specified constant changes, while the expanded modified-gravity collection has a similar estimate to inflation. These observations leave the physical explanation unresolved. In particular, the branch comparison does not isolate energy scale from other differences between the equations.
+The bootstrap intervals are also approximate. Resampling whole equations preserves relationships between operators within an expression, but treats different equations as separate sampling units. Related equations and model variants can limit this assumption. Chapter resampling examines some of this dependence, although certain branches contain few chapters.
 
-Operator statistics from individual domains could nevertheless be useful when constructing priors for symbolic regression. The relevant prior might describe operator identities and combinations as well as the rank--frequency decay rate. Whether such domain-specific priors improve equation recovery requires a separate evaluation.
+In the synthetic checks, the individual intervals contained the known population rate in 74.5\% to 94.5\% of datasets across the tested branches and scenarios, below the nominal 95\% level. The intervals should therefore be interpreted as approximate measures of uncertainty. Neither resampling procedure accounts for systematic omissions or transcription errors.
 
-\section{Conclusion}\label{sec:conclusion}
-We revisit the exponential metalaw using log least squares and individual equation-bootstrap intervals. The lower fitted rate of Encyclopaedia Inflationaris relative to the Feynman benchmark is reproduced, and the specified changes to constant conventions leave most of the difference intact. The expanded modified-gravity collection gives a rate close to the inflationary value. Within the Feynman collection, the fitted rates vary across branches, although branch assignment affects the estimates and the intervals are approximate. The project documents these patterns and their sensitivity to the construction of the collections, while leaving their physical explanation open.
+\subsection{Towards statistical guidance for symbolic regression}
+A longer-term motivation is to use the mathematical patterns of a physical domain to guide symbolic regression. Qualitative observations suggest what such information might contain. Product forms involving several variables appear in thermodynamic and fluid equations, while expressions in special relativity may contain the Lorentz factor,
+\begin{equation}
+\gamma=\left(1-\frac{v^2}{c^2}\right)^{-1/2}.
+\end{equation}
+These examples concern both the operators used and the ways they are combined. Quantifying such patterns could provide a basis for assigning different preferences to candidate expressions in different domains.
 
+One possible approach would augment the data-fitting objective with a penalty for expressions that are atypical of the relevant domain:
+\begin{equation}
+\mathcal{L}(g)=\mathcal{L}_{\mathrm{data}}(g)+\lambda\,\mathcal{R}_{d}(g),
+\end{equation}
+where $g$ is a candidate expression, $\mathcal{L}_{\mathrm{data}}$ measures its disagreement with the observations, and $\mathcal{R}_{d}$ measures how unusual its structure is under statistics learned for domain $d$. The parameter $\lambda$ controls the influence of this preference. If a probability model over expressions were available, a possible penalty would be $-\log P(g\mid d)$.
+
+The aim would be to direct more of the search towards structures commonly encountered in the relevant physics, potentially reducing the computational effort needed to recover the generating equation. A framework such as PySR allows custom objectives that inspect candidate expression trees and include regularisation terms, providing one route for implementing this idea~\citep{pysrdocs}.
+
+The present rank--frequency analysis supplies only part of the required information. Ranking removes operator identities, and the fitted decay rate does not distinguish multiplication from addition or identify a structure such as the Lorentz factor. Furthermore, frequencies pooled across a collection do not imply that every individual equation should reproduce that distribution. A useful penalty would therefore require a model of individual expression structure, informed by operator identities, combinations and recurring subexpressions.
+
+The proposed benefit remains to be evaluated. A direct comparison would measure how often symbolic regression recovers known generating equations, and the time or number of candidate evaluations required, with and without the domain-dependent penalty. The expressions used to learn the penalty should be separate from those used for evaluation. The penalty should also allow uncommon forms, so that a statistical preference does not prevent recovery of a valid but unusual equation.
+
+The current study provides an exploratory description of variation in operator-frequency patterns. Extending this description to the structures of individual expressions would connect these observations more directly to the proposed symbolic-regression application.
+
+\bibliographystyle{unsrtnat}
+\bibliography{refs}
+
+\clearpage
 \appendix
 \section{Catalogue sources and transcription conventions}\label{app:catalogue}
 The catalogue records the expression and its source reference. Lectures entries include volume, chapter and equation identifiers. The additional Wikipedia entries follow the original release cutoff in the same alphabetical list. The source references and counting metadata are retained with the individual records.
@@ -339,6 +360,4 @@ recovering Eq.~\eqref{eq:law}. The scaling of both parameters matters: if $b$ in
 
 This limiting relationship helps interpret comparisons of the Zipf--Mandelbrot and exponential models. Whether fitted parameters for a particular corpus approach this regime requires examining their values relative to the observed rank range. The limiting argument alone makes no claim about the empirical preference between the models.
 
-\bibliographystyle{unsrtnat}
-\bibliography{refs}
 \end{document}

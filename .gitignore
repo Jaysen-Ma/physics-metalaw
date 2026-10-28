@@ -231,3 +231,7 @@ writeup/*.fdb_latexmk
 writeup/*.fls
 writeup/*.out
 writeup/*.log
+
+# Local snapshots of superseded analyses
+/results/previous_trimmed_bootstrap/
+/results/previous_unweighted_logls/

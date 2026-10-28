@@ -7,58 +7,102 @@
 
 </div>
 
-A personal research project revisiting the inflationary difference, comparisons with modified gravity, and variation across physics branches.
+An ongoing personal research project exploring how the ranked frequencies of mathematical operators vary across collections of physics equations. It revisits the lower exponential decay rate reported for Encyclopaedia Inflationaris, examines proposed explanations, and compares physics branches within an expanded Feynman collection.
 
-> **Work in progress.** This README, the [write-up](writeup/main.pdf), and the [formula ledger](https://jaysen-ma.github.io/physics-metalaw/data/catalog/index.html) are still being updated. Reported numbers and wording may change.
+> **Work in progress.** The analysis, [write-up](writeup/main.pdf), and [formula ledger](https://jaysen-ma.github.io/physics-metalaw/data/catalog/index.html) are still being updated. Reported numbers and wording may change.
 
-## Current analysis
+## Methods and collections
 
-The reported analysis fits a normalised exponential by **log least squares**. Uncertainty uses whole-equation bootstrap samples; a joint chapter bootstrap accounts for equations sharing source chapters across branches.
+The reported analysis fits a normalised exponential distribution by **log least squares**, with equal weight for each observed operator rank. All positive-count operator types are included, and each collection or branch is ranked separately.
 
-The Feynman benchmark estimate is 0.342 and Encyclopaedia Inflationaris 0.269. The tested constant rewritings change their point-estimate gap from 0.073 to 0.071. The f(R) catalog has 37 closed forms. Its log-least-squares fit is 0.270, with nominal interval [0.264, 0.347], which overlaps the inflationary interval.
+Uncertainty is estimated using **10,000 whole-equation bootstrap resamples**, with seed `20261013`. Each resample is recounted, reranked and refitted. The writeup reports fitted rates and **individual percentile 95% bootstrap intervals**. A joint chapter bootstrap examines dependence among equations sharing source chapters, including chapters represented in more than one branch.
 
-**The writeup reports fitted rates with individual percentile bootstrap intervals.** Branch estimates range from 0.325 to 0.422. Fluid and continuum mechanics and quantum mechanics have non-overlapping individual intervals under both equation and chapter resampling. This is a descriptive comparison; the writeup does not report a formal test that all rates are equal.
-
-| Branch | Equations | β | Nominal individual 95% interval |
+| Collection | Expressions | Fitted β | Nominal individual 95% interval |
 |---|---:|---:|---|
-| SR | 89 | 0.382 | [0.322, 0.432] |
-| QM | 221 | 0.327 | [0.286, 0.349] |
-| EM | 312 | 0.325 | [0.313, 0.353] |
-| Waves+optics | 126 | 0.346 | [0.303, 0.367] |
-| Classical | 105 | 0.360 | [0.297, 0.377] |
-| Thermo | 73 | 0.403 | [0.371, 0.452] |
-| Fluid+continuum | 42 | 0.422 | [0.377, 0.483] |
+| Feynman benchmark | 100 | 0.342 | [0.319, 0.371] |
+| Feynman benchmark + Lectures | 1,016 | 0.354 | [0.333, 0.366] |
+| Wikipedia | 76 | 0.315 | [0.284, 0.346] |
+| Encyclopaedia Inflationaris | 70 | 0.269 | [0.253, 0.293] |
+| Leemis probability distributions | 61 | 0.269 | [0.250, 0.304] |
+| f(R) gravity | 37 | 0.270 | [0.264, 0.347] |
 
-![Branch fits](writeup/figures/beta_by_branch.png)
+The expanded Feynman collection adds 916 expressions to the original benchmark; 968 expressions are assigned to seven physics branches. The benchmark is contained in the expanded collection. The f(R) catalogue includes related model variants, so its 37 expressions do not represent 37 independent model families. Source references and transcription conventions are retained in the catalogue and manuscript appendix.
 
-## Calibration and sensitivity
+## Current findings
 
-Across 200 equal-rate datasets in each of three scenarios, individual interval coverage ranged from 0.745 to 0.945, with the lowest coverage in the chapter-dependent scenario. The nominal 95% intervals are therefore not consistently calibrated in these checks. These are synthetic count vectors, not real expression trees.
+- **The lower inflationary estimate is reproduced.** Its point estimate differs from the Feynman benchmark by approximately 0.073.
+- **The tested constant conventions leave most of this gap intact.** Setting `c = ħ = 1` in textbook expressions and removing the common inflationary amplitude prefactor changes the gap to approximately 0.071.
+- **The modified-gravity estimate is close to the inflationary value.** Both collections contain hypothetical models focused on one physical concept. The comparison does not establish which features explain their similar rates.
+- **Branch estimates suggest a broad grouping.** Quantum mechanics, electromagnetism, waves and optics, and classical mechanics have lower estimates than thermodynamics and fluid mechanics. Their intervals and the sensitivity checks do not establish a sharp division between branches or an energy-scale explanation.
 
-Removing or reassigning ambiguous chapters moves the special-relativity estimate from 0.382 to 0.231. The writeup reports fitted rates and individual intervals for the assignment, notation and Volume III sensitivity analyses. Each branch uses its own observed operator set; zero-count types are omitted.
+| Branch | Expressions | Fitted β | Nominal individual 95% interval |
+|---|---:|---:|---|
+| Special relativity | 89 | 0.382 | [0.322, 0.432] |
+| Quantum mechanics | 221 | 0.327 | [0.286, 0.349] |
+| Electromagnetism | 312 | 0.325 | [0.313, 0.353] |
+| Waves and optics | 126 | 0.346 | [0.303, 0.367] |
+| Classical mechanics | 105 | 0.360 | [0.297, 0.377] |
+| Thermodynamics and kinetic theory | 73 | 0.403 | [0.371, 0.452] |
+| Fluid and continuum mechanics | 42 | 0.422 | [0.377, 0.483] |
 
-Numerical results, bootstrap draws, failures, seeds and code/data hashes are in `results/exponential_fit/`. The corpus has 1,016 Feynman expressions, with 968 in seven branches. Source references are retained in the catalog.
-## Formula ledger
+![Feynman branch estimates and five comparison collections, with individual bootstrap intervals](writeup/figures/beta_by_branch.png)
+
+The figure shows seven branches as circles and five comparison collections as diamonds: the Feynman benchmark, expanded Feynman collection, f(R) gravity, Encyclopaedia Inflationaris and Wikipedia. These comparisons overlap in their source expressions; they are not all independent datasets.
+
+## Sensitivity and uncertainty
+
+Removing or reassigning ambiguously classified chapters moves the special-relativity estimate from 0.382 to 0.231. Fluid and continuum mechanics and quantum mechanics have separated individual intervals under both equation and chapter resampling, although the fluid collection contains only four chapters. Appendix B reports the classification, notation, volume and chapter-resampling checks.
+
+Across 200 synthetic datasets in each of three scenarios, individual interval coverage ranged from 74.5% to 94.5%, below the nominal 95% level. These checks use synthetic count vectors rather than real expression trees. The intervals are approximate and do not account for systematic selection or transcription errors.
+
+The writeup presents descriptive comparisons and does not report a formal test that all branch rates are equal. Ranking removes operator identities, and each branch has its own observed operator set. A fitted decay rate alone cannot identify which operators or recurring expression structures explain the differences.
+
+## Motivation: guiding symbolic regression
+
+A longer-term aim is to quantify mathematical structures typical of different physical domains and use them to guide symbolic regression. Examples motivating this idea include products of variables in thermodynamic and fluid equations, and recurring Lorentz-factor structures in special relativity.
+
+One proposal is to add a domain-dependent structural penalty to a data-fitting objective:
+
+$$
+\mathcal{L}(g)=\mathcal{L}_{\mathrm{data}}(g)+\lambda\mathcal{R}_{d}(g).
+$$
+
+Here, `g` is a candidate expression and the penalty measures how unusual its structure is for domain `d`. Such a penalty could be explored through a custom objective in a framework such as PySR. The aim would be to recover generating equations with fewer candidate evaluations or less computation.
+
+**This application has not been implemented or evaluated in this project.** It would require statistics of operator identities, combinations and recurring subexpressions, beyond the ranked decay rate. A single candidate equation should not be required to reproduce frequencies pooled across a whole collection. Evaluation would compare recovery rates and computational effort on equations separate from those used to learn the penalty.
+
+## Reproduce the analysis
+
+Run commands from the repository root. To prepare a Python environment:
 
 ```bash
-.venv/bin/python -m physics_metalaw.catalog --serve --port 8766
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt matplotlib
 ```
 
-Then open `http://127.0.0.1:8766/`. The *Formulas* page lists each expression with tree, counts and source; *β of each expression* plots per-expression $\beta$.
-
-## Reproduce
+Run the fitting pipeline and the separate calibration analysis:
 
 ```bash
 .venv/bin/python scripts/exponential_bootstrap.py
 .venv/bin/python scripts/exponential_coverage_check.py
-.venv/bin/python -m unittest discover -s tests -t .
 ```
 
-The primary pipeline uses 10,000 equation resamples, joint stratified chapter resampling and all observed operator ranks. It writes `results/exponential_fit/summary.json`, `draws.npz`, generated LaTeX tables and every current manuscript figure, along with an archived-purpose EI ten-expression subset histogram that is no longer included in the manuscript. The simulation check uses 200 datasets per scenario, 400 bootstrap samples and three workers. Small diagnostic runs use separate subdirectories and do not overwrite the primary outputs.
+The primary pipeline uses 10,000 equation resamples and joint stratified chapter resampling. It writes `results/exponential_fit/summary.json`, bootstrap draws, generated LaTeX tables and manuscript figures. The calibration defaults are 200 datasets per scenario, 400 bootstrap samples and three workers. Smaller diagnostic runs write to separate subdirectories.
 
-The saved results and analysis scripts retain the earlier pairwise calculations for reproducibility; those calculations are not reported in the current writeup. The former trimmed analysis, source files and writeup are archived in `results/previous_trimmed_bootstrap/`. Earlier permutation results remain separate. `scripts/make_plots.py` writes legacy figures to `results/legacy_figures/`; the primary figures are generated by `exponential_bootstrap.py`. The older `branch_test.py` still generates legacy LaTeX tables: rerun the primary pipeline before compiling if it has been used.
+To refresh Figures 1 and 2 from the saved results **without refitting or resampling**:
 
-Catalog inputs live in `data/catalog/`; rebuilding the corpora requires the original extraction inputs. Cambridge material remains local and is not included in these results.
+```bash
+.venv/bin/python scripts/exponential_bootstrap.py --corpus-plot-only
+.venv/bin/python scripts/exponential_bootstrap.py --branch-plot-only
+```
+
+These commands update both PDF and PNG figure files; they do not compile the manuscript. Figure 2 includes the seven branches and all five comparison collections listed above.
+
+The existing test suite can be run separately:
+
+```bash
+.venv/bin/python -m unittest discover -s tests -t .
+```
 
 ## Data sources and attribution
 
@@ -69,15 +113,3 @@ Catalog inputs live in `data/catalog/`; rebuilding the corpora requires the orig
 - **Leemis**: L. M. Leemis and J. T. McQueston, *Univariate distribution relationships*, The American Statistician 62, 45 (2008); [chart](https://www.math.wm.edu/~leemis/chart/UDR/UDR.html).
 - **f(R)**: T. P. Sotiriou and V. Faraoni, *f(R) theories of gravity*, Rev. Mod. Phys. 82, 451 (2010), [arXiv:0805.1726](https://arxiv.org/abs/0805.1726), and papers cited per expression in the ledger.
 
-## Citation
-
-This work builds on
-
-```bibtex
-@article{constantin2024metalaw,
-  title   = {Statistical Patterns in the Equations of Physics and the Emergence of a Meta-Law of Nature},
-  author  = {Constantin, Andrei and Bartlett, Deaglan J. and Desmond, Harry and Ferreira, Pedro G.},
-  journal = {arXiv preprint arXiv:2408.11065},
-  year    = {2024}
-}
-```
