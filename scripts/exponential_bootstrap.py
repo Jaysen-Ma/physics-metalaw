@@ -12,6 +12,14 @@ results/previous_unweighted_logls/ and in results/branch_test.json.
 Run from the repository root:
 
     .venv/bin/python scripts/exponential_bootstrap.py
+
+Redraw only the corpus figure from saved results:
+
+    .venv/bin/python scripts/exponential_bootstrap.py --corpus-plot-only
+
+Redraw the branch figure, including comparison collections, from saved results:
+
+    .venv/bin/python scripts/exponential_bootstrap.py --branch-plot-only
 """
 from __future__ import annotations
 
@@ -311,22 +319,40 @@ def interval_marker(ax, x, y, interval, color, marker="o"):
     ax.plot(x, y, marker, color=color, ms=5)
 
 
+def plot_branches(payload) -> None:
+    """Compare seven branches with five reference collections using saved results."""
+    primary = payload["branches"]["none"]
+    corpora = payload["corpora"]["none"]
+    rows = [(LONG[key], primary[key], COLORS[key], "o") for key in ORDER]
+    rows.extend((label, corpora[key], "0.25", "D") for key, label in (
+        ("feynman", "Feynman benchmark"),
+        ("feynman_all", "Feynman benchmark + Lectures"),
+        ("fr", r"$f(R)$"),
+        ("inflation", "Encyclopaedia Inflationaris"),
+        ("wiki", "Wikipedia"),
+    ))
+    fig, ax = plt.subplots(figsize=(6.6, 6.5))
+    y = np.arange(len(rows), dtype=float)[::-1]
+    y[len(ORDER):] -= 0.6
+    for yy, (_label, summary, color, marker) in zip(y, rows):
+        lo, hi = summary["ci95"]
+        interval_marker(ax, summary["beta"], yy, (lo, hi), color, marker)
+        if lo is not None and hi is not None:
+            ax.text(1.02, yy, f"{summary['beta']:.3f}  [{lo:.3f}, {hi:.3f}]",
+                    transform=ax.get_yaxis_transform(), va="center", fontsize=8,
+                    clip_on=False)
+    ax.axhline((y[len(ORDER)-1] + y[len(ORDER)]) / 2, color="0.8", lw=0.8)
+    ax.set_yticks(y)
+    ax.set_yticklabels([f"{label} (n={summary['n_equations']})"
+                        for label, summary, _color, _marker in rows])
+    ax.set_xlabel(r"$\beta$  (nominal individual 95% bootstrap interval)")
+    ax.set_title("Feynman branches and comparison collections", fontsize=10)
+    save_fig(fig, "beta_by_branch")
+
+
 def plot_all(payload, rank_curves) -> None:
     primary = payload["branches"]["none"]
-    fig, ax = plt.subplots(figsize=(6.6, 3.8))
-    y = np.arange(len(ORDER))[::-1]
-    for yy, key in zip(y, ORDER):
-        summary = primary[key]
-        lo, hi = summary["ci95"]
-        interval_marker(ax, summary["beta"], yy, (lo, hi), COLORS[key])
-        if hi is not None:
-            ax.annotate(f"{summary['beta']:.3f}  [{lo:.3f}, {hi:.3f}]",
-                        (hi + 0.008, yy), va="center", fontsize=8)
-    ax.set_yticks(y)
-    ax.set_yticklabels([f"{LONG[key]} (n={primary[key]['n_equations']})" for key in ORDER])
-    ax.set_xlabel(r"$\beta$  (individual percentile nominal 95% interval)")
-    ax.set_title("Feynman branches, all observed ranks", fontsize=10)
-    save_fig(fig, "beta_by_branch")
+    plot_branches(payload)
 
     diff = payload["differences"]["none"]
     fig, ax = plt.subplots(figsize=(6.6, 6.2))
@@ -380,6 +406,11 @@ def plot_all(payload, rank_curves) -> None:
     ax.legend(fontsize=8, frameon=False)
     save_fig(fig, "chapter_bootstrap")
 
+    plot_corpora(payload)
+
+
+def plot_corpora(payload) -> None:
+    """Render the corpus figure from saved fit and bootstrap summaries."""
     fig, ax = plt.subplots(figsize=(6.6, 3.2))
     corp = payload["corpora"]["none"]
     labels = [label for _key, label in CORPORA]
@@ -412,10 +443,24 @@ def plot_ei_subsets(betas, fr_beta):
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--boot", type=int, default=10000)
+    parser.add_argument("--corpus-plot-only", action="store_true",
+                        help="Redraw the corpus figure from saved summary.json without refitting")
+    parser.add_argument("--branch-plot-only", action="store_true",
+                        help="Redraw the branch and comparison figure from saved summary.json without refitting")
     args = parser.parse_args()
     if args.boot < 2:
         parser.error("--boot must be at least 2")
     global OUT
+    if args.corpus_plot_only or args.branch_plot_only:
+        if args.boot != 10000:
+            parser.error("Plot-only options use the saved primary results; omit --boot")
+        payload = json.loads((OUT / "summary.json").read_text())
+        if args.corpus_plot_only:
+            plot_corpora(payload)
+        if args.branch_plot_only:
+            plot_branches(payload)
+        print(f"Updated requested figures from {OUT / 'summary.json'}")
+        return 0
     if args.boot != 10000:
         OUT = OUT / "diagnostics" / f"boot_{args.boot}"
     t0 = time.time()

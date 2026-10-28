@@ -111,8 +111,12 @@ For reproducibility, we use random seed \bootSeed{} and calculate percentiles by
 
 \section{Revisiting the inflationary difference}\label{sec:ei}
 
-\subsection{Baseline comparison}
-Table~\ref{tab:corpus} and Figure~\ref{fig:corpus} summarise the corpus fits. The Feynman benchmark gives $\hat\beta=\betaFeynBench$ with an individual interval of $[\loFeynBench,\hiFeynBench]$. Encyclopaedia Inflationaris gives $\hat\beta=\betaEI$ with $[\loEI,\hiEI]$. Their point estimates differ by 0.073, and their individual intervals do not overlap. Thus, the lower inflationary estimate is reproduced under our procedure.
+\subsection{Comparison of the fitted rates}
+We first examine whether the lower decay rate reported for Encyclopaedia Inflationaris is reproduced using the fitting procedure described in Section~\ref{sec:data}. Table~\ref{tab:corpus} and Figure~\ref{fig:corpus} summarise the estimates for all collections.
+
+The Feynman benchmark gives a fitted rate of $\hat\beta=\betaFeynBench$, with an individual 95\% bootstrap interval of $[\loFeynBench,\hiFeynBench]$. Encyclopaedia Inflationaris gives $\hat\beta=\betaEI$, with an interval of $[\loEI,\hiEI]$. The point estimates differ by 0.073, and their individual intervals do not overlap. The lower inflationary estimate is therefore reproduced with log least squares and equation resampling.
+
+A lower decay rate corresponds to a slower decline in frequency with rank. Under the fitted exponential model, operator occurrences are therefore less concentrated among the most frequent types in the inflationary collection than in the Feynman benchmark. This describes a difference between their ranked distributions, without identifying its physical origin.
 
 \begin{table}[H]\centering\small
 \resizebox{\linewidth}{!}{\begin{tabular}{lrrrrrr}\toprule
@@ -126,22 +130,31 @@ Corpus & Expr. & Instances & Ranks & $\hat\beta$ & Boot.\ SE & Individual interv
 \caption{Corpus estimates and nominal individual 95\% equation-bootstrap intervals.}\label{fig:corpus}
 \end{figure}
 
-\subsection{Constant conventions}\label{sec:units}
-Setting $c=\hbar=1$ moves the Feynman benchmark estimate from 0.342 to 0.332, affecting 32 expressions. For Wikipedia, two expressions are affected and both estimates round to 0.315. Removing the amplitude prefactor by setting $M=1$ in all 70 inflationary potentials moves their estimate from 0.269 to 0.261.
+\subsection{Changes to constant conventions}\label{sec:units}
+One proposed explanation concerns the conventions used to write the equations. Physical constants and amplitude prefactors contribute to the expression trees, so removing them can change the operator counts and the fitted decay rate. We examine two such changes.
 
-After these rewritings, the benchmark--inflation gap is 0.071, compared with 0.073 originally. The specified changes therefore leave most of the point-estimate difference intact. They test these particular conventions and do not account for every possible way of representing the expressions.
+First, we set $c=\hbar=1$ in the textbook expressions. This affects 32 expressions in the Feynman benchmark and lowers its fitted rate from 0.342 to 0.332. Only two expressions in the Wikipedia collection are affected; its rate rounds to 0.315 both before and after the change.
+
+Second, we remove the common amplitude prefactor $M^4$ from the inflationary potentials by setting $M=1$. This affects all 70 potentials and lowers the fitted rate from 0.269 to 0.261.
+
+After both changes, the difference between the Feynman benchmark and the inflationary collection is 0.071, compared with 0.073 before the changes. These conventions therefore account for little of the observed difference in point estimates. Other choices of algebraic representation may also affect operator counts, but they are not examined in this comparison.
 
 \subsection{Comparison with modified gravity}\label{sec:fr}
-The \nfR{} modified-gravity expressions give $\hat\beta=\betafR$ with an individual interval of $[\lofR,\hifR]$. The point estimate is close to the inflationary value, and the intervals overlap. This comparison provides no clear separation between the two collections.
+We next consider the proposed explanations involving the inflationary collection's focus on one physical concept and its inclusion of hypothetical models. The $f(R)$ gravity collection shares these features: its expressions are proposed forms of a curvature function entering the gravitational action.
 
-Both collections contain hypothetical models focused on one physical concept. Their similar estimates are compatible with those proposed explanations, but the comparison cannot establish either as the cause. In particular, it does not separate hypothetical status from focus on a single concept. Related variants within the modified-gravity collection also limit the independence assumption used for equation resampling.
+The \nfR{} modified-gravity expressions give a fitted rate of $\hat\beta=\betafR$, with an individual 95\% bootstrap interval of $[\lofR,\hifR]$. Its point estimate is close to the inflationary value of $\betaEI$, and the intervals overlap. A similarly low fitted rate is therefore found in another collection of hypothetical models centred on one physical concept.
 
-Taken together, these comparisons reproduce the inflationary difference and show that the tested constant changes leave it largely unchanged. They do not identify why it arises. The proposed role of physical domain motivates the following comparison within the Feynman collection.
+This similarity does not establish why the rates are close. Both features change together in the comparison, so their effects cannot be distinguished. The modified-gravity collection also contains related variants of model families. These variants influence the operator frequencies and limit the independence assumption underlying equation resampling.
+
+Together, the comparisons reproduce the lower inflationary estimate and show that it changes little relative to the Feynman benchmark under the tested constant conventions. The modified-gravity collection provides a further example of a similar fitted rate, while leaving its explanation unresolved. We next examine variation across physics branches within the expanded Feynman collection.
 
 \section{Variation across physics branches}\label{sec:results}
 
-\subsection{Fitted rates}
-The seven branch estimates range from 0.325 to 0.422 (Table~\ref{tab:branch} and Figure~\ref{fig:main}). As an example of this variation, fluid and continuum mechanics gives $\hat\beta=\betaFluid$ with an individual interval of $[\loFluid,\hiFluid]$, while quantum mechanics gives $\hat\beta=\betaQM$ with $[\loQM,\hiQM]$. These intervals are separated.
+The original study proposed differences in energy scale as one possible explanation for the lower inflationary decay rate~\citep{constantin2024}. Inflation also concerns a different branch of physics from much of the material in the broader equation collections. This motivates us to examine whether fitted decay rates vary across physics branches. We use the expanded Feynman collection because the expressions in the Feynman Lectures are publicly accessible~\citep{feynman}. Branch labels provide a way to explore variation with physical domain, although they do not isolate the effect of energy scale.
+
+The fitted rates show a pattern suggestive of two broad groups (Table~\ref{tab:branch} and Figure~\ref{fig:main}). Quantum mechanics, electromagnetism, waves and optics, and classical mechanics have estimates between 0.325 and 0.360, with overlapping individual bootstrap intervals. Thermodynamics and kinetic theory and fluid and continuum mechanics have higher estimates, at 0.403 and 0.422, and their intervals also overlap.
+
+The separation between these groups is incomplete. Special relativity has a relatively wide interval that overlaps estimates in both groups. The plot therefore suggests a grouping of the fitted rates, without establishing a sharp division between branches. Figure~\ref{fig:main} also includes the original Feynman benchmark, the full expanded Feynman collection, and the modified-gravity, inflationary and Wikipedia collections for comparison.
 
 \begin{table}[H]\centering\small
 \resizebox{\linewidth}{!}{\begin{tabular}{lrrrrrr}\toprule
@@ -152,19 +165,16 @@ Branch & Expr. & Instances & Ranks & $\hat\beta$ & Boot.\ SE & Individual interv
 \end{table}
 \begin{figure}[H]\centering
 \includegraphics[width=0.8\linewidth]{beta_by_branch.pdf}
-\caption{Fitted rates across the seven Feynman branches, with nominal individual 95\% equation-bootstrap intervals.}\label{fig:main}
+\caption{Fitted rates for the seven Feynman branches (circles) and five comparison collections (diamonds, below the dividing line), with nominal individual 95\% equation-bootstrap intervals. The comparison collections are the 100-expression Feynman benchmark, the full expanded Feynman collection, $f(R)$ gravity, Encyclopaedia Inflationaris and Wikipedia. The benchmark is contained in the expanded collection, whose expressions also supply the branch estimates.}\label{fig:main}
 \end{figure}
 \begin{figure}[H]\centering
 \includegraphics[width=\linewidth]{rank_frequency_branches.pdf}
 \caption{Observed rank--frequency distributions and fitted exponentials for the seven branches.}\label{fig:rf}
 \end{figure}
 
-Figure~\ref{fig:rf} shows the distributions that these rates summarise. Each branch is ranked separately, so the operator at a given rank need not be the same across branches. The comparisons concern the shapes of the ranked distributions; operator identities require separate examination.
+Figure~\ref{fig:rf} shows the distributions underlying these estimates. Each branch is ranked separately, and both the observed operator types and their ordering can differ. The fitted rates describe how concentrated the ranked frequencies are; identifying the operators responsible for these patterns requires examining their identities separately.
 
-\subsection{Sensitivity to the collection}
-Branch assignment affects the estimates. Removing chapters with ambiguous labels changes the special-relativity estimate from 0.382 to 0.231, with an individual interval of [0.204, 0.289]. Reassigning those chapters gives the same special-relativity estimate because the same expressions leave that group. This sensitivity concerns how the collection is defined and should be considered alongside the main branch comparison.
-
-Whole-chapter resampling gives wider individual intervals for quantum mechanics and fluid mechanics, while leaving them separated. The fluid and continuum collection contains only four chapters, limiting the information available for this check. Appendix~\ref{app:sensitivity} reports the chapter analysis and the assignment, notation and volume checks.
+Additional checks examine the effects of branch classification and relationships between equations from the same chapter. The special-relativity estimate changes substantially when ambiguously classified chapters are removed or reassigned. Resampling whole chapters widens the quantum- and fluid-mechanics intervals, while leaving them separated. Appendix~\ref{app:sensitivity} gives the procedures and results. These checks help distinguish patterns in the selected expressions from conclusions that would require broader evidence about each physics branch.
 
 \section{Discussion}\label{sec:discussion}
 
